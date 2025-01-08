@@ -4,8 +4,8 @@
     <style name="Theme.MindfulMoment" parent="android:Theme.Material.Light.NoActionBar" />
     <!--theme for Splash Screen API-->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenBackground">@color/ic_mm_banner_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_mm_splash_foreground</item>
         <item name="postSplashScreenTheme">@style/Theme.MindfulMoment</item>
     </style>
 </resources>
