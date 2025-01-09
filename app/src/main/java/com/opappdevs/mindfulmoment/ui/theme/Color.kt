@@ -57,7 +57,8 @@ object MindfulColorTheme {
 //    val md_theme_dark_inverseSurface = Color(0xFFECE0DA) // Invertierte Oberflächenfarbe im Dunkelmodus
 //    val md_theme_dark_inversePrimary = Color(0xFF8B5000) // Invertierte Primärfarbe im Dunkelmodus
 
-    val light_primary = Color(0xFFFF9F00) // dark_orange
+    //val light_primary = Color(0xFFFF9F00) // dark_orange
+    val light_primary = Color(0xFFFF5B0A) // dark_orange
     val light_onPrimary = Color(0xFFFFFFFF) // Contrasting white for text/icons on primary
     val light_primaryContainer = Color(0xFFFFCE5C) // light_orange
     val light_onPrimaryContainer = Color(0xFF4A2800) // Contrast dark brown

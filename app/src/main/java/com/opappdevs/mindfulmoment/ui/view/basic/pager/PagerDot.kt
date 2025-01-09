@@ -1,4 +1,4 @@
-package com.opappdevs.mindfulmoment.ui.view.basic.pagers
+package com.opappdevs.mindfulmoment.ui.view.basic.pager
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background

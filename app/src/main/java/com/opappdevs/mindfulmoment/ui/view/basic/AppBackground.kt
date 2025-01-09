@@ -1,4 +1,4 @@
-package com.opappdevs.mindfulmoment.ui.view.basic.pagers
+package com.opappdevs.mindfulmoment.ui.view.basic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

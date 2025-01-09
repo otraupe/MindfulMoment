@@ -3,4 +3,9 @@
 
     <string name="ui_main_menu_cd">Drawer menu</string>
 
+    <string name="ui_onboarding_welcome_title"><![CDATA[<font color=\'#ff5b0a\'><b>Mindful<br>Moment</b></font>]]></string>
+    <string name="ui_onboarding_welcome_subtitle">Dein Moment der Achtsamkeit</string>
+    <string name="ui_onboarding_startButton_label">Los geht\'s</string>
+    <string name="ui_onboarding_background_cd">Background image: heart on grass</string>
+
 </resources>
