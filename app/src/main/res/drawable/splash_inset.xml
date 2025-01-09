@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_splash"
+    android:insetLeft="@dimen/splash_inset_padding"
+    android:insetRight="@dimen/splash_inset_padding"
+    android:insetTop="@dimen/splash_inset_padding"
+    android:insetBottom="@dimen/splash_inset_padding" />

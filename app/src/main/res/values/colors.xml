@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pager_dot_current">#FF333333</color>
-    <color name="pager_dot_other">#FFAAAAAA</color>
+
+    <color name="dark_gray">#FF333333</color>
+    <color name="light_gray">#FFAAAAAA</color>
+
+    // card background
+    <color name="warm_white">#fffff8ef</color>
+
+    // gradient for interactive ui elements
+    <color name="dark_orange">#ffff9f00</color>
+    <color name="light_orange">#ffffce5c</color>
+
+    // reserved
+    <color name="heart_red">#ffff5b0a</color>
+    <color name="light_red">#fffe926d</color>
+
+    // gradient variations for background colors
+    <color name="dark_green">#ff50c15a</color>
+    <color name="medium_green">#ff65df72</color>
+    <color name="light_green">#ff90ec95</color>
+
+    /** UI elements */
+    // pager dots
+    <color name="pager_dot_current">@color/heart_red</color>
+    <color name="pager_dot_other">@color/light_gray</color>
+
+
+
 </resources>
