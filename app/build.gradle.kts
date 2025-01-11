@@ -70,6 +70,9 @@ dependencies {
     // Splash screen API
     implementation(libs.androidx.splash)
 
+    // System bar color - deprecated
+    implementation(libs.google.accompanist.systemuicontroller)
+
     // Room ORM
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.ktx)

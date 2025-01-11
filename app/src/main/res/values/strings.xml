@@ -3,9 +3,17 @@
 
     <string name="ui_main_menu_cd">Drawer menu</string>
 
-    <string name="ui_onboarding_welcome_title"><![CDATA[<font color=\'#ff5b0a\'><b>Mindful<br>Moment</b></font>]]></string>
-    <string name="ui_onboarding_welcome_subtitle">Dein Moment der Achtsamkeit</string>
+    <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
+    <string name="ui_onboarding_welcome_subtitle">Dein Moment der\nAchtsamkeit</string>
     <string name="ui_onboarding_startButton_label">Los geht\'s</string>
     <string name="ui_onboarding_background_cd">Background image: heart on grass</string>
+
+    <string name="ui_onboarding_pages_notifications_title">Benachrichtigungen</string>
+    <string name="ui_onboarding_pages_notifications_body">Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden?</string>
+    <string name="ui_onboarding_pages_notifications_body_sub">Dies kannst du auch später noch in den Einstellungen aktivieren.</string>
+
+    <string name="ui_onboarding_pages_user_title">Persönliche Angaben</string>
+    <string name="ui_onboarding_pages_user_body">Bitte gib an, wie du genannt werden möchtest und wann du geboren wurdest.</string>
+    <string name="ui_onboarding_pages_user_body_sub">Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät gespeichert. Die App übermittelt keine Daten an irgendwelche Server, da Mindful Moment keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt. Ausgenommen sind Datensicherungen, die du in den Einstellungen konfigurieren kannst, sofern ein Cloud-Speicherziel gewählt wird. Auf Wunsch werden deine Backups verschlüsselt (erfordert ein App-Kennwort, ggf. zusammen mit Biometrie).</string>
 
 </resources>

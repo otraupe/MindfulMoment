@@ -2,6 +2,7 @@
 <resources>
 
     <color name="dark_gray">#FF333333</color>
+    <color name="medium_gray">#FF777777</color>
     <color name="light_gray">#FFAAAAAA</color>
 
     // card background
@@ -16,6 +17,7 @@
     <color name="light_red">#fffe926d</color>
 
     // gradient variations for background colors
+    <color name="darker_green">#4A7536</color>
     <color name="dark_green">#ff50c15a</color>
     <color name="medium_green">#ff65df72</color>
     <color name="light_green">#ff90ec95</color>
@@ -25,6 +27,8 @@
     <color name="pager_dot_current">@color/heart_red</color>
     <color name="pager_dot_other">@color/light_gray</color>
 
-
+    // system bars
+    <color name="system_bars_onboarding">@color/darker_green</color>
+    <color name="system_bars_home">@color/dark_orange</color>
 
 </resources>

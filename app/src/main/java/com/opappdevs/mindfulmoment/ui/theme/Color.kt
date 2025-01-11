@@ -58,7 +58,7 @@ object MindfulColorTheme {
 //    val md_theme_dark_inversePrimary = Color(0xFF8B5000) // Invertierte Primärfarbe im Dunkelmodus
 
     //val light_primary = Color(0xFFFF9F00) // dark_orange
-    val light_primary = Color(0xFFFF5B0A) // dark_orange
+    val light_primary = Color(0xFFFF9F00) // dark_orange
     val light_onPrimary = Color(0xFFFFFFFF) // Contrasting white for text/icons on primary
     val light_primaryContainer = Color(0xFFFFCE5C) // light_orange
     val light_onPrimaryContainer = Color(0xFF4A2800) // Contrast dark brown
@@ -78,7 +78,8 @@ object MindfulColorTheme {
 
     val light_surface = Color(0xFFFFF8EF) // warm_white (matching background)
     val light_onSurface = Color(0xFF1B1B1B) // Neutral dark for text/icons on surface
-    val light_surfaceVariant = Color(0xFF90EC95) // light_green
+    //val light_surfaceVariant = Color(0xFF90EC95) // light_green
+    val light_surfaceVariant = Color(0xAAFFF8EF) // light_green
     val light_onSurfaceVariant = Color(0xFF003A19) // Contrast dark green
 
     val light_outline = Color(0xFF807264) // Muted outline, could be a grayish-brown tone

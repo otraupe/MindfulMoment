@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.opappdevs.mindfulmoment.ui.view.main.home.HomeView
+import com.opappdevs.mindfulmoment.ui.view.main.home.Home
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.Onboarding
 
 /**
@@ -27,7 +27,7 @@ fun NavGraph(
         startDestination = startDestination
     ) {
         composable(route = Screens.Home.route) {    // first nav item
-            HomeView(
+            Home(
                 /*paddingValues = scaffoldPaddingValues,
                 navController = navController,
                 viewModel = viewModel,
