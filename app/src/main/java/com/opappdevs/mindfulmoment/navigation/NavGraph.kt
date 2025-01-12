@@ -26,20 +26,16 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(route = Screens.Home.route) {    // first nav item
+        composable(route = Screens.Home.route) {
             Home(
-                /*paddingValues = scaffoldPaddingValues,
                 navController = navController,
-                viewModel = viewModel,
-                snackState = snackState*/
+                snackState = snackState
             )
         }
-        composable(route = Screens.Onboarding.route) {    // first nav item
+        composable(route = Screens.Onboarding.route) {
             Onboarding(
-                /*paddingValues = scaffoldPaddingValues,
                 navController = navController,
-                viewModel = viewModel,
-                snackState = snackState*/
+                snackState = snackState
             )
         }
     }

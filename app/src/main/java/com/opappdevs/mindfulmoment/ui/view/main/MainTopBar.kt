@@ -1,11 +1,16 @@
 package com.opappdevs.mindfulmoment.ui.view.main
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.*
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.opappdevs.mindfulmoment.R
+import com.opappdevs.mindfulmoment.ui.view.base.button.icon.MindfulIconButtonMenu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -20,18 +25,11 @@ fun MainTopBar(drawerState: DrawerState, scope: CoroutineScope) {
             Text(text = stringResource(id = R.string.app_name))     // visible title
         },
         navigationIcon = {
-            IconButton(         // 'Burger' menu for opening/closing the nav drawer
-                onClick = {
-                    when (drawerState.currentValue) {
-                        DrawerValue.Closed -> scope.launch { drawerState.open() }
-                        DrawerValue.Open -> scope.launch { drawerState.close() }
-                    }
+            MindfulIconButtonMenu {
+                when (drawerState.currentValue) {
+                    DrawerValue.Closed -> scope.launch { drawerState.open() }
+                    DrawerValue.Open -> scope.launch { drawerState.close() }
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = stringResource(id = R.string.ui_main_menu_cd)
-                )
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(

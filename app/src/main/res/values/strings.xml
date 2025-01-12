@@ -1,19 +1,31 @@
 <resources>
     <string name="app_name">Mindful Moment</string>
 
-    <string name="ui_main_menu_cd">Drawer menu</string>
+    <string name="ui_base_info_button_cd">Mehr Informationen</string>
+    <string name="ui_base_back_button_cd">Zurück</string>
 
+    // Main
+    <string name="ui_main_nav_drawer_button_cd">Drawer menu</string>
+
+    // Onboarding
     <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
     <string name="ui_onboarding_welcome_subtitle">Dein Moment der\nAchtsamkeit</string>
     <string name="ui_onboarding_startButton_label">Los geht\'s</string>
     <string name="ui_onboarding_background_cd">Background image: heart on grass</string>
 
+    <string name="ui_onboarding_pages_introduction_icon_cd">Herz</string>
+    <string name="ui_onboarding_pages_introduction_title">Dein achtsamer Moment</string>
+    <string name="ui_onboarding_pages_introduction_body">body body body</string>
+    <string name="ui_onboarding_pages_introduction_body_sub">subbody subbody subbody</string>
+
+    <string name="ui_onboarding_pages_notifications_icon_cd">Glocke</string>
     <string name="ui_onboarding_pages_notifications_title">Benachrichtigungen</string>
     <string name="ui_onboarding_pages_notifications_body">Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden?</string>
     <string name="ui_onboarding_pages_notifications_body_sub">Dies kannst du auch später noch in den Einstellungen aktivieren.</string>
 
-    <string name="ui_onboarding_pages_user_title">Persönliche Angaben</string>
-    <string name="ui_onboarding_pages_user_body">Bitte gib an, wie du genannt werden möchtest und wann du geboren wurdest.</string>
-    <string name="ui_onboarding_pages_user_body_sub">Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät gespeichert. Die App übermittelt keine Daten an irgendwelche Server, da Mindful Moment keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt. Ausgenommen sind Datensicherungen, die du in den Einstellungen konfigurieren kannst, sofern ein Cloud-Speicherziel gewählt wird. Auf Wunsch werden deine Backups verschlüsselt (erfordert ein App-Kennwort, ggf. zusammen mit Biometrie).</string>
+    <string name="ui_onboarding_pages_profile_icon_cd">Benutzer</string>
+    <string name="ui_onboarding_pages_profile_title">Persönliche Angaben</string>
+    <string name="ui_onboarding_pages_profile_body">Bitte gib an, wie du genannt werden möchtest und wann du geboren wurdest.</string>
+    <string name="ui_onboarding_pages_profile_body_sub">Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät gespeichert. Die App übermittelt keine Daten an irgendwelche Server, da Mindful Moment keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt. Ausgenommen sind Datensicherungen, die du in den Einstellungen konfigurieren kannst, sofern ein Cloud-Speicherziel gewählt wird. Auf Wunsch werden deine Backups verschlüsselt (erfordert ein App-Kennwort, ggf. zusammen mit Biometrie).</string>
 
 </resources>

@@ -1,10 +1,10 @@
 package com.opappdevs.mindfulmoment.ui.view.base.button
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -18,7 +18,7 @@ fun MindfulTextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Button(
+    TextButton(
         modifier = modifier,
         elevation = ButtonDefaults.elevatedButtonElevation(),
         onClick = onClick,

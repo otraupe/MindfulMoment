@@ -1,50 +1,90 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding
 
+import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
+import com.opappdevs.mindfulmoment.navigation.Screens
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
-import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
-import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPager
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingViewModel
 
 @Composable
-fun Onboarding() {
+fun Onboarding(
+    navController: NavHostController,
+    snackState: SnackbarHostState
+) {
+    //api lvl 35+ (Android 15) supports edge-to-edge
+    if (Build.VERSION.SDK_INT < 35) {
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setNavigationBarColor(
+            color = colorResource(R.color.system_bars_onboarding)
+        )
+    }
 
-    //TODO: only for sub 35
-    val systemUiController = rememberSystemUiController()
-    systemUiController.setNavigationBarColor(
-        color = colorResource(R.color.system_bars_onboarding)
-    )
+    val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
+    val pageDone: State<OnboardingPages?> = viewModel.pagerPageDone.collectAsState()
+    var firstPageDone = remember { false }
+    val pagerState = rememberPagerState { OnboardingPages.entries.size }
+    val pagerVisible = remember { mutableStateOf(false) }
+    val welcomeVisible = remember { derivedStateOf { !pagerVisible.value } }
+
+    LaunchedEffect(pageDone) {
+        val pdv = pageDone.value
+        if (pdv != null) {
+            if (!pdv.isLastPage()) {
+                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                if (pdv.isFirstPage() && !firstPageDone) {
+                    snackState.showSnackbar(
+                        message = "Swipe zum Zurückgehen",
+                        actionLabel = "OK",
+                        withDismissAction = true,
+                        duration = SnackbarDuration.Long
+                    )
+                    firstPageDone = true //in case we keep pager nav buttons
+                }
+                // TODO: re-set swipe limiter
+            } else {
+                pagerVisible.value = false  //TODO: callback to wait for animation end
+                // TODO: navigate with parameter (start first data collection)
+                //  or let Home decide
+                navController.navigate(Screens.Home.route)
+            }
+        }
+    }
 
     MindfulBackground(
         background = {
             Image(
+                //TODO: decide whether to put this somewhere else
+                //  or even have it as background everywhere
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(R.drawable.bg_heart_on_grass),
                 contentDescription = stringResource(R.string.ui_onboarding_background_cd),
@@ -53,57 +93,25 @@ fun Onboarding() {
             )
         }
     ) {
-        val pagerVisible = remember { mutableStateOf(false) }
-        val welcomeVisible = remember { derivedStateOf { !pagerVisible.value } }
-
         //TODO: create background drawable to load?
         //  research most efficient way
-
-
 
         AnimatedVisibility(
             visible = welcomeVisible.value,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(R.dimen.default_page_padding)),
+                .padding(dimensionResource(R.dimen.mindful_page_padding)),
             enter = EnterTransition.None,
             exit = fadeOut(),
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                MindfulCard(
-                    modifier = Modifier.padding(top = 64.dp)
-                ) {
-                    Text(
-                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 24.dp),
-                        text = stringResource(R.string.ui_onboarding_welcome_title),
-                        style = MaterialTheme.typography.displayMedium.copy(
-                            fontWeight = FontWeight.ExtraBold,
-                        ),
-                        color = colorResource(R.color.heart_red),
-                        textAlign = TextAlign.Center
-                    )
-                }
-                //TODO: define default some text colors
-                Text(
-                    modifier = Modifier.padding(top = 24.dp),
-                    text = stringResource(R.string.ui_onboarding_welcome_subtitle),
-                    style = MaterialTheme.typography.displaySmall.copy(
-                        color = colorResource(R.color.dark_gray),
-                        fontWeight = FontWeight.SemiBold
-                    ),
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                MindfulTextButton(
-                    modifier = Modifier.padding(48.dp),
-                    string = stringResource(R.string.ui_onboarding_startButton_label),
-                    onClick = { pagerVisible.value = true }
-                )
-            }
+            WelcomeContent(pagerVisible)
         }
-        OnboardingPager(pagerVisible)
+        OnboardingPager(
+            pagerState = pagerState,
+            pagerVisible = pagerVisible,
+            advancePager = { source -> viewModel.advancePager(source) },
+            saveProfile = { userName, birthDate -> viewModel.saveProfile(userName, birthDate) }
+        )
     }
 }
 
@@ -111,6 +119,9 @@ fun Onboarding() {
 @Composable
 fun PreviewOnboarding() {
     MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-        Onboarding()
+        Onboarding(
+            rememberNavController(),
+            SnackbarHostState()
+        )
     }
 }

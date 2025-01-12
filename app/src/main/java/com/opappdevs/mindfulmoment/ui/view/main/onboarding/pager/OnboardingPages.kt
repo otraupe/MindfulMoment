@@ -1,20 +1,41 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager
 
-import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.opappdevs.mindfulmoment.R
 
 enum class OnboardingPages(
-    val iconRes: Int,
+    val iconVector: ImageVector,
+    val iconContentDescriptionRes: Int,
     val titleRes: Int,
     val bodyRes: Int,
-    val subBodyRes: Int?,
-    val buttonPrimarySpec: OnboardingButtonSpec,
-    val buttonSecondarySpec: OnboardingButtonSpec?,
-    val viewModel: OnboardingPageViewModel
+    val infoRes: Int?,
 ) {
-    //enum order is order of presentation
-    INTRODUCTION (),
-    //    USER_CREATION ("Create a User", { PageNotifications() }),
-    NOTIFICATIONS ("Enable Notifications?", { PageNotifications() }),
+    INTRODUCTION(
+        Icons.Filled.Favorite,
+        R.string.ui_onboarding_pages_introduction_icon_cd,
+        R.string.ui_onboarding_pages_introduction_title,
+        R.string.ui_onboarding_pages_introduction_body,
+        R.string.ui_onboarding_pages_introduction_body_sub
+    ),
+    NOTIFICATIONS(
+        Icons.Filled.Notifications,
+        R.string.ui_onboarding_pages_notifications_icon_cd,
+        R.string.ui_onboarding_pages_notifications_title,
+        R.string.ui_onboarding_pages_notifications_body,
+        R.string.ui_onboarding_pages_notifications_body_sub
+    ),
+    PROFILE(
+        Icons.Filled.Person,
+        R.string.ui_onboarding_pages_profile_icon_cd,
+        R.string.ui_onboarding_pages_profile_title,
+        R.string.ui_onboarding_pages_profile_body,
+        R.string.ui_onboarding_pages_profile_body_sub
+    );
 
-    //FINAL - "all set, ready for your first Mindful Moment?"
+    fun isFirstPage() = this == OnboardingPages.entries[0]
+    fun isLastPage() = ordinal == OnboardingPages.entries.size - 1
 }

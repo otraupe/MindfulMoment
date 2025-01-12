@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -17,11 +18,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.opappdevs.mindfulmoment.ui.view.base.pager.AnimatedPagerDots
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.*
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
+import java.util.Date
 
 @Composable
-fun OnboardingPager(pagerVisible: MutableState<Boolean>) {
-
-    val pagerState = rememberPagerState { OnboardingPages.entries.size }
+fun OnboardingPager(
+    pagerState: PagerState,
+    pagerVisible: MutableState<Boolean>,
+    advancePager: (OnboardingPages) -> Unit,
+    saveProfile: (String, Date) -> Unit
+) {
     val pages = rememberSaveable { OnboardingPages.entries }
 
     AnimatedVisibility(
@@ -48,24 +57,12 @@ fun OnboardingPager(pagerVisible: MutableState<Boolean>) {
 //        pageNestedScrollConnection =,
 //        snapPosition =,
             ) { pageNumber ->
-                OnboardingPage(
-                    id = pageNumber,
-                    stringContent = OnboardingPages.entries[pageNumber],
-                    pagerState = pagerState
-                )
-
-
-
-//                when (pageNumber) {
-//                    OnboardingPages.NOTIFICATIONS.ordinal
-//                            -> PageNotifications()
-//                }
-
-//                OnboardingPages.entries[pageNumber]
-//                when (pages[pageNumber]) {
-//                        OnboardingPages.NOTIFICATIONS ->
-//                            OnboardingPage(pages[pageNumber], pagerState)
-//            }
+                val page = OnboardingPages.entries[pageNumber]
+                when(page) {
+                    INTRODUCTION -> PageIntroduction(INTRODUCTION, pagerState, advancePager)
+                    NOTIFICATIONS -> PageNotifications(NOTIFICATIONS, pagerState, advancePager)
+                    PROFILE -> PageProfile(PROFILE, pagerState, advancePager, saveProfile)
+                }
             }
             AnimatedPagerDots(
                 count = pages.size,
