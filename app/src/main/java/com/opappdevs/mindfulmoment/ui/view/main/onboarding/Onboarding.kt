@@ -100,7 +100,7 @@ fun Onboarding(
             visible = welcomeVisible.value,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(R.dimen.mindful_page_padding)),
+                .padding(dimensionResource(R.dimen.mindful_base_page_padding)),
             enter = EnterTransition.None,
             exit = fadeOut(),
         ) {

@@ -38,7 +38,7 @@ fun WelcomeContent(pagerVisible: MutableState<Boolean>) {
         }
         //TODO: define some default text colors
         Text(
-            modifier = Modifier.padding(top = 24.dp),
+            modifier = Modifier.padding(top = 8.dp),
             text = stringResource(R.string.ui_onboarding_welcome_subtitle),
             style = MaterialTheme.typography.displaySmall.copy(
                 color = colorResource(R.color.dark_gray),

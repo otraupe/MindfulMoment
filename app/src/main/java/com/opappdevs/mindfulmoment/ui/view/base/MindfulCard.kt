@@ -18,13 +18,16 @@ fun MindfulCard(
     content: @Composable () -> Unit)
 {
     Card(
-        modifier = modifier.padding(dimensionResource(R.dimen.mindful_page_padding)),
-//        colors = CardDefaults.cardColors(
-//            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-//        ),
+        //outer padding
+        modifier = modifier.padding(dimensionResource(R.dimen.mindful_base_page_padding)),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
     ) {
         Box(
-            modifier = Modifier.padding(dimensionResource(R.dimen.mindful_page_padding))
+            //inner/content padding
+            modifier = Modifier.padding(dimensionResource(R.dimen.mindful_base_card_padding))
         ) {
             content()
         }

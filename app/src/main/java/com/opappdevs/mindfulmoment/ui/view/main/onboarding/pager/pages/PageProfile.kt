@@ -2,12 +2,19 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.unit.dp
+import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
@@ -30,16 +37,37 @@ fun PageProfile(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
+                .wrapContentHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MindfulButton("Speichern") {
+            OutlinedTextField(
+                value = "",
+                onValueChange = {},
+                label = { Text(text = "Name") },
+                modifier = Modifier.padding(
+                    top = dimensionResource(R.dimen.mindful_base_card_padding)
+                )
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = {},
+                label = { Text(text = "Geburtsdatum") },
+                modifier = Modifier.padding(
+                    top = dimensionResource(R.dimen.mindful_base_card_padding)
+                )
+            )
+            //TODO: have buttons centered in the available space
+            MindfulButton(
+                string = "Speichern",
+                modifier = Modifier.padding(
+                    top = 48.dp
+                )
+            ) {
                 advancePager(page)
             }
         }
     }
 }
-
-//TODO: warum diese Angaben (ausklappbar)
 
 @ThemePreviews
 @Composable

@@ -1,6 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.base.button
 
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,10 +19,12 @@ fun MindfulButton(
     onClick: () -> Unit
 ) {
     Button(
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(
+            minWidth = dimensionResource(R.dimen.mindful_base_button_min_width),
+            minHeight = dimensionResource(R.dimen.mindful_base_button_height)
+        ),
         elevation = ButtonDefaults.elevatedButtonElevation(),
         onClick = onClick,
-        shape = RoundedCornerShape(dimensionResource(R.dimen.mindful_rounded_corner))
     ) {
         Text(
             text = string,

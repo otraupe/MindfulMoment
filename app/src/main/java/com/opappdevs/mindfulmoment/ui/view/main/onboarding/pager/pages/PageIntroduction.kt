@@ -1,13 +1,17 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
@@ -27,20 +31,17 @@ fun PageIntroduction(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-            )
-            //Buttons
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+            //TODO: buttons feste breite
+            MindfulButton(
+                stringResource(R.string.ui_base_button_label_ok),
+                modifier = Modifier.padding(
+                    top = dimensionResource(R.dimen.mindful_base_card_padding)
+                )
             ) {
-                //TODO: buttons feste breite
-                MindfulButton("OK") {
-                    advancePager(page)
-                }
+                advancePager(page)
             }
         }
     }

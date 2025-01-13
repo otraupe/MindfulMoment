@@ -1,4 +1,4 @@
-package com.opappdevs.mindfulmoment.ui.view.base.button.icon
+package com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -10,6 +10,8 @@ import androidx.compose.ui.res.stringResource
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
+
+//TODO: adapt to use MindfulIconButton
 
 @Composable
 fun MindfulIconButtonMenu(
@@ -26,6 +28,7 @@ fun MindfulIconButtonMenu(
         )
     }
 }
+
 
 @ThemePreviews
 @Composable

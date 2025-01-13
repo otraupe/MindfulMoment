@@ -78,8 +78,7 @@ object MindfulColorTheme {
 
     val light_surface = Color(0xFFFFF8EF) // warm_white (matching background)
     val light_onSurface = Color(0xFF1B1B1B) // Neutral dark for text/icons on surface
-    //val light_surfaceVariant = Color(0xFF90EC95) // light_green
-    val light_surfaceVariant = Color(0xAAFFF8EF) // light_green
+    val light_surfaceVariant = Color(0xFF90EC95) // light_green
     val light_onSurfaceVariant = Color(0xFF003A19) // Contrast dark green
 
     val light_outline = Color(0xFF807264) // Muted outline, could be a grayish-brown tone
