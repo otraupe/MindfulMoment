@@ -11,15 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.opappdevs.mindfulmoment.ui.view.base.pager.AnimatedPagerDots
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.INTRODUCTION
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.NOTIFICATIONS
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.PROFILE
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
-import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.*
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
 import java.util.Date
@@ -31,7 +32,7 @@ fun OnboardingPager(
     advancePager: (OnboardingPages) -> Unit,
     saveProfile: (String, Date) -> Unit
 ) {
-    val pages = rememberSaveable { OnboardingPages.entries }
+    val pages = remember { OnboardingPages.entries }
 
     AnimatedVisibility(
         visible = pagerVisible.value,
