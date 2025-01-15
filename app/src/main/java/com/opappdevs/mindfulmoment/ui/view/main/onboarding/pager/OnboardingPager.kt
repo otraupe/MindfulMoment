@@ -46,6 +46,7 @@ fun OnboardingPager(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(.9f),
+                //TODO: clean-up
 //        contentPadding =,
 //        pageSize =,
 //        beyondViewportPageCount = 0,

@@ -32,11 +32,10 @@ fun WelcomeContent(pagerVisible: MutableState<Boolean>) {
                 style = MaterialTheme.typography.displayMedium.copy(
                     fontWeight = FontWeight.ExtraBold,
                 ),
-                color = colorResource(R.color.heart_red),
+                color = colorResource(R.color.heart_red), //TODO: custom brush
                 textAlign = TextAlign.Center
             )
         }
-        //TODO: define some default text colors
         Text(
             modifier = Modifier.padding(top = 8.dp),
             text = stringResource(R.string.ui_onboarding_welcome_subtitle),

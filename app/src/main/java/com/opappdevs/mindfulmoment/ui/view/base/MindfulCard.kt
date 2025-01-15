@@ -15,8 +15,8 @@ import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 @Composable
 fun MindfulCard(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit)
-{
+    content: @Composable () -> Unit
+) {
     Card(
         //outer padding
         modifier = modifier.padding(dimensionResource(R.dimen.mindful_base_page_padding)),
@@ -26,7 +26,7 @@ fun MindfulCard(
         ),
     ) {
         Box(
-            //inner/content padding
+            //content padding
             modifier = Modifier.padding(dimensionResource(R.dimen.mindful_base_card_padding))
         ) {
             content()

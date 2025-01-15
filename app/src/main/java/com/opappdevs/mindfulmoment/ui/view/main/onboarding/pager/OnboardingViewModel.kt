@@ -19,6 +19,10 @@ class OnboardingViewModel @Inject constructor (
         _pagerPageDone.value = source
     }
 
+    fun getLastUser() {
+        // TODO
+    }
+
     fun saveProfile(userName: String, birthDate: Date) {
 //        userRepository.setCurrentUser()
     }

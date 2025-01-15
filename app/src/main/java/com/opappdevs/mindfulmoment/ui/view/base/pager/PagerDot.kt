@@ -38,7 +38,6 @@ fun PagerDot(
             offsetState.value),
         label = "animate pager dot color"
     )
-
     Box(
         modifier = Modifier
             .width(16.dp)

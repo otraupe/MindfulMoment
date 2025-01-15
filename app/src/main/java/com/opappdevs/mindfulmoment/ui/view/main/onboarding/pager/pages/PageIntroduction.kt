@@ -34,7 +34,6 @@ fun PageIntroduction(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            //TODO: buttons feste breite
             MindfulButton(
                 stringResource(R.string.ui_base_button_label_ok),
                 modifier = Modifier.padding(

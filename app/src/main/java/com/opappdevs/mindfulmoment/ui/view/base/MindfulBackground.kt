@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-//TODO: overloads for color, shape (e.g. gradient), and image background
-
 @Composable
 fun MindfulBackground(
     modifier: Modifier = Modifier.fillMaxSize(),

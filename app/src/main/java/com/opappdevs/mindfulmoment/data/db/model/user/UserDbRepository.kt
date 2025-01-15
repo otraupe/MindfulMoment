@@ -26,6 +26,8 @@ class UserDbRepository @Inject constructor(private val userDao: UserDao){   // i
     private suspend fun getByName(name: String) = userDao.getByName(name)
     private suspend fun getMostRecentUpdated() = userDao.getMostRecentUpdated()
 
+    //TODO: extract UserManager functions from repo
+
     // public functions are synchronized via mutex to prevent db queries while update performed
     // also always return getCurrentUser()
     suspend fun setCurrentUser(name: String): User {
@@ -62,7 +64,7 @@ class UserDbRepository @Inject constructor(private val userDao: UserDao){   // i
     }
 
     private suspend fun getLatestUser(): User? {
-        val user = getMostRecentUpdated()   // TODO: a mostRecentUsed should be tracked
+        val user = getMostRecentUpdated()
         if (user != null) {
             currentUser = user
             return getCurrentUser()
@@ -72,7 +74,7 @@ class UserDbRepository @Inject constructor(private val userDao: UserDao){   // i
 
     private suspend fun createFirstUser(): User {
         val name = "Spieler"
-        insert(User(name = name, createdDate = Date(), updatedDate = Date()))    // id will be auto-incremented if not first user ever created
+        insert(User(name = name, createdDate = Date(), updatedDate = Date())) // auto-id
         val user = getByName(name)
         if (user != null) {
             currentUser = user

@@ -6,5 +6,4 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(): ViewModel() {
-    // TODO: scope view model to navigation graph
 }

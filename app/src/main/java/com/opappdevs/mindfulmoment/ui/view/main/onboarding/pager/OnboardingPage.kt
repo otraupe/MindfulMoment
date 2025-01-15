@@ -3,8 +3,6 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,13 +32,14 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
-import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonForward
+import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonInfo
 import kotlin.math.absoluteValue
+
+//TODO: function a bit long
 
 @Composable
 fun OnboardingPage(
@@ -93,9 +92,9 @@ fun OnboardingPage(
                             label = "Info icon button swap"
                         ) { infoVisible ->
                             if (infoVisible.value) {
-                                MindfulIconButtonForward(
+                                MindfulIconButtonClose(
                                     //goes back from info
-                                    contentDescription = stringResource(R.string.ui_base_back_button_cd)
+                                    contentDescription = stringResource(R.string.ui_base_close_button_cd)
                                 ) { infoVisible.value = false }
                             } else {
                                 MindfulIconButtonInfo { infoVisible.value = true }
@@ -134,7 +133,7 @@ fun OnboardingPage(
                             .verticalScroll(rememberScrollState()),
                     ) {
                         Text(
-                            text = stringResource(baseContent.bodyRes), //TODO: does it scroll?
+                            text = stringResource(baseContent.bodyRes),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.headlineSmall,
                             modifier = Modifier
@@ -142,17 +141,15 @@ fun OnboardingPage(
                                 .wrapContentHeight()
                         )
                     }
-
-                    // textfields, buttons and such
-                    customContent() //TODO: put main Button into default page
+                    // input elements, buttons and such
+                    customContent()
                 }
-                //TODO: wieder raus wischen lassen
                 baseContent.infoRes?.let {
                     androidx.compose.animation.AnimatedVisibility(
                         visible = infoVisible.value,
                         modifier = Modifier.fillMaxSize(),
-                        enter = slideIn { size -> IntOffset(size.width, 0) } + fadeIn(),
-                        exit = fadeOut() + slideOut { size -> IntOffset(size.width, 0) },
+                        enter = fadeIn(),
+                        exit = fadeOut(),
                     ) {
                         Text(
                             text = stringResource(baseContent.infoRes),

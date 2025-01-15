@@ -1,6 +1,5 @@
 package com.opappdevs.mindfulmoment.ui.view.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
@@ -13,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -41,11 +39,10 @@ fun Main() {
             snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         ) {
             contentPadding ->
-            //TODO: dynamically determine start target (based on onboarding done)
             NavGraph(
                 navController = navController,
                 snackState = snackBarHostState,
-                startDestination = Screens.Onboarding.route,
+                startDestination = Screens.Onboarding.route, //TODO: dynamically
                 modifier = Modifier.padding(contentPadding),
             )
         }

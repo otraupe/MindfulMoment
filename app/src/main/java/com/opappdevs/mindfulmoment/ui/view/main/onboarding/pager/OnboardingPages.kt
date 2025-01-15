@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.opappdevs.mindfulmoment.R
 
+//TODO: add primary button label
 enum class OnboardingPages(
     val iconVector: ImageVector,
     val iconContentDescriptionRes: Int,

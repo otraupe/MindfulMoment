@@ -48,7 +48,6 @@ fun Onboarding(
             color = colorResource(R.color.system_bars_onboarding)
         )
     }
-
     val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
     val pageDone: State<OnboardingPages?> = viewModel.pagerPageDone.collectAsState()
     var firstPageDone = remember { false }
@@ -70,11 +69,11 @@ fun Onboarding(
                     )
                     firstPageDone = true //in case we keep pager nav buttons
                 }
-                // TODO: re-set swipe limiter
+                // TODO: update swipe limiter
             } else {
-                pagerVisible.value = false  //TODO: callback to wait for animation end
-                // TODO: navigate with parameter (start first data collection)
-                //  or let Home decide
+                pagerVisible.value = false
+
+                //TODO: callback to wait for animation end
                 navController.navigate(Screens.Home.route)
             }
         }
@@ -83,19 +82,14 @@ fun Onboarding(
     MindfulBackground(
         background = {
             Image(
-                //TODO: decide whether to put this somewhere else
-                //  or even have it as background everywhere
+                //create background drawable to load?
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(R.drawable.bg_heart_on_grass),
                 contentDescription = stringResource(R.string.ui_onboarding_background_cd),
                 contentScale = ContentScale.Crop
-                //TODO: create multiple version for devices/oris
             )
         }
     ) {
-        //TODO: create background drawable to load?
-        //  research most efficient way
-
         AnimatedVisibility(
             visible = welcomeVisible.value,
             modifier = Modifier

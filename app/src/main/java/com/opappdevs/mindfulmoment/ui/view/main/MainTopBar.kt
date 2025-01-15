@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 fun MainTopBar(drawerState: DrawerState, scope: CoroutineScope) {
     TopAppBar(
         title = {
-            Text(text = stringResource(id = R.string.app_name))     // visible title
+            //TODO: switch out with clickable username, when drawer is open (switch user)
+            Text(text = stringResource(id = R.string.app_name))
         },
         navigationIcon = {
             MindfulIconButtonMenu {

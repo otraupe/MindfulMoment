@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Mindful Moment</string>
 
+    // Base
+    <string name="ui_base_menu_button_cd">Menu</string>
     <string name="ui_base_info_button_cd">Mehr Informationen</string>
     <string name="ui_base_back_button_cd">Zurück</string>
     <string name="ui_base_forward_button_cd">Vorwärts</string>
-
-    // Main
-    <string name="ui_main_nav_drawer_button_cd">Drawer menu</string>
+    <string name="ui_base_close_button_cd">Schließen</string>
 
     // Onboarding
     <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
@@ -46,5 +46,7 @@
         Backups kannst du in den Einstellungen aktivieren. Auf Wunsch werden deine Backups
         verschlüsselt, dies erfordert ein App-Kennwort (ggf. zusammen mit Biometrie).</string>
     <string name="ui_base_button_label_ok">OK</string>
+
+    // Main
 
 </resources>

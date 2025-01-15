@@ -7,14 +7,16 @@ import timber.log.Timber
 /**
  * Application class for configuring the project.
  * */
-@HiltAndroidApp     // enable Hilt DI
+@HiltAndroidApp
 class MindfulApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {                // enable Timber logging for debug builds
+        // enable Timber logging for debug builds
+        if (BuildConfig.DEBUG) {
             Timber.plant(object: Timber.DebugTree() {
-                override fun log(               // add prefix to logcat tags (easier to find)
+                // add prefix to logcat tags (easier to find)
+                override fun log(
                     priority: Int, tag: String?, message: String, t: Throwable?
                 ) {
                     super.log(priority, "t:$tag", message, t)

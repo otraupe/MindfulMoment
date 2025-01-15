@@ -8,7 +8,6 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +17,6 @@ import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
-import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import java.util.Date
@@ -40,6 +38,7 @@ fun PageProfile(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            //TODO: fields vertically centered in the available space?
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
@@ -56,7 +55,6 @@ fun PageProfile(
                     top = dimensionResource(R.dimen.mindful_base_card_padding)
                 )
             )
-            //TODO: have buttons centered in the available space
             MindfulButton(
                 string = "Speichern",
                 modifier = Modifier.padding(

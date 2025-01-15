@@ -11,7 +11,6 @@ import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.MindfulIconButton
 
-
 @Composable
 fun MindfulIconButtonInfo(
     size: Dp = 32.dp,

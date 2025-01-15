@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +47,8 @@ fun PageNotifications(
                 string = "Gerne",
                 modifier = Modifier.padding(top = 4.dp)
             ) {
+                /*TODO: notification request*/
+                //TODO: don't forget to ask for preferred time
                 advancePager(page)
             }
         }

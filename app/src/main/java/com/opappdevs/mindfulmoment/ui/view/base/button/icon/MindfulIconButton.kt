@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun MindfulIconButton(
@@ -18,11 +19,12 @@ fun MindfulIconButton(
     size: Dp
 ) {
     IconButton(
-        modifier = Modifier.height(size)
-            .aspectRatio(
-                ratio = 1f,
-                matchHeightConstraintsFirst = true
-            ),
+        modifier = if (size == 0.dp) {  //e.g. nav drawer menu icon
+            Modifier
+        } else {
+            Modifier.height(size)
+                .aspectRatio(ratio = 1f, matchHeightConstraintsFirst = true)
+        },
         onClick = onClick
     ) {
         Icon(

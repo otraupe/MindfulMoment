@@ -15,29 +15,29 @@ import com.opappdevs.mindfulmoment.navigation.BottomNavItem
 /**
  * The bottom nav bar visible for the views of the main activity.
  * */
-@Composable
-fun MainNavBar(navController: NavController, bottomNavItems: Set<BottomNavItem>) {
-    NavigationBar {
-        val backStackEntry = navController.currentBackStackEntryAsState()
-        bottomNavItems.forEach { item ->
-            val selected = item.route == backStackEntry.value?.destination?.route   // item is selected
-                                                            // if topmost backstack entry points to it
-            NavigationBarItem(
-                selected = selected,
-                onClick = { navController.navigate(item.route) },   // TODO: prevent navigating to current item
-                label = {
-                    Text(
-                        text = item.title,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                },
-                icon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(item.icon),
-                        contentDescription = "${item.title} Icon",  // TODO: string resource with wildcard
-                    )
-                }
-            )
-        }
-    }
-}
+//@Composable
+//fun MainNavBar(navController: NavController, bottomNavItems: Set<BottomNavItem>) {
+//    NavigationBar {
+//        val backStackEntry = navController.currentBackStackEntryAsState()
+//        bottomNavItems.forEach { item ->
+//            val selected = item.route == backStackEntry.value?.destination?.route   // item is selected
+//                                                            // if topmost backstack entry points to it
+//            NavigationBarItem(
+//                selected = selected,
+//                onClick = { navController.navigate(item.route) },   // prevent navigating to current item
+//                label = {
+//                    Text(
+//                        text = item.title,
+//                        fontWeight = FontWeight.SemiBold,
+//                    )
+//                },
+//                icon = {
+//                    Icon(
+//                        imageVector = ImageVector.vectorResource(item.icon),
+//                        contentDescription = "${item.title} Icon",  // string resource with wildcard
+//                    )
+//                }
+//            )
+//        }
+//    }
+//}
