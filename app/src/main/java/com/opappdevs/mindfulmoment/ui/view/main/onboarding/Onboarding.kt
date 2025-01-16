@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -32,9 +33,10 @@ import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
+import com.opappdevs.mindfulmoment.ui.view.base.pager.PagerScrollAnimationSpec
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPager
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
-import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingViewModel
+import timber.log.Timber
 
 @Composable
 fun Onboarding(
@@ -42,28 +44,31 @@ fun Onboarding(
     snackState: SnackbarHostState
 ) {
     //api lvl 35+ (Android 15) supports edge-to-edge
-    if (Build.VERSION.SDK_INT < 35) {
-        val systemUiController = rememberSystemUiController()
-        systemUiController.setNavigationBarColor(
-            color = colorResource(R.color.system_bars_onboarding)
-        )
-    }
+//    if (Build.VERSION.SDK_INT < 35) {
+//        val systemUiController = rememberSystemUiController()
+//        systemUiController.setNavigationBarColor(
+//            color = colorResource(R.color.system_bars_onboarding)
+//        )
+//    }
     val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
-    val pageDone: State<OnboardingPages?> = viewModel.pagerPageDone.collectAsState()
+    val pageDone: OnboardingPages? by viewModel.pagerPageDone.collectAsState()
     var firstPageDone = remember { false }
     val pagerState = rememberPagerState { OnboardingPages.entries.size }
     val pagerVisible = remember { mutableStateOf(false) }
     val welcomeVisible = remember { derivedStateOf { !pagerVisible.value } }
 
     LaunchedEffect(pageDone) {
-        val pdv = pageDone.value
+        Timber.d("Launched effect for pageDone: $pageDone")
+
+        val pdv = pageDone
         if (pdv != null) {
             if (!pdv.isLastPage()) {
-                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                pagerState.animateScrollToPage(
+                    page = pagerState.currentPage + 1,
+                    animationSpec = PagerScrollAnimationSpec.slowDownScrollAnimationSpec())
                 if (pdv.isFirstPage() && !firstPageDone) {
                     snackState.showSnackbar(
                         message = "Swipe zum Zurückgehen",
-                        actionLabel = "OK",
                         withDismissAction = true,
                         duration = SnackbarDuration.Long
                     )

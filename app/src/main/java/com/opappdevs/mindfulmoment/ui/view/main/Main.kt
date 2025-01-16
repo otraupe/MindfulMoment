@@ -29,7 +29,7 @@ fun Main() {
     // such as opening the nav drawer; coroutines will
     // be cancelled if the calling composable leaves
     // the composition (= is not displayed anymore)
-    DoubleBackToExit(navController, scope)
+    DoubleBackToExit(navController, scope) //TODO: only works for default/first route?
     MainNavDrawer(drawerState, scope) {
         Scaffold(
             contentWindowInsets = WindowInsets(0.dp),

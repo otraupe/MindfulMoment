@@ -8,6 +8,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavHostController
+import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.navigation.NavHelper.Companion.isExitAllowedForStack
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -19,7 +20,7 @@ fun DoubleBackToExit(
     scope: CoroutineScope
 ) {
     val context = LocalContext.current
-    var showExitToast by remember { mutableStateOf(false) }
+    var showExitToast by remember { mutableStateOf(true) }
     var lastBackPressTime by remember { mutableLongStateOf(0L) }
     var job by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
 
@@ -31,26 +32,23 @@ fun DoubleBackToExit(
             navController.popBackStack() // Default back behavior
             return@BackHandler
         }
+        if (!showExitToast) { // lifecycle stoppen (activity?)
+            return@BackHandler
+        }
         val currentTime = System.currentTimeMillis()
-        if (showExitToast && currentTime - lastBackPressTime <= 5000) {
+        if (currentTime - lastBackPressTime <= 5000) {
             job?.cancel()
             showExitToast = false
             // Exit the app
             (context as? androidx.activity.ComponentActivity)?.finish()
         } else {
             lastBackPressTime = currentTime
-            showExitToast = true
-            val currentRoute = navController.currentBackStackEntry?.destination?.route
-            val message = if (currentRoute == "Onboarding") {
-                "Onboarding is not complete. Data might be lost.\n\nPress back again to exit"
-            } else {
-                "Press back again to exit"
-            }
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
+//            val currentRoute = navController.currentBackStackEntry?.destination?.route
+//            val exitHint = context.getString(R.string.ui_navigation_double_back_exit) //TODO: extract strings
+            Toast.makeText(context, R.string.ui_navigation_double_back_exit, Toast.LENGTH_SHORT).show() //TODO: custom Toast
             job = scope.launch {
                 delay(5000)
-                showExitToast = false
+                showExitToast = true
             }
         }
     }
@@ -59,9 +57,15 @@ fun DoubleBackToExit(
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(lifecycle) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) {
-                job?.cancel()
-                showExitToast = false
+            when (event) {
+                Lifecycle.Event.ON_STOP -> {
+                    job?.cancel()
+                    showExitToast = false
+                }
+                Lifecycle.Event.ON_START -> {
+                    showExitToast = true
+                }
+                else -> {}
             }
         }
         lifecycle.addObserver(observer)

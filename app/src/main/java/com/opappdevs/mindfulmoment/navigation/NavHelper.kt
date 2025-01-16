@@ -2,10 +2,11 @@ package com.opappdevs.mindfulmoment.navigation
 
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
+import timber.log.Timber
 
 class NavHelper {
     companion object {
-        fun currentRoute(navController: NavHostController): String? {
+        private fun currentRoute(navController: NavHostController): String? {
             val navBackStackEntry = navController.currentBackStackEntry
             return navBackStackEntry?.destination?.route
         }
@@ -15,20 +16,12 @@ class NavHelper {
             entries: List<NavBackStackEntry>
         ): Boolean {
             val allowedRoutes = listOf(Destinations.Onboarding.route, Destinations.Home.route)
-//        val backStackEntryCount = backStackEntries.count()
-//        val onlyAllowedRoutePresent = navController.currentBackStack.value.all { entry ->
-//            allowedRoutes.contains(entry.destination.route)
-//        }
-//        return backStackEntryCount <= 1 && onlyAllowedRoutePresent
-            val entryCount = entries.count()
-//        val lastVisibleEntryIsAllowed = allowedRoutes.contains(
-//            visibleEntries[entryCount - 1].toRoute()
-//        )
             val currentRoute = currentRoute(navController)
-
+            Timber.d("Current route is $currentRoute " +
+                    "and routes allowed for exiting the app are $allowedRoutes")
             if (currentRoute != null) {
                 val currentEntryIsAllowed = allowedRoutes.contains(currentRoute)
-                return entryCount == 1 && currentEntryIsAllowed //visible entries, not containing nav graph
+                return entries.count() == 1 && currentEntryIsAllowed //visible entries, not containing nav graph
             } else {
                 return false
             }

@@ -4,6 +4,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,10 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
@@ -76,7 +80,8 @@ fun OnboardingPage(
                     tint = MaterialTheme.colorScheme.tertiary,
                     contentDescription = stringResource(baseContent.iconContentDescriptionRes),
                     modifier = Modifier
-                        .padding(dimensionResource(R.dimen.mindful_base_card_padding))
+                        .border(5.dp, MaterialTheme.colorScheme.tertiary, CircleShape)
+                        .padding(16.dp)
                         .width(72.dp)
                         .aspectRatio(ratio = 1.0f, matchHeightConstraintsFirst = false)
 
@@ -114,7 +119,9 @@ fun OnboardingPage(
                 text = stringResource(baseContent.titleRes),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = dimensionResource(R.dimen.mindful_base_card_padding))
+                    .fillMaxWidth(),
             )
             // body
             Box(
@@ -153,15 +160,12 @@ fun OnboardingPage(
                     ) {
                         Text(
                             text = stringResource(baseContent.infoRes),
+                            fontSize = 20.sp,
                             textAlign = TextAlign.Justify,
-                            style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .background(
                                     color = MaterialTheme.colorScheme.background,
                                     shape = RectangleShape
-                                )
-                                .padding(
-                                    dimensionResource(R.dimen.mindful_base_card_padding)
                                 )
                                 .verticalScroll(rememberScrollState())
                         )

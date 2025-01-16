@@ -15,10 +15,7 @@
     <string name="ui_onboarding_background_cd">Background image: heart on grass</string>
 
     <string name="ui_onboarding_pages_introduction_icon_cd">Herz</string>
-    <string name="ui_onboarding_pages_introduction_title">
-        Mindful Moment
-        \n~
-        \nDein achtsamer Moment</string>
+    <string name="ui_onboarding_pages_introduction_title">Dein achtsamer Moment</string>
     <string name="ui_onboarding_pages_introduction_body">
         Achtsamkeit ist wichtig für dein Wohlbefinden und deine Gesundheit. Mindful Moment möchte dir
         dabei helfen, dich in Achtsamkeit zu üben.
@@ -46,6 +43,7 @@
         Backups kannst du in den Einstellungen aktivieren. Auf Wunsch werden deine Backups
         verschlüsselt, dies erfordert ein App-Kennwort (ggf. zusammen mit Biometrie).</string>
     <string name="ui_base_button_label_ok">OK</string>
+    <string name="ui_navigation_double_back_exit">Noch einmal zum Schließen</string>
 
     // Main
 
