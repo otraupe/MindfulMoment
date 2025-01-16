@@ -18,7 +18,7 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.Onboarding
 fun NavGraph(
     navController: NavHostController,       // nav controller for navigating programmatically
     snackState: SnackbarHostState,          // snack bar host state for displaying snack bars
-    startDestination: String = Screens.Home.route,   // first composable to auto-navigate to
+    startDestination: String = Destinations.Home.route,   // first composable to auto-navigate to
     modifier: Modifier = Modifier.fillMaxSize(),
 ) {
     NavHost(
@@ -26,13 +26,13 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(route = Screens.Home.route) {
+        composable(route = Destinations.Home.route) {
             Home(
                 navController = navController,
                 snackState = snackState
             )
         }
-        composable(route = Screens.Onboarding.route) {
+        composable(route = Destinations.Onboarding.route) {
             Onboarding(
                 navController = navController,
                 snackState = snackState

@@ -16,8 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.opappdevs.mindfulmoment.navigation.Destinations
+import com.opappdevs.mindfulmoment.navigation.DoubleBackToExit
 import com.opappdevs.mindfulmoment.navigation.NavGraph
-import com.opappdevs.mindfulmoment.navigation.Screens
 
 @Composable
 fun Main() {
@@ -28,11 +29,12 @@ fun Main() {
     // such as opening the nav drawer; coroutines will
     // be cancelled if the calling composable leaves
     // the composition (= is not displayed anymore)
+    DoubleBackToExit(navController, scope)
     MainNavDrawer(drawerState, scope) {
         Scaffold(
             contentWindowInsets = WindowInsets(0.dp),
             topBar = {
-                if (currentRoute(navController) != Screens.Onboarding.route) {
+                if (currentRoute(navController) != Destinations.Onboarding.route) {
                     MainTopBar(drawerState, scope)
                 }
             },
@@ -42,12 +44,14 @@ fun Main() {
             NavGraph(
                 navController = navController,
                 snackState = snackBarHostState,
-                startDestination = Screens.Onboarding.route, //TODO: dynamically
+                startDestination = Destinations.Onboarding.route, //TODO: dynamically
                 modifier = Modifier.padding(contentPadding),
             )
         }
     }
 }
+
+//TODO: this doubles with NavHelper, but we need this to respond to state here
 
 @Composable
 fun currentRoute(navController: NavHostController): String? {

@@ -29,7 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
-import com.opappdevs.mindfulmoment.navigation.Screens
+import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPager
@@ -74,7 +74,7 @@ fun Onboarding(
                 pagerVisible.value = false
 
                 //TODO: callback to wait for animation end
-                navController.navigate(Screens.Home.route)
+                navController.navigate(Destinations.Home.route)
             }
         }
     }
