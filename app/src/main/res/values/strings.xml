@@ -2,11 +2,16 @@
     <string name="app_name">Mindful Moment</string>
 
     // Base
-    <string name="ui_base_menu_button_cd">Menu</string>
-    <string name="ui_base_info_button_cd">Mehr Informationen</string>
-    <string name="ui_base_back_button_cd">Zurück</string>
-    <string name="ui_base_forward_button_cd">Vorwärts</string>
-    <string name="ui_base_close_button_cd">Schließen</string>
+    <string name="ui_base_button_dummy">Drück mich</string>
+    <string name="ui_base_button_ok">OK</string>
+
+    <string name="ui_base_button_menu_cd">Menu</string>
+    <string name="ui_base_button_info_cd">Mehr Informationen</string>
+    <string name="ui_base_button_back_cd">Zurück</string>
+    <string name="ui_base_button_forward_cd">Vorwärts</string>
+    <string name="ui_base_button_close_cd">Schließen</string>
+
+    <string name="ui_base_icon_permission_granted_cd">Berechtigung erteilt</string>
 
     // Onboarding
     <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
@@ -23,6 +28,7 @@
         startest.</string>
     <string name="ui_onboarding_pages_introduction_body_sub">
         Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.</string>
+    <string name="ui_onboarding_pages_introduction_button_primary">Ok</string>
 
     <string name="ui_onboarding_pages_notifications_icon_cd">Glocke</string>
     <string name="ui_onboarding_pages_notifications_title">Benachrichtigungen</string>
@@ -30,6 +36,7 @@
         Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden? Dann aktiviere
         Benachrichtigungen.
         \n\nDies kannst du auch später noch in den Einstellungen machen.</string>
+    <string name="ui_onboarding_pages_notifications_button_primary">Gerne</string>
 
     <string name="ui_onboarding_pages_profile_icon_cd">Benutzer</string>
     <string name="ui_onboarding_pages_profile_title">Persönliche Angaben</string>
@@ -42,8 +49,26 @@
         \n\nAusgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
         Backups kannst du in den Einstellungen aktivieren. Auf Wunsch werden deine Backups
         verschlüsselt, dies erfordert ein App-Kennwort (ggf. zusammen mit Biometrie).</string>
-    <string name="ui_base_button_label_ok">OK</string>
+    <string name="ui_onboarding_pages_profile_button_primary">Speichern</string>
+
+    // Navigation
     <string name="ui_navigation_double_back_exit">Noch einmal zum Schließen</string>
+
+    // Permissions
+    <string name="ui_permissions_denied">Berechtigung verweigert</string>
+    <string name="ui_permissions_denied_permanently">Berechtigung dauerhaft verweigert</string>
+    <string name="ui_permissions_dialog_yes">Auf jeden</string>
+    <string name="ui_permissions_dialog_no">Nee</string>
+
+    <string name="ui_permissions_notifications_rationale">
+        Ohne die Berechtigung für Benachrichtigungen kann Mindful Moment dich nicht an deinen
+        täglichen Moment der Achtsamkeit erinnern.
+        \n\nErlauben?
+    </string>
+    <string name="ui_permissions_notifications_settings_body">
+        "Mindful Moment kann dich nicht an deinen täglichen Moment der Achtsamkeit erinnern." +
+    "\n\nMöchtest du zu den Einstellungen gehen?"
+    </string>
 
     // Main
 

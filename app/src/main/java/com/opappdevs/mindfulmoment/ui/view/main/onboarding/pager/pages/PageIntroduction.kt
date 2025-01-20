@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
@@ -28,6 +30,7 @@ fun PageIntroduction(
         baseContent = page,
         pagerState = pagerState
     ) {
+        val buttonEnabled by remember { mutableStateOf(true) }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -35,10 +38,11 @@ fun PageIntroduction(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             MindfulButton(
-                stringResource(R.string.ui_base_button_label_ok),
+                R.string.ui_base_button_ok,
                 modifier = Modifier.padding(
                     top = dimensionResource(R.dimen.mindful_base_card_padding)
-                )
+                ),
+                enabled = buttonEnabled
             ) {
                 advancePager(page)
             }

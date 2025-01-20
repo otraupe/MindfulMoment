@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -99,7 +98,7 @@ fun OnboardingPage(
                             if (infoVisible.value) {
                                 MindfulIconButtonClose(
                                     //goes back from info
-                                    contentDescription = stringResource(R.string.ui_base_close_button_cd)
+                                    contentDescription = stringResource(R.string.ui_base_button_close_cd)
                                 ) { infoVisible.value = false }
                             } else {
                                 MindfulIconButtonInfo { infoVisible.value = true }
@@ -142,7 +141,7 @@ fun OnboardingPage(
                         Text(
                             text = stringResource(baseContent.bodyRes),
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.headlineSmall,
+                            style = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()

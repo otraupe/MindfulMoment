@@ -18,7 +18,7 @@ fun MindfulIconButtonMenu(
 ) {
     MindfulIconButton(
         imageVector = Icons.Filled.Menu,
-        contentDescription = stringResource(R.string.ui_base_menu_button_cd),
+        contentDescription = stringResource(R.string.ui_base_button_menu_cd),
         onClick = onClick,
         size = size
     )

@@ -18,7 +18,7 @@ fun MindfulIconButtonInfo(
 ) {
     MindfulIconButton(
         imageVector = Icons.Outlined.Info,
-        contentDescription = stringResource(R.string.ui_base_info_button_cd),
+        contentDescription = stringResource(R.string.ui_base_button_info_cd),
         onClick = onClick,
         size = size
     )

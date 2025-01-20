@@ -56,7 +56,7 @@ fun PageProfile(
                 )
             )
             MindfulButton(
-                string = "Speichern",
+                labelRes = R.string.ui_onboarding_pages_profile_button_primary ,
                 modifier = Modifier.padding(
                     top = 48.dp
                 )

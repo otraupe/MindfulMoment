@@ -48,7 +48,7 @@ fun WelcomeContent(pagerVisible: MutableState<Boolean>) {
         Spacer(modifier = Modifier.weight(1f))
         MindfulButton(
             modifier = Modifier.padding(48.dp),
-            string = stringResource(R.string.ui_onboarding_startButton_label),
+            labelRes = R.string.ui_onboarding_startButton_label,
             onClick = { pagerVisible.value = true }
         )
     }

@@ -1,5 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager
 
+import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -62,7 +63,9 @@ fun OnboardingPager(
                 val page = OnboardingPages.entries[pageNumber]
                 when(page) {
                     INTRODUCTION -> PageIntroduction(INTRODUCTION, pagerState, advancePager)
-                    NOTIFICATIONS -> PageNotifications(NOTIFICATIONS, pagerState, advancePager)
+                    NOTIFICATIONS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        PageNotifications(NOTIFICATIONS, pagerState, advancePager)
+                    }
                     PROFILE -> PageProfile(PROFILE, pagerState, advancePager, saveProfile)
                 }
             }

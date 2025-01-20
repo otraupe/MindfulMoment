@@ -15,7 +15,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.icon.MindfulIconButton
 fun MindfulIconButtonBack(
     size: Dp = 32.dp,
     contentDescription: String = stringResource(
-        R.string.ui_base_back_button_cd
+        R.string.ui_base_button_back_cd
     ),
     onClick: () -> Unit,
 ) {

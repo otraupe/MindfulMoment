@@ -73,6 +73,9 @@ dependencies {
     // System bar color - deprecated
     implementation(libs.google.accompanist.systemuicontroller)
 
+    // Permissions
+    implementation(libs.accompanist.permissions)
+
     // Room ORM
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.ktx)

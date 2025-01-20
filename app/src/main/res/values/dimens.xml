@@ -2,7 +2,7 @@
 <resources>
     <dimen name="mindful_splash_inset_padding">16dp</dimen>
 
-    <dimen name="mindful_base_rounded_corner">8dp</dimen>
+    <dimen name="mindful_base_rounded_corner">24dp</dimen>
     <dimen name="mindful_base_elevation">8dp</dimen> //TODO: currently unused
     <dimen name="mindful_base_padding">8dp</dimen>
     <dimen name="mindful_base_page_padding">16dp</dimen>
