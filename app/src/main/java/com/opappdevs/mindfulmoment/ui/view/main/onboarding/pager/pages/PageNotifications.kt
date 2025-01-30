@@ -1,5 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
+import android.os.Build
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.fadeIn
@@ -13,11 +14,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -25,13 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
 import com.opappdevs.mindfulmoment.R
-import com.opappdevs.mindfulmoment.annotations.ThemePreviews
-import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
+import com.opappdevs.mindfulmoment.domain.usecase.notificationsettings.NotificationSettingsUseCases
+import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.icon.MindfulCheckMark
-import com.opappdevs.mindfulmoment.ui.view.base.permission.notificationPermissionButton
+import com.opappdevs.mindfulmoment.ui.view.base.permission.Permission
+import com.opappdevs.mindfulmoment.ui.view.base.permission.permissionButton
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import kotlinx.coroutines.Dispatchers
@@ -43,15 +42,20 @@ import kotlinx.coroutines.withContext
 fun PageNotifications(
     page: OnboardingPages,
     pagerState: PagerState,
-    advancePager: (OnboardingPages) -> Unit
+    pageDone: (OnboardingPages) -> Unit,
+    notificationSettingsActions: NotificationSettingsUseCases
 ) {
 //    val notificationPermissionState = notificationPermissionButton(/*Permission.NOTIFICATION*/)
 //    val checkMarkVisible = remember {
 //        derivedStateOf { notificationPermissionState?.status?.isGranted ?: false }
 //    }
+    val notificationPermissionRequired = remember {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+    }
+
     val checkmarkTransitionState = MutableTransitionState(initialState = false)
     val coroutineScope = rememberCoroutineScope()
-    var checkMarkVisible: State<Boolean>? = null
+    val checkMarkVisible = remember { mutableStateOf(false) }
 
     OnboardingPage(
         baseContent = page,
@@ -69,15 +73,35 @@ fun PageNotifications(
                 MindfulTextButton(
                     string = "Nicht jetzt"
                 ) {
-                    advancePager(page)
+                    pageDone(page)
                 }
-                val permissionState = notificationPermissionButton(
-                    labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-                checkMarkVisible = remember {
-                    derivedStateOf { permissionState?.status?.isGranted ?: false }
+                if (notificationPermissionRequired) {
+                    val permissionState = permissionButton(
+                        labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
+                        permission = Permission.NOTIFICATION,
+                        uiVisibleState = checkMarkVisible,
+                        modifier = Modifier.padding(top = 4.dp),
+                        getPermissionRequestedBefore = {
+                            notificationSettingsActions.getNotificationPermissionRequested()
+                        },
+                        setPermissionRequestedBefore = {
+                            notificationSettingsActions.setNotificationPermissionRequested()
+                        }
+                    ) {
+                        //TODO: store notification time
+                    }
+                } else {
+                    MindfulButton(
+                        labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
+                        modifier = Modifier.padding(top = 4.dp),
+                        enabled = false //TODO: enable after time set
+                    ) {
+                        //TODO: store notification time
+                    }
                 }
+//                checkMarkVisible = remember {
+//                    derivedStateOf { permissionState?.status?.isGranted ?: false }
+//                }
             }
             /*TODO: notification request*/
             //TODO: don't forget to ask for preferred time
@@ -99,7 +123,7 @@ fun PageNotifications(
                     modifier = Modifier.fillMaxSize(),
                     visibleState = remember {
                         checkmarkTransitionState
-                    }.apply { targetState = checkMarkVisible?.value ?: false },
+                    }.apply { targetState = checkMarkVisible.value },
                     enter = scaleIn() + fadeIn(),
                     exit = ExitTransition.None
                 ) { // Content that needs to appear/disappear goes here:
@@ -115,7 +139,7 @@ fun PageNotifications(
                 withContext(Dispatchers.IO) {
                     Thread.sleep(1000)
                     withContext(Dispatchers.Main) {
-                        advancePager(page)
+                        pageDone(page)
                     }
                 }
             }
@@ -123,14 +147,14 @@ fun PageNotifications(
     }
 }
 
-@ThemePreviews
-@Composable
-fun PreviewPageNotifications() {
-    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-        PageNotifications(
-            page = OnboardingPages.NOTIFICATIONS,
-            pagerState = rememberPagerState { 0 },
-            advancePager = {}
-        )
-    }
-}
+//@ThemePreviews
+//@Composable
+//fun PreviewPageNotifications() {
+//    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
+//        PageNotifications(
+//            page = OnboardingPages.NOTIFICATIONS,
+//            pagerState = rememberPagerState { 0 },
+//            advancePager = {}
+//        )
+//    }
+//}

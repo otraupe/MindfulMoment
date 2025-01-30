@@ -52,6 +52,8 @@ fun OnboardingPage(
 ) {
     val infoVisible = remember { mutableStateOf(false) }
 
+    //TODO: instead of computing a derived state for each page
+    //  we could compute one offset state and one page index the offset pertains to
     val offsetDerivedState by remember {
         derivedStateOf {
             val absOffset = pagerState.getOffsetDistanceInPages(baseContent.ordinal)

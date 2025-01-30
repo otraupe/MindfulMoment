@@ -9,7 +9,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -24,13 +25,14 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 fun PageIntroduction(
     page: OnboardingPages,
     pagerState: PagerState,
-    advancePager: (OnboardingPages) -> Unit
+    pageDone: (OnboardingPages) -> Unit,
 ) {
     OnboardingPage(
         baseContent = page,
         pagerState = pagerState
     ) {
-        val buttonEnabled by remember { mutableStateOf(true) }
+        var buttonEnabled by rememberSaveable { mutableStateOf(true) }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -44,7 +46,11 @@ fun PageIntroduction(
                 ),
                 enabled = buttonEnabled
             ) {
-                advancePager(page)
+                // check input conditions
+                // disable button
+                buttonEnabled = false
+                // send done
+                pageDone(page)
             }
         }
     }
@@ -57,7 +63,7 @@ fun PreviewPageWelcome() {
         PageIntroduction(
             page = OnboardingPages.INTRODUCTION,
             pagerState = rememberPagerState { 0 },
-            advancePager = {}
+            pageDone = { (OnboardingPages.INTRODUCTION) }
         )
     }
 }

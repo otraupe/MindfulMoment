@@ -1,33 +1,36 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding
 
 import androidx.lifecycle.ViewModel
-import com.opappdevs.mindfulmoment.data.db.model.user.UserDbRepository
-import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import com.opappdevs.mindfulmoment.domain.usecase.notificationsettings.NotificationSettingsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor (
-    private val userRepository: UserDbRepository
+    private val notificationSettingsUseCases: NotificationSettingsUseCases
 ): ViewModel() {
-    private val _pagerPageDone: MutableStateFlow<OnboardingPages?> = MutableStateFlow(null)
-    val pagerPageDone: StateFlow<OnboardingPages?> = _pagerPageDone
+//    private val _pagerPageDone: MutableStateFlow<OnboardingPages?> = MutableStateFlow(null)
+//    val pagerPageDone: StateFlow<OnboardingPages?> = _pagerPageDone
+//
+//    //TODO: we don't need the viewmodel for this
+//    fun advancePager(source: OnboardingPages) {
+//        Timber.d("Advance pager from page $source")
+//        _pagerPageDone.value = source
+//    }
 
-    //TODO: do we need the viewmodel for this?
-    fun advancePager(source: OnboardingPages) {
-        Timber.d("Advance pager from page $source")
-        _pagerPageDone.value = source
-    }
+    // notification settings
+    val notificationSettingsActions = notificationSettingsUseCases // Expose grouped Use Cases
 
-    fun getLastUser() {
-        // TODO
-    }
 
-    fun saveProfile(userName: String, birthDate: Date) {
-//        userRepository.setCurrentUser()
-    }
+//    // user settings
+//    val userSettingsActions = userSettingsUseCases // Expose grouped Use Cases
+//
+//    // user management
+//    fun getLastUser() {
+//        // TODO: see whether a user was already created, but onboarding not completed
+//    }
+//
+//    fun saveProfile(userName: String, birthDate: Date) {
+////        userRepository.setCurrentUser() //manager
+//    }
 }

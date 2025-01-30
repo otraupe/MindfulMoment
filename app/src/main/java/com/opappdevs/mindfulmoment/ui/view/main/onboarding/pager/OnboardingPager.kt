@@ -10,30 +10,38 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.opappdevs.mindfulmoment.domain.usecase.notificationsettings.NotificationSettingsUseCases
 import com.opappdevs.mindfulmoment.ui.view.base.pager.AnimatedPagerDots
+import com.opappdevs.mindfulmoment.ui.view.base.pager.ControlledHorizontalPager
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.INTRODUCTION
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.NOTIFICATIONS
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.PROFILE
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
-import java.util.Date
 
 @Composable
 fun OnboardingPager(
-    pagerState: PagerState,
+    snackHostState: SnackbarHostState,
+    navHostController: NavHostController,
     pagerVisible: MutableState<Boolean>,
-    advancePager: (OnboardingPages) -> Unit,
-    saveProfile: (String, Date) -> Unit
+//    advancePager: (OnboardingPages) -> Unit,
+//    saveProfile: (String, Date) -> Unit,
+    notificationSettingsActions: NotificationSettingsUseCases,
 ) {
     val pages = remember { OnboardingPages.entries }
+    val startPage = remember { 0 } //future: allows advancing if partially complete
+    val pagerState = rememberPagerState(initialPage = startPage) { pages.size }
+    val pageDone = remember { mutableStateOf<OnboardingPages?>(null) }
 
     AnimatedVisibility(
         visible = pagerVisible.value,
@@ -42,11 +50,16 @@ fun OnboardingPager(
         exit = scaleOut(targetScale = .5f) + fadeOut(),
     ) {
         Column {
-            HorizontalPager(
-                state = pagerState,
+            ControlledHorizontalPager(
+                pagerVisible = pagerVisible,
+                pagerState = pagerState,
+                startPage = startPage,
+                pageDone = pageDone,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(.9f),
+                snackState = snackHostState,
+                navController = navHostController,
                 //TODO: clean-up
 //        contentPadding =,
 //        pageSize =,
@@ -62,11 +75,26 @@ fun OnboardingPager(
             ) { pageNumber ->
                 val page = OnboardingPages.entries[pageNumber]
                 when(page) {
-                    INTRODUCTION -> PageIntroduction(INTRODUCTION, pagerState, advancePager)
+                    INTRODUCTION ->
+                        PageIntroduction(
+                            page = page,
+                            pagerState = pagerState,
+                            pageDone = { pageDone.value = page }
+                        )
                     NOTIFICATIONS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        PageNotifications(NOTIFICATIONS, pagerState, advancePager)
+                        PageNotifications(
+                            page = page,
+                            pagerState = pagerState,
+                            pageDone = { pageDone.value = page },
+                            notificationSettingsActions = notificationSettingsActions
+                        )
                     }
-                    PROFILE -> PageProfile(PROFILE, pagerState, advancePager, saveProfile)
+                    PROFILE ->
+                        PageProfile(
+                            page = page,
+                            pagerState = pagerState,
+                            pageDone = { pageDone.value = page }
+                        )
                 }
             }
             AnimatedPagerDots(

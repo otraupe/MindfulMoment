@@ -19,7 +19,10 @@ import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 
 @Composable
-fun WelcomeContent(pagerVisible: MutableState<Boolean>) {
+fun WelcomeContent(
+    welcomeVisible: MutableState<Boolean>,
+    pagerVisible: MutableState<Boolean>
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -49,7 +52,10 @@ fun WelcomeContent(pagerVisible: MutableState<Boolean>) {
         MindfulButton(
             modifier = Modifier.padding(48.dp),
             labelRes = R.string.ui_onboarding_startButton_label,
-            onClick = { pagerVisible.value = true }
+            onClick = {
+                welcomeVisible.value = false
+                pagerVisible.value = true
+            }
         )
     }
 }
