@@ -25,7 +25,7 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 fun PageIntroduction(
     page: OnboardingPages,
     pagerState: PagerState,
-    pageDone: (OnboardingPages) -> Unit,
+    setPageDone: (OnboardingPages) -> Unit,
 ) {
     OnboardingPage(
         baseContent = page,
@@ -48,9 +48,9 @@ fun PageIntroduction(
             ) {
                 // check input conditions
                 // disable button
-                buttonEnabled = false
+                buttonEnabled = false //TODO: wait for button animation
                 // send done
-                pageDone(page)
+                setPageDone(page)
             }
         }
     }
@@ -63,7 +63,7 @@ fun PreviewPageWelcome() {
         PageIntroduction(
             page = OnboardingPages.INTRODUCTION,
             pagerState = rememberPagerState { 0 },
-            pageDone = { (OnboardingPages.INTRODUCTION) }
+            setPageDone = { (OnboardingPages.INTRODUCTION) }
         )
     }
 }

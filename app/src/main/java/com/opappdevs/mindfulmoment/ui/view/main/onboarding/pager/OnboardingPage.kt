@@ -143,7 +143,9 @@ fun OnboardingPage(
                         Text(
                             text = stringResource(baseContent.bodyRes),
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp),
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontSize = 18.sp,
+                                lineHeight = 21.sp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()

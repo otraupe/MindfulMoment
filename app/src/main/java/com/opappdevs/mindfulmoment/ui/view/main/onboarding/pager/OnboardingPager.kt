@@ -27,6 +27,7 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.PROFILE
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotificationsNew
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
 
 @Composable
@@ -53,7 +54,6 @@ fun OnboardingPager(
             ControlledHorizontalPager(
                 pagerVisible = pagerVisible,
                 pagerState = pagerState,
-                startPage = startPage,
                 pageDone = pageDone,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,19 +73,19 @@ fun OnboardingPager(
 //        pageNestedScrollConnection =,
 //        snapPosition =,
             ) { pageNumber ->
-                val page = OnboardingPages.entries[pageNumber]
-                when(page) {
+                when(val page = OnboardingPages.entries[pageNumber]) {
                     INTRODUCTION ->
                         PageIntroduction(
                             page = page,
                             pagerState = pagerState,
-                            pageDone = { pageDone.value = page }
+                            setPageDone = { pageDone.value = page }
                         )
+                    //TODO: test this conditional works on Android 10
                     NOTIFICATIONS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         PageNotifications(
                             page = page,
                             pagerState = pagerState,
-                            pageDone = { pageDone.value = page },
+                            setPageDone = { pageDone.value = page },
                             notificationSettingsActions = notificationSettingsActions
                         )
                     }
@@ -93,7 +93,7 @@ fun OnboardingPager(
                         PageProfile(
                             page = page,
                             pagerState = pagerState,
-                            pageDone = { pageDone.value = page }
+                            setPageDone = { pageDone.value = page }
                         )
                 }
             }

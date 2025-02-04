@@ -26,7 +26,7 @@ fun MindfulTextButton(
     ) {
         Text(
             text = string,
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.titleMedium,
         )
     }
 }

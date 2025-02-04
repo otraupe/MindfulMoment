@@ -1,12 +1,8 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
 import android.os.Build
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.opappdevs.mindfulmoment.R
@@ -42,38 +37,28 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
-
-// TODO: make this a PermissionPage
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun PageNotifications(
+fun PageNotificationsNew(
     page: OnboardingPages,
     pagerState: PagerState,
     setPageDone: (OnboardingPages) -> Unit,
     notificationSettingsActions: NotificationSettingsUseCases
 ) {
-//    val notificationPermissionState = notificationPermissionButton(/*Permission.NOTIFICATION*/)
-//    val checkMarkVisible = remember {
-//        derivedStateOf { notificationPermissionState?.status?.isGranted ?: false }
-//    }
     val notificationPermissionRequired = remember {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
     }
 
-//    val checkmarkTransitionState = MutableTransitionState(initialState = false)
     val coroutineScope = rememberCoroutineScope()
     val checkMarkVisible = remember { mutableStateOf(false) }
 
     val scale by animateFloatAsState(
         targetValue = if (checkMarkVisible.value) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = integerResource(R.integer.ui_animation_permission_check_mark)
-        ),
+        animationSpec = tween(durationMillis = 500),
         label = "scale",
         finishedListener = {
-            if (checkMarkVisible.value) { //TODO: only after permission has been requested
+            if (checkMarkVisible.value) {
                 coroutineScope.launch {
                     withContext(Dispatchers.IO) {
                         Thread.sleep(1000)
@@ -88,9 +73,7 @@ fun PageNotifications(
 
     val alpha by animateFloatAsState(
         targetValue = if (checkMarkVisible.value) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = integerResource(R.integer.ui_animation_permission_check_mark)
-        ),
+        animationSpec = tween(durationMillis = 500),
         label = "alpha"
     )
 
@@ -137,12 +120,7 @@ fun PageNotifications(
                         //TODO: store notification time
                     }
                 }
-//                checkMarkVisible = remember {
-//                    derivedStateOf { permissionState?.status?.isGranted ?: false }
-//                }
             }
-            //TODO: don't forget to ask for preferred time
-
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -151,7 +129,6 @@ fun PageNotifications(
                         matchHeightConstraintsFirst = false
                     )
             ) {
-                // TODO: OnboardingPage: default background icon with visibility state
                 MindfulCheckMark(
                     modifier = Modifier
                         .fillMaxSize()
@@ -161,32 +138,4 @@ fun PageNotifications(
             }
         }
     }
-//    // make this more elegant?
-//    LaunchedEffect(checkmarkTransitionState.currentState) {
-//        Timber.d("LaunchedEffect checkmarkTransitionState.currentState ${checkmarkTransitionState.currentState}")
-//        Timber.d("LaunchedEffect checkmarkTransitionState.currentState checkMarkVisible.value ${checkMarkVisible.value}")
-////        if (checkmarkTransitionState.isIdle && checkmarkTransitionState.currentState) {
-//        if (checkmarkTransitionState.currentState) {
-//            coroutineScope.launch {
-//                withContext(Dispatchers.IO) {
-//                    Thread.sleep(1000)
-//                    withContext(Dispatchers.Main) {
-//                        setPageDone(page)
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
-
-//@ThemePreviews
-//@Composable
-//fun PreviewPageNotifications() {
-//    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-//        PageNotifications(
-//            page = OnboardingPages.NOTIFICATIONS,
-//            pagerState = rememberPagerState { 0 },
-//            advancePager = {}
-//        )
-//    }
-//}

@@ -13,11 +13,15 @@ import androidx.compose.ui.unit.Dp
 import com.opappdevs.mindfulmoment.R
 
 @Composable
-fun MindfulCheckMark(size: Dp = dimensionResource(R.dimen.mindful_base_button_height)) {
+fun MindfulCheckMark(
+    modifier: Modifier = Modifier,
+    //size: Dp = dimensionResource(R.dimen.mindful_base_button_height)
+) {
     Icon(
         imageVector = Icons.Filled.Check,
         contentDescription = stringResource(R.string.ui_base_icon_permission_granted_cd),
-        modifier = Modifier.size(size),
+//        modifier = Modifier.size(size),
+        modifier = modifier,
         tint = colorResource(R.color.dark_green)
     )
 }

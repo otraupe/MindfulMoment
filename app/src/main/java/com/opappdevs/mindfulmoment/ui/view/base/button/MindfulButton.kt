@@ -29,7 +29,7 @@ fun MindfulButton(
     ) {
         Text(
             text = stringResource(labelRes),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleMedium
         )
     }
 }

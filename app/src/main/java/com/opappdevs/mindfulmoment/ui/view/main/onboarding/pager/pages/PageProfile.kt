@@ -9,7 +9,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -20,13 +19,12 @@ import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
-import java.util.Date
 
 @Composable
 fun PageProfile(
     page: OnboardingPages,
     pagerState: PagerState,
-    pageDone: (OnboardingPages) -> Unit
+    setPageDone: (OnboardingPages) -> Unit
 ) {
     OnboardingPage(
         baseContent = page,
@@ -61,7 +59,7 @@ fun PageProfile(
                     top = 48.dp
                 )
             ) {
-                pageDone(page)
+                setPageDone(page)
             }
         }
     }
@@ -74,7 +72,7 @@ fun PreviewPageProfile() {
         PageProfile (
             page = OnboardingPages.PROFILE,
             pagerState = rememberPagerState { 0 },
-            pageDone = { (OnboardingPages.PROFILE) }
+            setPageDone = { (OnboardingPages.PROFILE) }
         )
     }
 }

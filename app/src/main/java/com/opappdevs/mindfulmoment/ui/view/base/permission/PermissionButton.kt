@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
 import androidx.compose.material3.AlertDialog
@@ -28,7 +27,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
@@ -38,7 +36,7 @@ import timber.log.Timber
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun permissionButton(
+fun PermissionButton(
     labelRes: Int,
     permission: Permission,
     uiVisibleState: MutableState<Boolean>,
@@ -46,11 +44,12 @@ fun permissionButton(
     getPermissionRequestedBefore: () -> Boolean,
     setPermissionRequestedBefore: () -> Unit,
     onClick: () -> Unit
-): PermissionState? {
+) {
     val context = LocalContext.current
     var showRationaleDialog by remember { mutableStateOf(false) }
     var showSettingsDialog by remember { mutableStateOf(false) }
     var permissionResultNotHandled by remember { mutableStateOf(false) }
+    var permissionOnceDenied by remember { mutableStateOf(false) }
 
     //TODO: extract all strings
 
@@ -63,11 +62,10 @@ fun permissionButton(
                 if (ContextCompat.checkSelfPermission(context, permission.id)
                     == PackageManager.PERMISSION_GRANTED
                 ) {
-                    Toast.makeText(context, "Granted.", Toast.LENGTH_SHORT).show()
                     uiVisibleState.value = true
                 } else {
-                    Toast.makeText(context, "Not granted.", Toast.LENGTH_SHORT).show()
-                    uiVisibleState.value = false
+                    Toast.makeText(context, "Not granted", Toast.LENGTH_SHORT).show()
+                    uiVisibleState.value = false //just in case
                 }
                 permissionResultNotHandled = false
             }
@@ -78,47 +76,42 @@ fun permissionButton(
         }
     }
 
-    val permissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS) { isGranted ->
-            if (isGranted) {
-                uiVisibleState.value = true
-                //TODO: advance pager after animation
-            } else {
-                if (permissionResultNotHandled) {
-                    Toast.makeText(context, "Permission denied.", Toast.LENGTH_SHORT).show()
+    val permissionState = rememberPermissionState(permission.id) { isGranted ->
+        if (isGranted) {
+            uiVisibleState.value = true
+        } else {
+            if (permissionResultNotHandled) {
+                if (permissionOnceDenied) {
+                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                } else {
+                    permissionOnceDenied = true
                 }
-//                else {
-//                    showSettingsDialog = true
-//                }
             }
-            permissionResultNotHandled = false // Reset on every permission state change
         }
-    } else {
-        null
+        permissionResultNotHandled = false // Reset on every permission state change
     }
 
     val requestPermissionLambda =  {
         permissionResultNotHandled = true
         setPermissionRequestedBefore()
-        permissionState?.launchPermissionRequest()
+        permissionState.launchPermissionRequest()
     }
 
     MindfulButton(
         labelRes = labelRes,
         modifier = modifier,
         onClick = {
-            permissionState?.status?.let {
+            permissionState.status.let {
                 when {
                     it.isGranted -> onClick()
                     it.shouldShowRationale -> showRationaleDialog = true
                     getPermissionRequestedBefore() -> showSettingsDialog = true
                     else -> requestPermissionLambda()
                 }
-                return@MindfulButton
+                //return@MindfulButton TODO: ?
             }
-            // TODO: store notification time, also advance pager
-            onClick()
-        })
+        }
+    )
 
     if (showRationaleDialog) {
         AlertDialog(
@@ -141,10 +134,11 @@ fun permissionButton(
         )
     }
 
-    // Handle the result of the permission request, particularly when coming back from settings
-    LaunchedEffect(permissionState?.status) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            //TODO: not on first arrival
+    // Respond to permission already granted on initial visit
+    LaunchedEffect(permissionState) {
+        if (permissionState.status.isGranted) {
+            uiVisibleState.value = true
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 //            if (permissionState?.status?.isGranted == false && !permissionState.status.shouldShowRationale) {
 //                // Permission permanently denied, show dialog to guide the user to the app settings.
 //                showSettingsDialog = true
@@ -155,17 +149,23 @@ fun permissionButton(
     if (showSettingsDialog) {
         AlertDialog(
             onDismissRequest = { showSettingsDialog = false },
-            title = { Text("Permission Denied") },
-            text = { Text("You have denied notification permission. To enable it, please go to app settings.") },
+            title = { Text("Berechtigung verweigert") },
+            text = { Text("Du hast die Berechtigung dauerhaft verweigert. Um sie zu erlauben, gehe zu den App-Einstellungen.") },
             confirmButton = {
-                //TODO: Mindful Buttons?
                 Button(onClick = {
-                    // Open app settings
                     showSettingsDialog = false
                     permissionResultNotHandled = true
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    val uri = Uri.fromParts("package", context.packageName, null)
-                    intent.data = uri
+                    val intent: Intent = if (permission.id == Manifest.permission.POST_NOTIFICATIONS) {
+                        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .apply {
+                                putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                            }
+                    } else {
+                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            .apply {
+                                data = Uri.fromParts("package", context.packageName, null)
+                            }
+                    }
                     context.startActivity(intent)
                 }) {
                     Text("Yes, please")
@@ -178,14 +178,13 @@ fun permissionButton(
             }
         )
     }
-    return permissionState
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Preview
 @Composable
-fun PreviewNotificationPermissionScreen() {
-    permissionButton(
+fun PreviewPermisssionButton() {
+    PermissionButton(
         labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
         permission = Permission.NOTIFICATION,
         uiVisibleState = remember { mutableStateOf(false) },

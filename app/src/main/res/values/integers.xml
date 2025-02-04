@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="ui_animation_permission_check_mark">1000</integer>
+</resources>

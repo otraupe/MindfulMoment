@@ -1,6 +1,9 @@
 package com.opappdevs.mindfulmoment.ui.view.base.pager
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -13,6 +16,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -36,6 +40,7 @@ fun PagerDot(
             colorResource(R.color.pager_dot_current),
             colorResource(R.color.pager_dot_other),
             offsetState.value),
+        animationSpec = snap(),
         label = "animate pager dot color"
     )
     Box(
