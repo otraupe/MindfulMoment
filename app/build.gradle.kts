@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.opappdevs.mindfulmoment"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.opappdevs.mindfulmoment"
         minSdk = 27
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
