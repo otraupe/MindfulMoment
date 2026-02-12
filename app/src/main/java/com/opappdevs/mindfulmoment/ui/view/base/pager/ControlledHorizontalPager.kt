@@ -12,7 +12,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEvent
@@ -33,7 +32,8 @@ fun ControlledHorizontalPager(
     navController: NavHostController,
     pageContent: @Composable PagerScope.(page: Int) -> Unit
 ) {
-    fun isForwardScrollProhibited() = pagerState.currentPage > (pageDone.value?.ordinal ?: -1) //-1 for none
+    //-1 for no pages are done yet
+    fun isForwardScrollProhibited() = pagerState.currentPage > (pageDone.value?.ordinal ?: -1) //&& pagerState.currentPage < 2 //TODO: exemption of last page preserves text scrolling there
     var swipeHintPresented by remember { mutableStateOf(false) }
 
     //TODO: solution prevents vertical scrolling of content
