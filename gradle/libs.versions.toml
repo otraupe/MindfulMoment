@@ -1,22 +1,23 @@
 [versions]
-accompanistPermissionsVersion = "0.37.0"
+accompanistPermissionsVersion = "0.37.3"
 accompanistSystemuicontrollerVersion = "0.36.0"
-agp = "8.13.2"
-kotlin = "2.1.0"
-coreKtx = "1.15.0"
+agp = "9.0.0"
+kotlin = "2.3.10"
+coreKtx = "1.17.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.10.0"
-composeBom = "2025.01.00"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
+lifecycleRuntimeKtx = "2.10.0"
+activityCompose = "1.12.4"
+composeBom = "2026.02.00"
+materialIcons = "1.7.8"
 
-hilt = "2.54"
-hiltNavigationCompose = "1.2.0"
-navigationCompose = "2.8.5"
-kotlinKsp = "2.1.0-1.0.29"
-roomVersion = "2.6.1"
-splash = "1.0.1"
+hilt = "2.59.1"
+hiltNavigationCompose = "1.3.0"
+navigationCompose = "2.9.7"
+kotlinKsp = "2.3.5"
+roomVersion = "2.8.4"
+splash = "1.2.0"
 timber = "5.0.1"
 
 [libraries]
@@ -29,6 +30,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "materialIcons" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -55,7 +57,6 @@ jakewharton-timber = { group = "com.jakewharton.timber", name = "timber", versio
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
