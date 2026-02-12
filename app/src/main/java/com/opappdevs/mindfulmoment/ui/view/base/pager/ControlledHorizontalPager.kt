@@ -56,7 +56,8 @@ fun ControlledHorizontalPager(
                         }
                     } while (event.changes.any { it.pressed })
                 }
-            },
+            }
+        ,
         pageContent = pageContent,
     )
 

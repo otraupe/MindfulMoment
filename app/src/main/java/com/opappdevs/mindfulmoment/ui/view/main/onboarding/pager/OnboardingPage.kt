@@ -58,7 +58,7 @@ fun OnboardingPage(
         derivedStateOf {
             val absOffset = pagerState.getOffsetDistanceInPages(baseContent.ordinal)
                 .absoluteValue
-                Pair(1f - absOffset, 1f - absOffset / 8)
+                Pair(1.1f - absOffset, 1f - absOffset / 8)
         }
     }
     MindfulCard(

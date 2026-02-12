@@ -80,8 +80,8 @@ fun OnboardingPager(
                             pagerState = pagerState,
                             setPageDone = { pageDone.value = page }
                         )
-                    //TODO: test this conditional works on Android 10
-                    NOTIFICATIONS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    //TODO: test this conditional works on Android 10 - no, shows invisible page
+                    NOTIFICATIONS -> /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)*/ {
                         PageNotifications(
                             page = page,
                             pagerState = pagerState,
