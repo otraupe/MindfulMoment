@@ -36,16 +36,14 @@ fun DoubleBackToExit(
             return@BackHandler
         }
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastBackPressTime <= 5000) {
+        if (currentTime - lastBackPressTime <= 3000) { //TODO: integer resource
             job?.cancel()
             showExitToast = false
             // Exit the app
             (context as? androidx.activity.ComponentActivity)?.finish()
         } else {
             lastBackPressTime = currentTime
-//            val currentRoute = navController.currentBackStackEntry?.destination?.route
-//            val exitHint = context.getString(R.string.ui_navigation_double_back_exit) //TODO: extract strings
-            Toast.makeText(context, R.string.ui_navigation_double_back_exit, Toast.LENGTH_SHORT).show() //TODO: custom Toast
+            Toast.makeText(context, R.string.ui_navigation_double_back_exit, Toast.LENGTH_SHORT).show()
             job = scope.launch {
                 delay(5000)
                 showExitToast = true

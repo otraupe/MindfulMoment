@@ -7,7 +7,8 @@
     <dimen name="mindful_base_padding">8dp</dimen>
     <dimen name="mindful_base_page_padding">16dp</dimen>
     <dimen name="mindful_base_card_padding">32dp</dimen>
-    <dimen name="mindful_base_button_min_width">120dp</dimen>
-    <dimen name="mindful_base_button_height">45dp</dimen>
+    <dimen name="mindful_base_text_spacing">24dp</dimen>
+    <dimen name="mindful_base_button_min_width">128dp</dimen>
+    <dimen name="mindful_base_button_height">48dp</dimen>
 
 </resources>

@@ -4,6 +4,7 @@
     // Base
     <string name="ui_base_button_dummy">Drück mich</string>
     <string name="ui_base_button_ok">OK</string>
+    <string name="ui_base_button_cancel">Abbrechen</string>
 
     <string name="ui_base_button_menu_cd">Menu</string>
     <string name="ui_base_button_info_cd">Mehr Informationen</string>
@@ -24,32 +25,42 @@
     <string name="ui_onboarding_pages_introduction_body">
         Achtsamkeit ist wichtig für dein Wohlbefinden und deine Gesundheit. Mindful Moment möchte dir
         dabei helfen, dich in Achtsamkeit zu üben.
-        \n\nDafür braucht es jeden Tag nur 5 Minuten, am Besten morgens bevor du in den Tag
+        \n\nDafür brauchst du jeden Tag nur <b>5\u00A0Minuten</b>, am Besten morgens bevor du in den Tag
         startest.</string>
     <string name="ui_onboarding_pages_introduction_body_sub">
         Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.</string>
-    <string name="ui_onboarding_pages_introduction_button_primary">Ok</string>
+    <string name="ui_onboarding_pages_introduction_button_primary">Super</string>
 
     <string name="ui_onboarding_pages_notifications_icon_cd">Glocke</string>
     <string name="ui_onboarding_pages_notifications_title">Benachrichtigungen</string>
     <string name="ui_onboarding_pages_notifications_body">
         Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden? Dann aktiviere
         Benachrichtigungen.
-        \n\nDies kannst du auch später noch in den Einstellungen machen.</string>
+        \n\nWähle dafür zunächst eine Uhrzeit.</string>
+    <string name="ui_onboarding_pages_notifications_body_sub">
+        Das kannst du auch später noch in den Einstellungen machen.</string>
     <string name="ui_onboarding_pages_notifications_button_primary">Gerne</string>
+    <string name="ui_onboarding_pages_notifications_button_primary_alt">Toll</string>
+    <string name="ui_onboarding_pages_notifications_button_primary_alt2">Na gut</string>
+    <string name="ui_onboarding_pages_notifications_button_secondary">Nicht jetzt</string>
+    <string name="ui_onboarding_pages_notifications_success">Aktiviert</string>
 
     <string name="ui_onboarding_pages_profile_icon_cd">Benutzer</string>
     <string name="ui_onboarding_pages_profile_title">Persönliche Angaben</string>
     <string name="ui_onboarding_pages_profile_body">
-        Bitte gib an, wie du genannt werden möchtest und wann du geboren wurdest.</string>
+        Bitte gib jetzt noch an, wie du genannt werden möchtest und wann du geboren wurdest.
+        Dein Alter kann uns helfen, dich in der Achtsamkeit zu unterstützen.
+    </string>
     <string name="ui_onboarding_pages_profile_body_sub">
         Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät
         gespeichert. Die App übermittelt keine Daten an irgendwelche Server, da Mindful Moment
         keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt.
-        \n\nAusgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
+        \n\n(Ausgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
         Backups kannst du in den Einstellungen aktivieren. Auf Wunsch werden deine Backups
-        verschlüsselt, dies erfordert ein App-Kennwort (ggf. zusammen mit Biometrie).</string>
-    <string name="ui_onboarding_pages_profile_button_primary">Speichern</string>
+        verschlüsselt, dies erfordert ein App-Kennwort \u2012 ggf. zusammen mit Biometrie.)</string>
+    <string name="ui_onboarding_pages_profile_button_primary">Das war\'s</string>
+    <string name="ui_onboarding_pages_profile_toast_empty_name">Bitte wähle einen Namen</string>
+    <string name="ui_onboarding_pages_profile_toast_empty_birthday">Bitte gib dein Geburtsdatum an</string>
 
     // Navigation
     <string name="ui_navigation_double_back_exit">Noch einmal zum Schließen</string>

@@ -15,7 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.opappdevs.mindfulmoment.R
@@ -70,9 +70,8 @@ fun Onboarding(
             snackHostState = snackState,
             navHostController = navController,
             pagerVisible = pagerVisible,
-//            advancePager = { source -> viewModel.advancePager(source) },
-//            saveProfile = { userName, birthDate -> viewModel.saveProfile(userName, birthDate) },
-            notificationSettingsActions = viewModel.notificationSettingsActions
+            notificationSettingsUseCases = viewModel.notificationSettingsUseCases,
+            profileSettingsUseCases = viewModel.profileSettingsUseCases
         )
     }
 }

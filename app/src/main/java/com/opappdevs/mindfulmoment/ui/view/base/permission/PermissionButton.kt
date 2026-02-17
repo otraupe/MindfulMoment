@@ -40,9 +40,11 @@ fun PermissionButton(
     labelRes: Int,
     permission: Permission,
     uiVisibleState: MutableState<Boolean>,
+    uiAnimateState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
     getPermissionRequestedBefore: () -> Boolean,
     setPermissionRequestedBefore: () -> Unit,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -94,12 +96,14 @@ fun PermissionButton(
     val requestPermissionLambda =  {
         permissionResultNotHandled = true
         setPermissionRequestedBefore()
+        uiAnimateState.value = true
         permissionState.launchPermissionRequest()
     }
 
     MindfulButton(
         labelRes = labelRes,
         modifier = modifier,
+        enabled = enabled,
         onClick = {
             permissionState.status.let {
                 when {
@@ -135,6 +139,7 @@ fun PermissionButton(
     }
 
     // Respond to permission already granted on initial visit
+    //TODO: do we need this? lifecycle callback above should respond on visit
     LaunchedEffect(permissionState) {
         if (permissionState.status.isGranted) {
             uiVisibleState.value = true
@@ -188,6 +193,7 @@ fun PreviewPermisssionButton() {
         labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
         permission = Permission.NOTIFICATION,
         uiVisibleState = remember { mutableStateOf(false) },
+        uiAnimateState = remember { mutableStateOf(false) },
         modifier = Modifier,
         getPermissionRequestedBefore = { false },
         setPermissionRequestedBefore = { },

@@ -20,6 +20,7 @@ import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import timber.log.Timber
 
 @Composable
 fun PageIntroduction(
@@ -27,6 +28,7 @@ fun PageIntroduction(
     pagerState: PagerState,
     setPageDone: (OnboardingPages) -> Unit,
 ) {
+    Timber.d("PageIntroduction")
     OnboardingPage(
         baseContent = page,
         pagerState = pagerState
@@ -40,7 +42,7 @@ fun PageIntroduction(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             MindfulButton(
-                R.string.ui_base_button_ok,
+                R.string.ui_onboarding_pages_introduction_button_primary,
                 modifier = Modifier.padding(
                     top = dimensionResource(R.dimen.mindful_base_card_padding)
                 ),

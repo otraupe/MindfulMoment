@@ -8,7 +8,12 @@ import kotlinx.coroutines.CoroutineScope
  * The navigation drawer visible for the views of the main activity - UNDER CONSTRUCTION.
  * */
 @Composable
-fun MainNavDrawer(drawerState: DrawerState, scope: CoroutineScope, content: @Composable () -> Unit) {
+fun MainNavDrawer(
+    drawerState: DrawerState,
+    scope: CoroutineScope,
+    gesturesEnabled: Boolean,
+    content: @Composable () -> Unit
+) {
 //    val items = listOf(Icons.Default.Favorite, Icons.Default.Face, Icons.Default.Email)
 //    val selectedItem = remember { mutableStateOf(items[0]) }
     ModalNavigationDrawer(
@@ -31,7 +36,7 @@ fun MainNavDrawer(drawerState: DrawerState, scope: CoroutineScope, content: @Com
 //                }
             }
         },
-        gesturesEnabled = true,     // allows swiping for open/close and clicking outside to close
+        gesturesEnabled = gesturesEnabled,     // allows swiping for open/close and clicking outside to close
         content = content
     )
 }

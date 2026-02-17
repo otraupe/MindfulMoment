@@ -1,5 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
@@ -19,18 +20,33 @@ import androidx.navigation.compose.rememberNavController
 import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.navigation.DoubleBackToExit
 import com.opappdevs.mindfulmoment.navigation.NavGraph
+import kotlinx.coroutines.launch
 
 @Composable
-fun Main() {
+fun Main(
+    isOnboardingComplete: Boolean = false
+) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val navController = rememberNavController()
     val snackBarHostState = remember { SnackbarHostState() }    // will not survive config changes
     val scope = rememberCoroutineScope()    // for basic UI transformations...
-    // such as opening the nav drawer; coroutines will
-    // be cancelled if the calling composable leaves
-    // the composition (= is not displayed anymore)
-    DoubleBackToExit(navController, scope) //TODO: only works for default/first route?
-    MainNavDrawer(drawerState, scope) {
+    // such as opening the nav drawer; coroutines will be cancelled
+    // if the calling composable leaves the composition
+
+    // close the drawer on back gesture
+    if (drawerState.isOpen) {
+        BackHandler(enabled = true) {
+            scope.launch {
+                drawerState.close()
+            }
+        }
+    }
+    DoubleBackToExit(navController = navController, scope = scope)
+    MainNavDrawer(
+        drawerState = drawerState,
+        scope = scope,
+        gesturesEnabled = (currentRoute(navController) != Destinations.Onboarding.route)
+    ) {
         Scaffold(
             contentWindowInsets = WindowInsets(0.dp),
             topBar = {
@@ -44,7 +60,12 @@ fun Main() {
             NavGraph(
                 navController = navController,
                 snackState = snackBarHostState,
-                startDestination = Destinations.Onboarding.route, //TODO: dynamically
+                //startDestination = Destinations.Onboarding.route,
+                startDestination = if (!isOnboardingComplete) {
+                    Destinations.Onboarding.route
+                } else {
+                    Destinations.Home.route
+                },
                 modifier = Modifier.padding(contentPadding),
             )
         }

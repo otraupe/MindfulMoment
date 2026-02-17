@@ -39,14 +39,14 @@ object NotificationSettingsUseCasesModule {
     }
 
     @Provides
-    fun provideGetNotificationPermissionEnabledUseCase(
+    fun provideGetNotificationsEnabledUseCase(
         preferencesManager: PreferencesManager
     ): GetNotificationsEnabledUseCase {
         return GetNotificationsEnabledUseCaseImpl(preferencesManager)
     }
 
     @Provides
-    fun provideSetNotificationPermissionEnabledUseCase(
+    fun provideSetNotificationsEnabledUseCase(
         preferencesManager: PreferencesManager
     ): SetNotificationsEnabledUseCase {
         return SetNotificationsEnabledUseCaseImpl(preferencesManager)

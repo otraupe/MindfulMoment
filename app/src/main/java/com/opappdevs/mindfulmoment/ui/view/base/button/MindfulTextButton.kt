@@ -7,14 +7,16 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 
 @Composable
 fun MindfulTextButton(
-    string: String,
+    labelRes: Int,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     TextButton(
@@ -22,11 +24,12 @@ fun MindfulTextButton(
             minWidth = dimensionResource(R.dimen.mindful_base_button_min_width),
             minHeight = dimensionResource(R.dimen.mindful_base_button_height)
         ),
+        enabled = enabled,
         onClick = onClick
     ) {
         Text(
-            text = string,
-            style = MaterialTheme.typography.titleMedium,
+            text = stringResource(labelRes),
+            style = MaterialTheme.typography.titleMedium
         )
     }
 }
@@ -35,6 +38,6 @@ fun MindfulTextButton(
 @Composable
 fun PreviewMindfulTextButton() {
     MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-        MindfulTextButton("Drück mich") { }
+        MindfulTextButton(R.string.ui_base_button_dummy) { }
     }
 }

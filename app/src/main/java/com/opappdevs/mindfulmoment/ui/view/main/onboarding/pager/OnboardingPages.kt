@@ -27,6 +27,7 @@ enum class OnboardingPages(
         R.string.ui_onboarding_pages_notifications_icon_cd,
         R.string.ui_onboarding_pages_notifications_title,
         R.string.ui_onboarding_pages_notifications_body,
+        R.string.ui_onboarding_pages_notifications_body_sub
     ),
     PROFILE(
         Icons.Filled.Person,
@@ -36,6 +37,6 @@ enum class OnboardingPages(
         R.string.ui_onboarding_pages_profile_body_sub
     );
 
-    fun isFirstPage() = this == OnboardingPages.entries[0]
+    fun isFirstPage() = ordinal == 0
     fun isLastPage() = ordinal == OnboardingPages.entries.size - 1
 }

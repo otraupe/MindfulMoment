@@ -20,6 +20,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.navigation.NavHostController
 import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import timber.log.Timber
 
 
 @Composable
@@ -30,6 +31,7 @@ fun ControlledHorizontalPager(
     modifier: Modifier = Modifier,
     snackState: SnackbarHostState,
     navController: NavHostController,
+    onLastPageDone: () -> Unit,
     pageContent: @Composable PagerScope.(page: Int) -> Unit
 ) {
     //-1 for no pages are done yet
@@ -37,7 +39,7 @@ fun ControlledHorizontalPager(
     var swipeHintPresented by remember { mutableStateOf(false) }
 
     //TODO: solution prevents vertical scrolling of content
-    //  better add pager programmatically; then we also have
+    //  better add pages programmatically; then we also have
     //  the nice overscroll effect
     HorizontalPager(
         state = pagerState,
@@ -62,25 +64,32 @@ fun ControlledHorizontalPager(
     )
 
     LaunchedEffect(pageDone.value) {
+        Timber.d("LaunchedEffect pageDone.value ${pageDone.value}")
         val pdv = pageDone.value
         if (pdv != null) {
             if (!pdv.isLastPage()) {
                 pagerState.animateScrollToPage(
                     page = pagerState.currentPage + 1,
-                    animationSpec = PagerScrollAnimationSpec.slowDownScrollAnimationSpec())
-                if (pdv.isFirstPage() && !swipeHintPresented) {
+                    animationSpec = PagerScrollAnimationSpec.deceleratingScrollAnimationSpec()
+                )
+                if (pdv.isFirstPage() && !swipeHintPresented) { //TODO: ensure pdv cannot get smaller
                     snackState.showSnackbar(
-                        message = "Swipe zum Zurückgehen",
+                        message = "Wischen zum Zurückgehen",
                         actionLabel = "OK",
                         duration = SnackbarDuration.Long
                     )
-                    swipeHintPresented = true //in case we keep pager nav buttons
+                    swipeHintPresented = true //in case we keep pager nav buttons //TODO: could be removed
                 }
             } else {
                 pagerVisible.value = false
+                onLastPageDone()
 
                 //TODO: callback to wait for animation end
-                navController.navigate(Destinations.Home.route)
+                navController.navigate(Destinations.Home.route) {
+                    popUpTo(Destinations.Onboarding.route) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }

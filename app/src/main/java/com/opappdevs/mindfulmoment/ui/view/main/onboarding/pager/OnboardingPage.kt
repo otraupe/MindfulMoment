@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +28,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -33,13 +36,18 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
+import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonBack
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonInfo
+import com.opappdevs.mindfulmoment.ui.view.base.pager.PagerScrollAnimationSpec
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 //TODO: function a bit long
@@ -50,6 +58,8 @@ fun OnboardingPage(
     pagerState: PagerState,
     customContent: @Composable () -> Unit
 ) {
+    val scope = rememberCoroutineScope()
+
     val infoVisible = remember { mutableStateOf(false) }
 
     //TODO: instead of computing a derived state for each page
@@ -58,7 +68,7 @@ fun OnboardingPage(
         derivedStateOf {
             val absOffset = pagerState.getOffsetDistanceInPages(baseContent.ordinal)
                 .absoluteValue
-                Pair(1.1f - absOffset, 1f - absOffset / 8)
+            Pair(1.1f - absOffset, 1f - absOffset / 8)
         }
     }
     MindfulCard(
@@ -88,11 +98,25 @@ fun OnboardingPage(
 
                 )
                 // info icon button
-                baseContent.infoRes?.let {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.TopEnd
-                    ) {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    if (!baseContent.isFirstPage()) {
+                        MindfulIconButtonBack(
+                            //goes back from info
+                            contentDescription = stringResource(R.string.ui_base_button_back_cd)
+                        ) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage - 1,
+                                    animationSpec = PagerScrollAnimationSpec.slowDownScrollAnimationSpec()
+                                )
+                            }
+                        }
+                    }
+                    Spacer(Modifier.weight(1f))
+                    baseContent.infoRes?.let {
                         Crossfade(
                             targetState = infoVisible,
                             label = "Info icon button swap"
@@ -145,7 +169,10 @@ fun OnboardingPage(
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontSize = 18.sp,
-                                lineHeight = 21.sp),
+                                lineHeight = 21.sp,
+                                hyphens = Hyphens.Auto, //enable hyphenation
+                                lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
+                            ),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()
@@ -163,8 +190,13 @@ fun OnboardingPage(
                     ) {
                         Text(
                             text = stringResource(baseContent.infoRes),
-                            fontSize = 20.sp,
                             textAlign = TextAlign.Justify,
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontSize = 18.sp,
+                                lineHeight = 21.sp,
+                                hyphens = Hyphens.Auto, //enable hyphenation
+                                lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
+                            ),
                             modifier = Modifier
                                 .background(
                                     color = MaterialTheme.colorScheme.background,

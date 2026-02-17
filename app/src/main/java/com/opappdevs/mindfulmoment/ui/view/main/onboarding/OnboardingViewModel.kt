@@ -2,12 +2,14 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding
 
 import androidx.lifecycle.ViewModel
 import com.opappdevs.mindfulmoment.domain.usecase.notificationsettings.NotificationSettingsUseCases
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.ProfileSettingsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor (
-    private val notificationSettingsUseCases: NotificationSettingsUseCases
+    private val _notificationSettingsUseCases: NotificationSettingsUseCases,
+    private val _profileSettingsUseCases: ProfileSettingsUseCases
 ): ViewModel() {
 //    private val _pagerPageDone: MutableStateFlow<OnboardingPages?> = MutableStateFlow(null)
 //    val pagerPageDone: StateFlow<OnboardingPages?> = _pagerPageDone
@@ -19,7 +21,10 @@ class OnboardingViewModel @Inject constructor (
 //    }
 
     // notification settings
-    val notificationSettingsActions = notificationSettingsUseCases // Expose grouped Use Cases
+    val notificationSettingsUseCases = _notificationSettingsUseCases // Expose grouped Use Cases
+
+    // profile settings
+    val profileSettingsUseCases = _profileSettingsUseCases
 
 
 //    // user settings
