@@ -26,7 +26,7 @@ import timber.log.Timber
 fun PageIntroduction(
     page: OnboardingPages,
     pagerState: PagerState,
-    setPageDone: (OnboardingPages) -> Unit,
+    setPageDone: () -> Unit,
 ) {
     Timber.d("PageIntroduction")
     OnboardingPage(
@@ -48,11 +48,11 @@ fun PageIntroduction(
                 ),
                 enabled = buttonEnabled
             ) {
-                // check input conditions
-                // disable button
-                buttonEnabled = false //TODO: wait for button animation
+                // check input conditions - none to check here
+                // disable button; ensures pagedone.value can not go backwards
+                buttonEnabled = false
                 // send done
-                setPageDone(page)
+                setPageDone()
             }
         }
     }

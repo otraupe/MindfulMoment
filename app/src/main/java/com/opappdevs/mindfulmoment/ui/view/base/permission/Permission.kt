@@ -8,9 +8,7 @@ enum class Permission(
     val rationaleRes: Int
 ) {
     NOTIFICATION (
-        id = Manifest.permission.POST_NOTIFICATIONS, //TODO: ?
+        id = Manifest.permission.POST_NOTIFICATIONS,
         rationaleRes = R.string.ui_permissions_notifications_rationale
-    ),
-
-    ;
+    );
 }

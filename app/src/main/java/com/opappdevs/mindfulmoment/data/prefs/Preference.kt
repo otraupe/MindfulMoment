@@ -1,14 +1,5 @@
 package com.opappdevs.mindfulmoment.data.prefs
 
-//sealed class Preference<T>(val key: String, val defaultValue: T) {
-//    class BooleanPreference(key: String, defaultValue: Boolean) : Preference<Boolean>(key, defaultValue)
-//    class IntPreference(key: String, defaultValue: Int) : Preference<Int>(key, defaultValue)
-//    class LongPreference(key: String, defaultValue: Long) : Preference<Long>(key, defaultValue)
-//    class FloatPreference(key: String, defaultValue: Float) : Preference<Float>(key, defaultValue)
-//    class StringPreference(key: String, defaultValue: String) : Preference<String>(key, defaultValue)
-//    class StringSetPreference(key: String, defaultValue: Set<String>) : Preference<Set<String>>(key, defaultValue)
-//}
-
 sealed interface Preference<T> {
     val key: String
     val defaultValue: T
@@ -38,6 +29,7 @@ sealed interface Preference<T> {
         override val defaultValue: String = ""
     ) : Preference<String>
 
+    //TODO: not working
 //    data class StringSetPreference(
 //        override val key: String,
 //        override val defaultValue: Set<String> = emptySet()

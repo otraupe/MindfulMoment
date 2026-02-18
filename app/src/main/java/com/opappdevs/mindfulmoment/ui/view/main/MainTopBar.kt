@@ -35,8 +35,7 @@ fun MainTopBar(drawerState: DrawerState, scope: CoroutineScope) {
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer    //"on.." color automagically
-                                                // picks proper content colors according to light/dark theme
+            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
     )
 }

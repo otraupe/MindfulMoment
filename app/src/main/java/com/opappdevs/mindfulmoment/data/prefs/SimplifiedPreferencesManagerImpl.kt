@@ -13,7 +13,7 @@ class SimplifiedPreferencesManagerImpl @Inject constructor(
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    //TODO: perform in coroutine scope
+    //TODO: perform in coroutine scope?
 
     override fun <T : Any> set(preference: Preference<T>, value: T) {
         when (preference) {

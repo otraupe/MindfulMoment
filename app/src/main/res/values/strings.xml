@@ -5,14 +5,22 @@
     <string name="ui_base_button_dummy">Drück mich</string>
     <string name="ui_base_button_ok">OK</string>
     <string name="ui_base_button_cancel">Abbrechen</string>
+    <string name="ui_base_button_yes_please">Ja, bitte</string>
+    <string name="ui_base_button_no_thanks">Nein, danke</string>
 
     <string name="ui_base_button_menu_cd">Menu</string>
     <string name="ui_base_button_info_cd">Mehr Informationen</string>
     <string name="ui_base_button_back_cd">Zurück</string>
     <string name="ui_base_button_forward_cd">Vorwärts</string>
     <string name="ui_base_button_close_cd">Schließen</string>
+    <string name="ui_base_icon_success_cd">Erfolg</string>
 
-    <string name="ui_base_icon_permission_granted_cd">Berechtigung erteilt</string>
+    <string name="ui_base_label_name">Name</string>
+    <string name="ui_base_label_birthdate">Geburtsdatum</string>
+    <string name="ui_base_label_time">Uhrzeit</string>
+
+    //Formatting
+    <string name="formatting_time_hour_minute">%02d:%02d"</string>
 
     // Onboarding
     <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
@@ -26,9 +34,11 @@
         Achtsamkeit ist wichtig für dein Wohlbefinden und deine Gesundheit. Mindful Moment möchte dir
         dabei helfen, dich in Achtsamkeit zu üben.
         \n\nDafür brauchst du jeden Tag nur <b>5\u00A0Minuten</b>, am Besten morgens bevor du in den Tag
-        startest.</string>
+        startest.
+    </string>
     <string name="ui_onboarding_pages_introduction_body_sub">
-        Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.</string>
+        Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.
+    </string>
     <string name="ui_onboarding_pages_introduction_button_primary">Super</string>
 
     <string name="ui_onboarding_pages_notifications_icon_cd">Glocke</string>
@@ -36,14 +46,18 @@
     <string name="ui_onboarding_pages_notifications_body">
         Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden? Dann aktiviere
         Benachrichtigungen.
-        \n\nWähle dafür zunächst eine Uhrzeit.</string>
+        \n\nWähle dafür zunächst eine Uhrzeit.
+    </string>
     <string name="ui_onboarding_pages_notifications_body_sub">
-        Das kannst du auch später noch in den Einstellungen machen.</string>
+        Das kannst du auch später noch in den Einstellungen machen.
+    </string>
     <string name="ui_onboarding_pages_notifications_button_primary">Gerne</string>
     <string name="ui_onboarding_pages_notifications_button_primary_alt">Toll</string>
     <string name="ui_onboarding_pages_notifications_button_primary_alt2">Na gut</string>
     <string name="ui_onboarding_pages_notifications_button_secondary">Nicht jetzt</string>
     <string name="ui_onboarding_pages_notifications_success">Aktiviert</string>
+    <string name="ui_onboarding_pages_notifications_toast_empty_time">Bitte wähle eine Uhrzeit</string>
+    <string name="ui_onboarding_pages_notifications_select_time">Uhrzeit wählen</string>
 
     <string name="ui_onboarding_pages_profile_icon_cd">Benutzer</string>
     <string name="ui_onboarding_pages_profile_title">Persönliche Angaben</string>
@@ -57,17 +71,25 @@
         keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt.
         \n\n(Ausgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
         Backups kannst du in den Einstellungen aktivieren. Auf Wunsch werden deine Backups
-        verschlüsselt, dies erfordert ein App-Kennwort \u2012 ggf. zusammen mit Biometrie.)</string>
-    <string name="ui_onboarding_pages_profile_button_primary">Das war\'s</string>
+        verschlüsselt, dies erfordert ein App-Kennwort \u2012 ggf. zusammen mit Biometrie.)
+    </string>
+    <string name="ui_onboarding_pages_profile_button_primary">Fertig</string>
     <string name="ui_onboarding_pages_profile_toast_empty_name">Bitte wähle einen Namen</string>
     <string name="ui_onboarding_pages_profile_toast_empty_birthday">Bitte gib dein Geburtsdatum an</string>
+    <string name="ui_onboarding_pages_profile_select_birthdate">Geburtsdatum wählen</string>
 
     // Navigation
     <string name="ui_navigation_double_back_exit">Noch einmal zum Schließen</string>
 
     // Permissions
     <string name="ui_permissions_denied">Berechtigung verweigert</string>
+    <string name="ui_permissions_required">Berechtigung erforderlich</string>
     <string name="ui_permissions_denied_permanently">Berechtigung dauerhaft verweigert</string>
+    <string name="ui_permissions_denied_permanently_instructions">
+        Du hast die Berechtigung dauerhaft verweigert.
+        Um sie zu erlauben, gehe zu den App-Einstellungen.
+    </string>
+
     <string name="ui_permissions_dialog_yes">Auf jeden</string>
     <string name="ui_permissions_dialog_no">Nee</string>
 

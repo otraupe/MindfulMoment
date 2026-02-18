@@ -2,7 +2,7 @@
 <resources>
     <dimen name="mindful_splash_inset_padding">16dp</dimen>
 
-    <dimen name="mindful_base_rounded_corner">24dp</dimen>
+    <dimen name="mindful_base_rounded_corner">32dp</dimen>
     <dimen name="mindful_base_elevation">8dp</dimen> //TODO: currently unused
     <dimen name="mindful_base_padding">8dp</dimen>
     <dimen name="mindful_base_page_padding">16dp</dimen>
@@ -10,5 +10,6 @@
     <dimen name="mindful_base_text_spacing">24dp</dimen>
     <dimen name="mindful_base_button_min_width">128dp</dimen>
     <dimen name="mindful_base_button_height">48dp</dimen>
+    <dimen name="mindful_base_textField_width">240dp</dimen>
 
 </resources>

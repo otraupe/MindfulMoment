@@ -1,15 +1,25 @@
 package com.opappdevs.mindfulmoment.navigation
 
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.res.integerResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavHostController
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.navigation.NavHelper.Companion.isExitAllowedForStack
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindfulToast
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.Duration.SHORT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,6 +34,8 @@ fun DoubleBackToExit(
     var lastBackPressTime by remember { mutableLongStateOf(0L) }
     var job by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
 
+    val doubleBackWindow = integerResource(R.integer.ui_double_back_exit_window)
+
     // Observe the back stack changes
     val visibleEntries by navController.visibleEntries.collectAsState()
 
@@ -36,16 +48,20 @@ fun DoubleBackToExit(
             return@BackHandler
         }
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastBackPressTime <= 3000) { //TODO: integer resource
+        if (currentTime - lastBackPressTime <= doubleBackWindow) {
             job?.cancel()
             showExitToast = false
             // Exit the app
             (context as? androidx.activity.ComponentActivity)?.finish()
         } else {
             lastBackPressTime = currentTime
-            Toast.makeText(context, R.string.ui_navigation_double_back_exit, Toast.LENGTH_SHORT).show()
+            showMindfulToast(
+                context = context,
+                messageRes = R.string.ui_navigation_double_back_exit,
+                duration = SHORT
+            )
             job = scope.launch {
-                delay(5000)
+                delay(doubleBackWindow.toLong())
                 showExitToast = true
             }
         }

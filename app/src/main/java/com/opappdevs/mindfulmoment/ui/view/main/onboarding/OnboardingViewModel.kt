@@ -11,31 +11,11 @@ class OnboardingViewModel @Inject constructor (
     private val _notificationSettingsUseCases: NotificationSettingsUseCases,
     private val _profileSettingsUseCases: ProfileSettingsUseCases
 ): ViewModel() {
-//    private val _pagerPageDone: MutableStateFlow<OnboardingPages?> = MutableStateFlow(null)
-//    val pagerPageDone: StateFlow<OnboardingPages?> = _pagerPageDone
-//
-//    //TODO: we don't need the viewmodel for this
-//    fun advancePager(source: OnboardingPages) {
-//        Timber.d("Advance pager from page $source")
-//        _pagerPageDone.value = source
-//    }
+    //TODO: UI does not access use cases (switch fo MVI)
 
     // notification settings
     val notificationSettingsUseCases = _notificationSettingsUseCases // Expose grouped Use Cases
 
     // profile settings
     val profileSettingsUseCases = _profileSettingsUseCases
-
-
-//    // user settings
-//    val userSettingsActions = userSettingsUseCases // Expose grouped Use Cases
-//
-//    // user management
-//    fun getLastUser() {
-//        // TODO: see whether a user was already created, but onboarding not completed
-//    }
-//
-//    fun saveProfile(userName: String, birthDate: Date) {
-////        userRepository.setCurrentUser() //manager
-//    }
 }

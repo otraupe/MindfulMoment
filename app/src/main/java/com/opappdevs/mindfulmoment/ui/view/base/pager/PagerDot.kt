@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -21,18 +22,23 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.opappdevs.mindfulmoment.R
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import kotlin.math.absoluteValue
 
 @Composable
 fun PagerDot(
     pagerState: PagerState,
-    page: Int
+    page: Int,
+    currentlyAddedPages: MutableState<List<OnboardingPages>>
 ) {
     val offsetState = remember {
         derivedStateOf {
-            pagerState.getOffsetDistanceInPages(page)
-                .absoluteValue
-                .coerceAtMost(.5f) * 2
+            if (page > currentlyAddedPages.value.size -1) 1f
+            else {
+                pagerState.getOffsetDistanceInPages(page)
+                    .absoluteValue
+                    .coerceAtMost(.5f) * 2
+            }
         }
     }
     val colorAnimation by animateColorAsState(

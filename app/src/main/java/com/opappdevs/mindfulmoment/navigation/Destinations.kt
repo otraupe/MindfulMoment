@@ -8,4 +8,5 @@ sealed class Destinations(val route: String) {
     data object Home: Destinations("home")
     data object Settings: Destinations("settings")
     data object Profile: Destinations("profile")
+    data object Imprint: Destinations("imprint")
 }

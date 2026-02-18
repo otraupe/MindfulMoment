@@ -14,11 +14,14 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.icon.MindfulIconButton
 @Composable
 fun MindfulIconButtonMenu(
     size: Dp = 0.dp,
+    contentDescription: String = stringResource(
+        R.string.ui_base_button_menu_cd
+    ),
     onClick: () -> Unit,
 ) {
     MindfulIconButton(
         imageVector = Icons.Filled.Menu,
-        contentDescription = stringResource(R.string.ui_base_button_menu_cd),
+        contentDescription = contentDescription,
         onClick = onClick,
         size = size
     )

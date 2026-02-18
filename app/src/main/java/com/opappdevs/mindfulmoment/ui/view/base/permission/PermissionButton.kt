@@ -6,10 +6,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.widget.Toast
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -20,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
@@ -31,7 +26,10 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.opappdevs.mindfulmoment.R
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.Duration.SHORT
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindfulToast
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
+import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulAlertDialog
 import timber.log.Timber
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -53,9 +51,7 @@ fun PermissionButton(
     var permissionResultNotHandled by remember { mutableStateOf(false) }
     var permissionOnceDenied by remember { mutableStateOf(false) }
 
-    //TODO: extract all strings
-
-    // This observes the lifecycle to handle app coming back from settings
+    // This observes the lifecycle to handle app response coming back from settings
     val lifecycleOwner = LocalLifecycleOwner.current //onboarding destination
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { source, event ->
@@ -64,9 +60,10 @@ fun PermissionButton(
                 if (ContextCompat.checkSelfPermission(context, permission.id)
                     == PackageManager.PERMISSION_GRANTED
                 ) {
+                    Timber.d("DisposableEffect: Permission granted")
                     uiVisibleState.value = true
                 } else {
-                    Toast.makeText(context, "Not granted", Toast.LENGTH_SHORT).show()
+                    Timber.d( "DisposableEffect: Permission not granted")
                     uiVisibleState.value = false //just in case
                 }
                 permissionResultNotHandled = false
@@ -80,11 +77,17 @@ fun PermissionButton(
 
     val permissionState = rememberPermissionState(permission.id) { isGranted ->
         if (isGranted) {
+            Timber.d("debug1 | rememberPermissionState: Permission granted")
             uiVisibleState.value = true
         } else {
+            Timber.d("debug1 | rememberPermissionState: Permission not granted")
             if (permissionResultNotHandled) {
                 if (permissionOnceDenied) {
-                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                    showMindfulToast(
+                        context = context,
+                        messageRes = R.string.ui_permissions_denied,
+                        duration = SHORT
+                    )
                 } else {
                     permissionOnceDenied = true
                 }
@@ -94,6 +97,7 @@ fun PermissionButton(
     }
 
     val requestPermissionLambda =  {
+        Timber.d("debug1 | requestPermissionLambda")
         permissionResultNotHandled = true
         setPermissionRequestedBefore()
         uiAnimateState.value = true
@@ -112,75 +116,56 @@ fun PermissionButton(
                     getPermissionRequestedBefore() -> showSettingsDialog = true
                     else -> requestPermissionLambda()
                 }
-                //return@MindfulButton TODO: ?
             }
         }
     )
 
     if (showRationaleDialog) {
-        AlertDialog(
-            onDismissRequest = { showRationaleDialog = false },
-            title = { Text("Permission Required") },
-            text = { Text(stringResource(permission.rationaleRes)) },
-            confirmButton = {
-                Button(onClick = {
-                    showRationaleDialog = false
-                    requestPermissionLambda()
-                }) {
-                    Text("OK")
-                }
+        MindfulAlertDialog(
+            titleRes = R.string.ui_permissions_required,
+            textRes = permission.rationaleRes,
+            confirmButtonTextRes = R.string.ui_base_button_ok,
+            dismissButtonTextRes = R.string.ui_base_button_cancel,
+            onConfirm = {
+                showRationaleDialog = false
+                requestPermissionLambda()
             },
-            dismissButton = {
-                TextButton(onClick = { showRationaleDialog = false }) {
-                    Text("Cancel")
-                }
-            }
+            onDismiss = { showRationaleDialog = false },
+            onDismissRequest = { showRationaleDialog = false }
         )
     }
 
     // Respond to permission already granted on initial visit
-    //TODO: do we need this? lifecycle callback above should respond on visit
     LaunchedEffect(permissionState) {
         if (permissionState.status.isGranted) {
             uiVisibleState.value = true
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            if (permissionState?.status?.isGranted == false && !permissionState.status.shouldShowRationale) {
-//                // Permission permanently denied, show dialog to guide the user to the app settings.
-//                showSettingsDialog = true
-//            }
         }
     }
 
     if (showSettingsDialog) {
-        AlertDialog(
-            onDismissRequest = { showSettingsDialog = false },
-            title = { Text("Berechtigung verweigert") },
-            text = { Text("Du hast die Berechtigung dauerhaft verweigert. Um sie zu erlauben, gehe zu den App-Einstellungen.") },
-            confirmButton = {
-                Button(onClick = {
-                    showSettingsDialog = false
-                    permissionResultNotHandled = true
-                    val intent: Intent = if (permission.id == Manifest.permission.POST_NOTIFICATIONS) {
-                        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                            .apply {
-                                putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-                            }
-                    } else {
-                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            .apply {
-                                data = Uri.fromParts("package", context.packageName, null)
-                            }
-                    }
-                    context.startActivity(intent)
-                }) {
-                    Text("Yes, please")
+        MindfulAlertDialog(
+            titleRes = R.string.ui_permissions_denied_permanently,
+            textRes = R.string.ui_permissions_denied_permanently_instructions,
+            confirmButtonTextRes = R.string.ui_base_button_yes_please,
+            dismissButtonTextRes = R.string.ui_base_button_no_thanks,
+            onConfirm = {
+                showSettingsDialog = false
+                permissionResultNotHandled = true
+                val intent: Intent = if (permission.id == Manifest.permission.POST_NOTIFICATIONS) {
+                    Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        .apply {
+                            putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                        }
+                } else {
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        .apply {
+                            data = Uri.fromParts("package", context.packageName, null)
+                        }
                 }
+                context.startActivity(intent)
             },
-            dismissButton = {
-                TextButton(onClick = { showSettingsDialog = false }) {
-                    Text("No, thanks")
-                }
-            }
+            onDismiss = { showSettingsDialog = false },
+            onDismissRequest = { showSettingsDialog = false }
         )
     }
 }
@@ -188,7 +173,7 @@ fun PermissionButton(
 @OptIn(ExperimentalPermissionsApi::class)
 @Preview
 @Composable
-fun PreviewPermisssionButton() {
+fun PreviewPermissionButton() {
     PermissionButton(
         labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
         permission = Permission.NOTIFICATION,

@@ -1,5 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding
 
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -21,7 +22,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 @Composable
 fun WelcomeContent(
     welcomeVisible: MutableState<Boolean>,
-    pagerVisible: MutableState<Boolean>
+    pagerTransitionState: MutableTransitionState<Boolean>
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -35,7 +36,7 @@ fun WelcomeContent(
                 style = MaterialTheme.typography.displayMedium.copy(
                     fontWeight = FontWeight.ExtraBold,
                 ),
-                color = colorResource(R.color.heart_red), //TODO: custom brush
+                color = colorResource(R.color.heart_red), //TODO: custom brush with gradient?
                 textAlign = TextAlign.Center
             )
         }
@@ -54,7 +55,7 @@ fun WelcomeContent(
             labelRes = R.string.ui_onboarding_startButton_label,
             onClick = {
                 welcomeVisible.value = false
-                pagerVisible.value = true
+                pagerTransitionState.targetState = true
             }
         )
     }

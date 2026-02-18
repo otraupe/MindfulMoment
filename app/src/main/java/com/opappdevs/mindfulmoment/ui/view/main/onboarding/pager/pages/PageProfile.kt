@@ -1,17 +1,20 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
-import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -30,14 +33,23 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.ProfileSettingsUseCases
 import com.opappdevs.mindfulmoment.ext.toSimpleDateString
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.Duration.SHORT
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindfulToast
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
+import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulDatePickerDialog
+import com.opappdevs.mindfulmoment.ui.view.base.saver.TextFieldValueSaver
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import timber.log.Timber
@@ -48,16 +60,23 @@ import java.util.Calendar
 fun PageProfile(
     page: OnboardingPages,
     pagerState: PagerState,
-    setPageDone: (OnboardingPages) -> Unit,
+    setPageDone: () -> Unit,
     profileSettingsUseCases: ProfileSettingsUseCases
 ) {
     Timber.d("PageProfile")
 
     val context = LocalContext.current
 
-    var profileNameText by rememberSaveable { mutableStateOf(profileSettingsUseCases.getProfileNameUseCase()) }
-
-    var birthDateMillis by rememberSaveable { mutableLongStateOf(profileSettingsUseCases.getBirthdayMillisUseCase()) }
+    var profileNameText by rememberSaveable(stateSaver = TextFieldValueSaver) {
+        mutableStateOf(
+            TextFieldValue(profileSettingsUseCases.getProfileNameUseCase())
+        )
+    }
+    var birthDateMillis by rememberSaveable {
+        mutableLongStateOf(
+            profileSettingsUseCases.getBirthdayMillisUseCase()
+        )
+    }
     var birthDateText by rememberSaveable { mutableStateOf(birthDateMillis.toSimpleDateString()) }
 
     val focusManager = LocalFocusManager.current
@@ -72,36 +91,29 @@ fun PageProfile(
 
     if (showDatePickerDialog) {
         Timber.d("showDatePickerDialog is true")
-        DatePickerDialog( //TODO: in separate file
-            onDismissRequest = { showDatePickerDialog = false },
-            confirmButton = {
-                MindfulButton (
-                    labelRes = R.string.ui_base_button_ok
-                ) {
-                        showDatePickerDialog = false // Hide the dialog
-                        datePickerState.selectedDateMillis?.let { millis ->
-                            birthDateMillis = millis
-                            profileSettingsUseCases.setBirthdayMillisUseCase(birthDateMillis)
-                            // Format the selected date and update the text field
-                            birthDateText = birthDateMillis.toSimpleDateString()
-                        }
-                    }
-            },
-            dismissButton = {
-                MindfulTextButton(
-                    labelRes = R.string.ui_base_button_cancel
-                ) {
-                    showDatePickerDialog = false
+        MindfulDatePickerDialog(
+            datePickerState = datePickerState,
+            titleRes = null, //string is badly positioned in DatePicker
+            confirmButtonTextRes = R.string.ui_base_button_ok,
+            dismissButtonTextRes = R.string.ui_base_button_cancel,
+            onConfirm = {
+                showDatePickerDialog = false // Hide the dialog
+                datePickerState.selectedDateMillis?.let { millis ->
+                    birthDateMillis = millis
+                    profileSettingsUseCases.setBirthdayMillisUseCase(birthDateMillis)
+                    // Format the selected date and update the text field
+                    birthDateText = birthDateMillis.toSimpleDateString()
                 }
-            }
-        ) {
-            DatePicker(state = datePickerState)
-        }
+            },
+            onDismiss = { showDatePickerDialog = false },
+            onDismissRequest = { showDatePickerDialog = false }
+        )
     }
 
     OnboardingPage(
         baseContent = page,
-        pagerState = pagerState
+        pagerState = pagerState,
+        focusManager = focusManager
     ) {
         Column(
             modifier = Modifier
@@ -109,11 +121,23 @@ fun PageProfile(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            //TODO: fields vertically centered in the available space?
             OutlinedTextField(
                 value = profileNameText,
                 onValueChange = {profileNameText = it},
-                label = { Text(text = "Name") },
+                label = {
+                    Text(
+                        text = stringResource(R.string.ui_base_label_name),
+                        maxLines = 1,
+                        autoSize = TextAutoSize.StepBased(
+                            minFontSize = 12.sp,
+                            maxFontSize = 18.sp
+                        )
+                    )
+                },
+                textStyle = LocalTextStyle.current.copy(
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Center,
+                ),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Words,
@@ -125,12 +149,23 @@ fun PageProfile(
                     }
                 ),
                 modifier = Modifier
+                    .width(dimensionResource(R.dimen.mindful_base_textField_width))
                     .padding(top = dimensionResource(R.dimen.mindful_base_text_spacing))
                     .onFocusChanged { focusState ->
-                        if (!focusState.isFocused) {
+                        if (focusState.isFocused) {
+                            Timber.d("Profile name text field gained focus")
+                            profileNameText = profileNameText.copy(
+                                selection = TextRange(
+                                    0,
+                                    profileNameText.text.length
+                                )
+                            )
+                        } else {
                             Timber.d("Profile name text field lost focus")
-                            if (!profileNameText.isBlank()) {
-                                profileSettingsUseCases.setProfileNameUseCase(profileNameText.trim())
+                            if (!profileNameText.text.isBlank()) {
+                                val trimmedText = profileNameText.text.trim()
+                                profileSettingsUseCases.setProfileNameUseCase(trimmedText)
+                                profileNameText = profileNameText.copy(text = trimmedText)
                             }
                         }
                     }
@@ -139,8 +174,23 @@ fun PageProfile(
                 value = birthDateText,
                 onValueChange = {}, // No-op, made read-only
                 enabled = false,
-                label = { Text(text = "Geburtsdatum") },
+                label = {
+                    Text(
+                        text = stringResource(R.string.ui_base_label_birthdate),
+                        maxLines = 1,
+                        autoSize = TextAutoSize.StepBased(
+                            minFontSize = 12.sp,
+                            maxFontSize = 18.sp
+                        )
+                    )
+                },
+                textStyle = LocalTextStyle.current.copy(
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Center,
+                ),
+                singleLine = true,
                 modifier = Modifier
+                    .width(dimensionResource(R.dimen.mindful_base_textField_width))
                     .padding(top = dimensionResource(R.dimen.mindful_base_text_spacing))
                     .clickable {
                         focusManager.clearFocus()
@@ -162,20 +212,20 @@ fun PageProfile(
                 )
             ) {
                 focusManager.clearFocus()
-                if (profileNameText.isBlank()) {
-                    Toast.makeText(
-                        context,
-                        R.string.ui_onboarding_pages_profile_toast_empty_name,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (profileNameText.text.isBlank()) {
+                    showMindfulToast(
+                        context = context,
+                        messageRes = R.string.ui_onboarding_pages_profile_toast_empty_name,
+                        duration = SHORT
+                    )
                 } else if (birthDateMillis < 0) {
-                    Toast.makeText(
-                        context,
-                        R.string.ui_onboarding_pages_profile_toast_empty_birthday,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showMindfulToast(
+                        context = context,
+                        messageRes = R.string.ui_onboarding_pages_profile_toast_empty_birthday,
+                        duration = SHORT
+                    )
                 } else {
-                    setPageDone(page)
+                    setPageDone()
                 }
             }
         }

@@ -1,27 +1,27 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
 import android.os.Build
-import android.widget.Toast
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TimePicker
-import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.TimePickerSelectionMode
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -36,14 +36,19 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.integerResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.domain.usecase.notificationsettings.NotificationSettingsUseCases
 import com.opappdevs.mindfulmoment.ext.toHourMinuteString
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.Duration.SHORT
+import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindfulToast
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
+import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulTimePickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.icon.MindfulCheckMark
 import com.opappdevs.mindfulmoment.ui.view.base.permission.Permission
 import com.opappdevs.mindfulmoment.ui.view.base.permission.PermissionButton
@@ -62,7 +67,7 @@ import java.util.Locale
 fun PageNotifications(
     page: OnboardingPages,
     pagerState: PagerState,
-    setPageDone: (OnboardingPages) -> Unit,
+    setPageDone: () -> Unit,
     notificationSettingsUseCases: NotificationSettingsUseCases
 ) {
     Timber.d("PageNotifications")
@@ -78,13 +83,24 @@ fun PageNotifications(
     val checkMarkVisible = rememberSaveable { mutableStateOf(false) }
     val animateCheckMark = rememberSaveable { mutableStateOf(false) }
 
+    LaunchedEffect(Unit) {
+        if (!notificationPermissionRequired) {
+            if (notificationSettingsUseCases.getNotificationsEnabled()) {
+                checkMarkVisible.value = true
+            }
+        }
+    }
+
     var primaryButtonEnabled by rememberSaveable { mutableStateOf(true) }
     var primaryButtonStringRes by rememberSaveable { mutableIntStateOf(R.string.ui_onboarding_pages_notifications_button_primary) }
 
-    var notificationTimeMinutes by rememberSaveable { mutableIntStateOf(notificationSettingsUseCases.getNotificationTime()) }
-    var notificationTimeText by rememberSaveable { mutableStateOf(notificationTimeMinutes.toHourMinuteString()) }
+    var notificationTimeMinutes by rememberSaveable {
+        mutableIntStateOf(notificationSettingsUseCases.getNotificationTime())
+    }
+    var notificationTimeText by rememberSaveable {
+        mutableStateOf(notificationTimeMinutes.toHourMinuteString())
+    }
     val (showTimePickerDialog, setShowTimePickerDialog) = remember { mutableStateOf(false) }
-
     val timePickerState = rememberTimePickerState(is24Hour = true)
 
     fun showTimePicker() {
@@ -99,53 +115,45 @@ fun PageNotifications(
         setShowTimePickerDialog(true)
     }
 
-    //TODO: separate file
     if (showTimePickerDialog) {
-        TimePickerDialog( // You can use a standard Dialog here too
-            onDismissRequest = { setShowTimePickerDialog(false) },
-            confirmButton = {
-                MindfulButton(
-                    labelRes = R.string.ui_base_button_ok
-                ) {
-                    setShowTimePickerDialog(false)
-                    // 3. Format the selected time and update the text field
-                    notificationTimeText = String.format(Locale.getDefault(), "%02d:%02d",
-                        timePickerState.hour, timePickerState.minute)
+        MindfulTimePickerDialog(
+            timePickerState = timePickerState,
+            titleRes = null,
+            confirmButtonTextRes = R.string.ui_base_button_ok,
+            dismissButtonTextRes = R.string.ui_base_button_cancel,
+            onConfirm = {
+                setShowTimePickerDialog(false)
+                // 3. Format the selected time and update the text field
+                notificationTimeText = String.format(Locale.getDefault(), context.getString(R.string.formatting_time_hour_minute),
+                    timePickerState.hour, timePickerState.minute)
 
-                    notificationTimeMinutes = timePickerState.hour * 60 + timePickerState.minute
-                    notificationSettingsUseCases.setNotificationTime(notificationTimeMinutes)
-                }
+                notificationTimeMinutes = timePickerState.hour * 60 + timePickerState.minute
+                notificationSettingsUseCases.setNotificationTime(notificationTimeMinutes)
             },
-            title = { Text(text = "Uhrzeit wählen") },
-            dismissButton = {
-                MindfulTextButton(
-                    labelRes = R.string.ui_base_button_cancel
-                ) {
-                    setShowTimePickerDialog(false)
-                }
-            }
-        ) {
-            TimePicker(state = timePickerState)
-        }
+            onDismiss = { setShowTimePickerDialog(false) },
+            onDismissRequest = { setShowTimePickerDialog(false) }
+        )
     }
 
     val scale by animateFloatAsState(
-        targetValue = if (checkMarkVisible.value) 1f else 0f,
+        targetValue = if (checkMarkVisible.value) 1f else .5f,
         animationSpec = tween(
             durationMillis = if (animateCheckMark.value)
-                integerResource(R.integer.ui_animation_permission_check_mark)
+                integerResource(R.integer.ui_animation_check_mark)
             else 0
         ),
-        label = "scale",
+        label = "animate notifications check mark scale",
         finishedListener = {
             if (animateCheckMark.value) {
-                primaryButtonEnabled = false
                 coroutineScope.launch {
                     withContext(Dispatchers.IO) {
-                        Thread.sleep(1000)
+                        Thread.sleep(500)
                         withContext(Dispatchers.Main) {
+                            notificationSettingsUseCases.setNotificationsEnabled()
+                            primaryButtonEnabled = false
                             animateCheckMark.value = false
-                            setPageDone(page)
+                            setPageDone()
+                            Timber.d("is notification enabled: ${notificationSettingsUseCases.getNotificationsEnabled()}")
                         }
                     }
                 }
@@ -160,10 +168,10 @@ fun PageNotifications(
         targetValue = if (checkMarkVisible.value) 1f else 0f,
         animationSpec = tween(
             durationMillis = if (animateCheckMark.value)
-                integerResource(R.integer.ui_animation_permission_check_mark)
+                integerResource(R.integer.ui_animation_check_mark)
             else 0
         ),
-        label = "alpha"
+        label = "animate notifications check mark alpha"
     )
 
     OnboardingPage(
@@ -178,10 +186,22 @@ fun PageNotifications(
                 value = notificationTimeText,
                 onValueChange = {}, // No-op, made read-only
                 enabled = false,
-                label = { Text(text = "Uhrzeit") },
-                textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
+                label = {
+                    Text(
+                        text = stringResource(R.string.ui_base_label_time),
+                        maxLines = 1,
+                        autoSize = TextAutoSize.StepBased(
+                            minFontSize = 12.sp,
+                            maxFontSize = 18.sp
+                        )
+                    )
+                        },
+                textStyle = LocalTextStyle.current.copy(
+                    fontSize = 22.sp,   //TODO: set up my own typography
+                    textAlign = TextAlign.Center
+                ),
                 modifier = Modifier
-                    .width(150.dp)
+                    .width(dimensionResource(R.dimen.mindful_base_textField_width))
                     .padding(vertical = dimensionResource(R.dimen.mindful_base_text_spacing))
                     .clickable {
                         Timber.d("showDatePickerDialog set to true")
@@ -203,19 +223,24 @@ fun PageNotifications(
                 ) {
                     skipButtonEnabled = false
                     primaryButtonStringRes = R.string.ui_onboarding_pages_notifications_button_primary_alt2
-                    setPageDone(page)
+                    setPageDone()
                 }
             } else {
-                Column(
-                    modifier = Modifier
-                        .padding(bottom = dimensionResource(R.dimen.mindful_base_text_spacing)),
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                Box(
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.mindful_base_text_spacing)),
+                    contentAlignment = Alignment.Center,
                 ) {
                     MindfulCheckMark(
                         modifier = Modifier
                             .size(72.dp)
                             .scale(scale)
-                            .alpha(alpha)
+                            .alpha(alpha/2)
+                    )
+                    Text(
+                        text = stringResource(R.string.ui_onboarding_pages_notifications_success),
+                        textAlign = TextAlign.Center,
+                        fontSize = 24.sp,
+                        modifier = Modifier.alpha(alpha).scale(scale)
                     )
                 }
             }
@@ -237,7 +262,7 @@ fun PageNotifications(
                 ) {
                     notificationSettingsUseCases.setNotificationsEnabled()
                     primaryButtonEnabled = false
-                    setPageDone(page)
+                    setPageDone()
                 }
             } else {
                 MindfulButton(
@@ -246,11 +271,20 @@ fun PageNotifications(
                     enabled = primaryButtonEnabled
                 ) {
                     if (notificationTimeMinutes < 0) {
-                        Toast.makeText(context, "Bitte wähle eine Uhrzeit", Toast.LENGTH_SHORT).show()
+                         showMindfulToast(
+                            context = context,
+                            messageRes = R.string.ui_onboarding_pages_notifications_toast_empty_time,
+                            duration = SHORT
+                         )
                     } else {
-                        notificationSettingsUseCases.setNotificationsEnabled()
-                        primaryButtonEnabled = false
-                        setPageDone(page)
+                        if (!notificationSettingsUseCases.getNotificationsEnabled()) {
+                            animateCheckMark.value = true
+                            checkMarkVisible.value = true
+                            notificationSettingsUseCases.setNotificationsEnabled()
+                        } else {
+                            primaryButtonEnabled = false
+                            setPageDone()
+                        }
                     }
                 }
             }

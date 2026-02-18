@@ -2,6 +2,7 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,8 +30,7 @@ fun Onboarding(
     navController: NavHostController,
     snackState: SnackbarHostState
 ) {
-    //TODO: OnBackInvokedCallback is not enabled for the application.
-    // Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+    //TODO: seems to work fine on Android 10
     //api lvl 35+ (Android 15) supports edge-to-edge
 //    if (Build.VERSION.SDK_INT < 35) {
 //        val systemUiController = rememberSystemUiController()
@@ -39,16 +39,17 @@ fun Onboarding(
 //        )
 //    }
     val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
-//    val pageDone: OnboardingPages? by viewModel.pagerPageDone.collectAsState()
-//    var firstPageDone = remember { false }
-//    val pagerState = rememberPagerState(initialPage = 0) { OnboardingPages.entries.size }
-    val pagerVisible = remember { mutableStateOf(false) }
+
     val welcomeVisible = remember { mutableStateOf(true) }
+    val pagerTransitionState = remember {
+        MutableTransitionState(initialState = true).apply {
+            targetState = false
+        }
+    }
 
     MindfulBackground(
         background = {
             Image(
-                //create background drawable to load?
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(R.drawable.bg_heart_on_grass),
                 contentDescription = stringResource(R.string.ui_onboarding_background_cd),
@@ -64,12 +65,12 @@ fun Onboarding(
             enter = EnterTransition.None,
             exit = fadeOut(),
         ) {
-            WelcomeContent(welcomeVisible, pagerVisible)
+            WelcomeContent(welcomeVisible, pagerTransitionState)
         }
         OnboardingPager(
             snackHostState = snackState,
             navHostController = navController,
-            pagerVisible = pagerVisible,
+            pagerTransitionState = pagerTransitionState,
             notificationSettingsUseCases = viewModel.notificationSettingsUseCases,
             profileSettingsUseCases = viewModel.profileSettingsUseCases
         )

@@ -45,7 +45,8 @@ fun Main(
     MainNavDrawer(
         drawerState = drawerState,
         scope = scope,
-        gesturesEnabled = (currentRoute(navController) != Destinations.Onboarding.route)
+        gesturesEnabled = (currentRoute(navController) != Destinations.Onboarding.route),
+        navController = navController,
     ) {
         Scaffold(
             contentWindowInsets = WindowInsets(0.dp),
@@ -60,7 +61,6 @@ fun Main(
             NavGraph(
                 navController = navController,
                 snackState = snackBarHostState,
-                //startDestination = Destinations.Onboarding.route,
                 startDestination = if (!isOnboardingComplete) {
                     Destinations.Onboarding.route
                 } else {
@@ -71,8 +71,6 @@ fun Main(
         }
     }
 }
-
-//TODO: this doubles with NavHelper, but we need this to respond to state here
 
 @Composable
 fun currentRoute(navController: NavHostController): String? {

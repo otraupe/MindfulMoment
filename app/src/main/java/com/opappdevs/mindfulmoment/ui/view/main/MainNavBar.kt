@@ -15,6 +15,7 @@ import com.opappdevs.mindfulmoment.navigation.BottomNavItem
 /**
  * The bottom nav bar visible for the views of the main activity.
  * */
+//TODO: we only need this for the home Destination
 //@Composable
 //fun MainNavBar(navController: NavController, bottomNavItems: Set<BottomNavItem>) {
 //    NavigationBar {

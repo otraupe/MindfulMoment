@@ -69,7 +69,7 @@ class PagerScrollAnimationSpec {
          *  Alternative AnimationSpec using DecelerateEasing
          */
         fun deceleratingScrollAnimationSpec(
-            durationMillis: Int = 600
+            durationMillis: Int = 500
         ): AnimationSpec<Float> = TweenSpec(
             durationMillis = durationMillis,
             easing = decelerateEasing

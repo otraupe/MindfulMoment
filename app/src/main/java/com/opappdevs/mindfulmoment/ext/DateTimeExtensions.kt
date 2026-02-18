@@ -5,13 +5,8 @@ import java.time.LocalDateTime
 import java.util.Date
 import java.util.Locale
 
-fun LocalDateTime.toSecondsOfDay(): Int {
-    val localTime = this.toLocalTime()
-    return localTime.toSecondOfDay()
-}
-
 fun Int.toHourMinuteString(): String {
-    if (this < 0) return "--:--"
+    if (this < 0) return ""
 
     val hours = this / 60
     val remainingMinutes = this % 60

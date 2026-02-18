@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.foundation.text.TextAutoSizeDefaults
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -56,6 +59,7 @@ import kotlin.math.absoluteValue
 fun OnboardingPage(
     baseContent: OnboardingPages,
     pagerState: PagerState,
+    focusManager: FocusManager? = null,
     customContent: @Composable () -> Unit
 ) {
     val scope = rememberCoroutineScope()
@@ -71,6 +75,7 @@ fun OnboardingPage(
             Pair(1.1f - absOffset, 1f - absOffset / 8)
         }
     }
+
     MindfulCard(
         modifier = Modifier
             .fillMaxWidth()
@@ -97,20 +102,20 @@ fun OnboardingPage(
                         .aspectRatio(ratio = 1.0f, matchHeightConstraintsFirst = false)
 
                 )
-                // info icon button
 
+                // icon buttons
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     if (!baseContent.isFirstPage()) {
+                        //goes back to previous page
                         MindfulIconButtonBack(
-                            //goes back from info
                             contentDescription = stringResource(R.string.ui_base_button_back_cd)
                         ) {
                             scope.launch {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage - 1,
-                                    animationSpec = PagerScrollAnimationSpec.slowDownScrollAnimationSpec()
+                                    animationSpec = PagerScrollAnimationSpec.deceleratingScrollAnimationSpec()
                                 )
                             }
                         }
@@ -127,23 +132,22 @@ fun OnboardingPage(
                                     contentDescription = stringResource(R.string.ui_base_button_close_cd)
                                 ) { infoVisible.value = false }
                             } else {
-                                MindfulIconButtonInfo { infoVisible.value = true }
+                                MindfulIconButtonInfo {
+                                    focusManager?.clearFocus()
+                                    infoVisible.value = true
+                                }
                             }
                         }
                     }
                 }
             }
-            // autoscale title    // TODO: text scaling is broken
-//            MindfullyScalingText(
-//                text = stringResource(baseContent.titleRes),
-//                textAlign = TextAlign.Center,
-//                style = MaterialTheme.typography.headlineMedium,
-//                modifier = Modifier.fillMaxWidth(),
-//            )
+            //page title
             Text(
                 text = stringResource(baseContent.titleRes),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
+                maxLines = 1,
+                autoSize = TextAutoSize.StepBased(minFontSize = 18.sp, maxFontSize = 28.sp),
                 modifier = Modifier
                     .padding(top = dimensionResource(R.dimen.mindful_base_card_padding))
                     .fillMaxWidth(),
