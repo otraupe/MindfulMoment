@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.ApplicationExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -73,12 +72,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.work.runtime.ktx)
 
     // Splash screen API
     implementation(libs.androidx.splash)
-
-    // System bar color - deprecated
-    implementation(libs.google.accompanist.systemuicontroller)
 
     // Permissions
     implementation(libs.accompanist.permissions)
@@ -91,6 +88,10 @@ dependencies {
     // Hilt DI
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
+
+    // Hilt extension for WorkManager
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     // Navigation
     implementation(libs.androidx.hilt.navigation.compose)

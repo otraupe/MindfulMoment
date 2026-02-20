@@ -24,16 +24,21 @@ import timber.log.Timber
 
 @Composable
 fun PageIntroduction(
+    pageNumber: Int,
     page: OnboardingPages,
     pagerState: PagerState,
     setPageDone: () -> Unit,
+    pagesDone: List<OnboardingPages>
 ) {
     Timber.d("PageIntroduction")
     OnboardingPage(
+        pageNumber = pageNumber,
         baseContent = page,
-        pagerState = pagerState
+        pagerState = pagerState,
     ) {
-        var buttonEnabled by rememberSaveable { mutableStateOf(true) }
+        var primaryButtonEnabled by rememberSaveable {
+            mutableStateOf(!pagesDone.contains(page))
+        }
 
         Column(
             modifier = Modifier
@@ -46,11 +51,11 @@ fun PageIntroduction(
                 modifier = Modifier.padding(
                     top = dimensionResource(R.dimen.mindful_base_card_padding)
                 ),
-                enabled = buttonEnabled
+                enabled = primaryButtonEnabled
             ) {
                 // check input conditions - none to check here
                 // disable button; ensures pagedone.value can not go backwards
-                buttonEnabled = false
+                primaryButtonEnabled = false
                 // send done
                 setPageDone()
             }
@@ -63,9 +68,11 @@ fun PageIntroduction(
 fun PreviewPageWelcome() {
     MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
         PageIntroduction(
+            pageNumber = 0,
             page = OnboardingPages.INTRODUCTION,
             pagerState = rememberPagerState { 0 },
-            setPageDone = { (OnboardingPages.INTRODUCTION) }
+            setPageDone = { (OnboardingPages.INTRODUCTION) },
+            pagesDone = listOf()
         )
     }
 }

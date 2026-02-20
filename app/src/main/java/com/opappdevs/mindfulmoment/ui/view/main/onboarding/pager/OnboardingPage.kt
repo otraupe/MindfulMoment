@@ -20,7 +20,6 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.TextAutoSize
-import androidx.compose.foundation.text.TextAutoSizeDefaults
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +37,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.LineBreak
@@ -57,6 +57,7 @@ import kotlin.math.absoluteValue
 
 @Composable
 fun OnboardingPage(
+    pageNumber: Int, //TODO: this is not pretty
     baseContent: OnboardingPages,
     pagerState: PagerState,
     focusManager: FocusManager? = null,
@@ -70,9 +71,10 @@ fun OnboardingPage(
     //  we could compute one offset state and one page index the offset pertains to
     val offsetDerivedState by remember {
         derivedStateOf {
-            val absOffset = pagerState.getOffsetDistanceInPages(baseContent.ordinal)
+            val absOffset = pagerState.getOffsetDistanceInPages(pageNumber)
                 .absoluteValue
-            Pair(1.1f - absOffset, 1f - absOffset / 8)
+            Pair(1.1f - absOffset, 1f - absOffset / 8) //1.1f: avoid full
+        // transparency; could trigger garbage collection (really?)
         }
     }
 
@@ -92,15 +94,14 @@ fun OnboardingPage(
                 contentAlignment = Alignment.TopCenter
             ) {
                 Icon(
-                    imageVector = baseContent.iconVector,
+                    painterResource(baseContent.iconRes),
                     tint = MaterialTheme.colorScheme.tertiary,
                     contentDescription = stringResource(baseContent.iconContentDescriptionRes),
                     modifier = Modifier
-                        .border(5.dp, MaterialTheme.colorScheme.tertiary, CircleShape)
+                        .border(6.dp, MaterialTheme.colorScheme.tertiary, CircleShape)
                         .padding(16.dp)
                         .width(72.dp)
                         .aspectRatio(ratio = 1.0f, matchHeightConstraintsFirst = false)
-
                 )
 
                 // icon buttons

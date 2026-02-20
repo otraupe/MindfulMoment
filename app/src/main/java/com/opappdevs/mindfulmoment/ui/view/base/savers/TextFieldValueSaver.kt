@@ -1,4 +1,4 @@
-package com.opappdevs.mindfulmoment.ui.view.base.saver
+package com.opappdevs.mindfulmoment.ui.view.base.savers
 
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver

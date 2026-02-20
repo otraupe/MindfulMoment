@@ -2,13 +2,10 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,10 +15,11 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -31,9 +29,11 @@ import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.ui.view.base.pager.AnimatedPagerDots
 import com.opappdevs.mindfulmoment.ui.view.base.pager.MindfulHorizontalPager
 import com.opappdevs.mindfulmoment.ui.view.base.pager.PagerScrollAnimationSpec
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.ALARMS
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.INTRODUCTION
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.NOTIFICATIONS
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.PROFILE
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageAlarms
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
@@ -41,34 +41,37 @@ import timber.log.Timber
 
 @Composable
 fun OnboardingPager(
+    pagesToShow: List<OnboardingPages>,
     snackHostState: SnackbarHostState,
     navHostController: NavHostController,
     pagerTransitionState: MutableTransitionState<Boolean>,
     notificationSettingsUseCases: NotificationSettingsUseCases,
-    profileSettingsUseCases: ProfileSettingsUseCases
+    profileSettingsUseCases: ProfileSettingsUseCases,
+    canScheduleExactAlarms: () -> Boolean
 ) {
     val pages = rememberSaveable { mutableStateOf(listOf(
-        OnboardingPages.entries[0],
+        pagesToShow[0],
     )) }
     val pagerState = rememberPagerState { pages.value.size }
-    val pageDone = remember { mutableStateOf<OnboardingPages?>(null) }
+    var pagesDone by remember { mutableStateOf<List<OnboardingPages>>(listOf()) }
 
+    //TODO: "am I done" query belongs in the viewModel
     //ensure pageDone cannot go backwards
     fun updatePageDoneValue(page: OnboardingPages) {
-        if (page.ordinal > (pageDone.value?.ordinal ?: -1)) {
-            pageDone.value = page
+        if (page.ordinal > (pagesDone.lastOrNull()?.ordinal ?: -1)) {
+            pagesDone += page
         }
     }
 
-    LaunchedEffect(pageDone.value) {
-        Timber.d("LaunchedEffect pageDone.value ${pageDone.value}")
-        val pdv = pageDone.value
-        if (pdv != null) {
-            if (!pdv.isLastPage()) {
+    LaunchedEffect(pagesDone) {
+        Timber.d("LaunchedEffect pageDone: ${pagesDone.lastOrNull()}")
+        val lpd = pagesDone.lastOrNull()
+        if (lpd != null) {
+            if (!lpd.isLastPage()) {
                 //add next page
-                pages.value += OnboardingPages.entries[pdv.ordinal + 1]
+                pages.value += pagesToShow[lpd.ordinal + 1]
 
-                if (pdv.isFirstPage()) {
+                if (lpd.isFirstPage()) {
                     snackHostState.showSnackbar(
                         message = "Wischen zum Zurückgehen",
                         actionLabel = "OK",
@@ -117,7 +120,7 @@ fun OnboardingPager(
         visibleState = pagerTransitionState,
         modifier = Modifier.fillMaxSize(),
         enter = fadeIn() + scaleIn(initialScale = .5f),
-        exit = scaleOut(targetScale = .5f)// + fadeOut(), //onboarding already fades out
+        exit = scaleOut(targetScale = .5f) + fadeOut(), //onboarding already fades out
     ) {
         Column {
             MindfulHorizontalPager(
@@ -126,31 +129,46 @@ fun OnboardingPager(
                     .fillMaxWidth()
                     .weight(.9f)
             ) { pageNumber ->
-                when(val page = OnboardingPages.entries[pageNumber]) {
+                when(val page = pagesToShow[pageNumber]) {
                     INTRODUCTION ->
                         PageIntroduction(
+                            pageNumber = pageNumber,
                             page = page,
                             pagerState = pagerState,
-                            setPageDone = { updatePageDoneValue(page) }
+                            setPageDone = { updatePageDoneValue(page) },
+                            pagesDone = pagesDone
                         )
                     PROFILE ->
                         PageProfile(
+                            pageNumber = pageNumber,
                             page = page,
                             pagerState = pagerState,
                             setPageDone = { updatePageDoneValue(page) },
-                            profileSettingsUseCases = profileSettingsUseCases
+                            profileSettingsUseCases = profileSettingsUseCases,
+                            pagesDone = pagesDone
                         )
                     NOTIFICATIONS ->
                         PageNotifications(
+                            pageNumber = pageNumber,
                             page = page,
                             pagerState = pagerState,
                             setPageDone = { updatePageDoneValue(page) },
-                            notificationSettingsUseCases = notificationSettingsUseCases
+                            notificationSettingsUseCases = notificationSettingsUseCases,
+                            pagesDone = pagesDone
+                        )
+                    ALARMS ->
+                        PageAlarms(
+                            pageNumber = pageNumber,
+                            page = page,
+                            pagerState = pagerState,
+                            setPageDone = { updatePageDoneValue(page) },
+                            canScheduleExactAlarms = canScheduleExactAlarms,
+                            pagesDone = pagesDone
                         )
                 }
             }
             AnimatedPagerDots(
-                count = OnboardingPages.entries.size,
+                count = pagesToShow.size,
                 currentlyAddedPages = pages,
                 pagerState = pagerState,
                 modifier = Modifier

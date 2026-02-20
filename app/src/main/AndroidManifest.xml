@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".MindfulApplication"
@@ -26,6 +29,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".services.NotificationAlarmReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".services.BootCompleteReceiver"
+            android:exported="true">
+            <intent-filter>
+                <!-- This and exported=true are crucial for the receiver to receive any external event -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>>
+
+<!--        ============================================================-->
+<!--        == Add this block to disable WorkManager's default auto-initializer.-->
+<!--        == This forces WorkManager to use the configuration provided by your-->
+<!--        == Application class.-->
+<!--        ============================================================-->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="remove" />
+
     </application>
 
 </manifest>

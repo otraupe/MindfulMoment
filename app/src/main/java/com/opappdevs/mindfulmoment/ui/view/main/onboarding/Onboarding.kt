@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,6 +25,7 @@ import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPager
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 
 @Composable
 fun Onboarding(
@@ -40,11 +42,15 @@ fun Onboarding(
 //    }
     val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
 
+    val pagesToShow = if (viewModel.canScheduleExactAlarms()) {
+        OnboardingPages.entries.filter { it != OnboardingPages.ALARMS }
+    } else {
+        OnboardingPages.entries
+    }
+
     val welcomeVisible = remember { mutableStateOf(true) }
     val pagerTransitionState = remember {
-        MutableTransitionState(initialState = true).apply {
-            targetState = false
-        }
+        MutableTransitionState(initialState = false)
     }
 
     MindfulBackground(
@@ -68,11 +74,13 @@ fun Onboarding(
             WelcomeContent(welcomeVisible, pagerTransitionState)
         }
         OnboardingPager(
+            pagesToShow = pagesToShow,
             snackHostState = snackState,
             navHostController = navController,
             pagerTransitionState = pagerTransitionState,
             notificationSettingsUseCases = viewModel.notificationSettingsUseCases,
-            profileSettingsUseCases = viewModel.profileSettingsUseCases
+            profileSettingsUseCases = viewModel.profileSettingsUseCases,
+            canScheduleExactAlarms = { viewModel.canScheduleExactAlarms() }
         )
     }
 }

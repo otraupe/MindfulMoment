@@ -1,6 +1,5 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,11 +7,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.TextAutoSize
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -47,9 +45,8 @@ import com.opappdevs.mindfulmoment.ext.toSimpleDateString
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.Duration.SHORT
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindfulToast
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
-import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulDatePickerDialog
-import com.opappdevs.mindfulmoment.ui.view.base.saver.TextFieldValueSaver
+import com.opappdevs.mindfulmoment.ui.view.base.savers.TextFieldValueSaver
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import timber.log.Timber
@@ -58,14 +55,21 @@ import java.util.Calendar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PageProfile(
+    pageNumber: Int,
     page: OnboardingPages,
     pagerState: PagerState,
     setPageDone: () -> Unit,
-    profileSettingsUseCases: ProfileSettingsUseCases
+    profileSettingsUseCases: ProfileSettingsUseCases,
+    pagesDone: List<OnboardingPages>
 ) {
     Timber.d("PageProfile")
 
     val context = LocalContext.current
+
+    //as this is the last page, we don't need it here
+//    var primaryButtonEnabled by rememberSaveable {
+//        mutableStateOf(pagesDone.contains(page))
+//    }
 
     var profileNameText by rememberSaveable(stateSaver = TextFieldValueSaver) {
         mutableStateOf(
@@ -111,6 +115,7 @@ fun PageProfile(
     }
 
     OnboardingPage(
+        pageNumber = pageNumber,
         baseContent = page,
         pagerState = pagerState,
         focusManager = focusManager
@@ -168,7 +173,8 @@ fun PageProfile(
                                 profileNameText = profileNameText.copy(text = trimmedText)
                             }
                         }
-                    }
+                    },
+                shape = RoundedCornerShape(8.dp)
             )
             OutlinedTextField(
                 value = birthDateText,
@@ -196,6 +202,7 @@ fun PageProfile(
                         focusManager.clearFocus()
                         showDatePickerDialog = true
                     },
+                shape = RoundedCornerShape(8.dp),
                 colors = OutlinedTextFieldDefaults.colors().copy(
                     disabledTextColor = MaterialTheme.colorScheme.onSurface,
                     disabledIndicatorColor = MaterialTheme.colorScheme.outline,

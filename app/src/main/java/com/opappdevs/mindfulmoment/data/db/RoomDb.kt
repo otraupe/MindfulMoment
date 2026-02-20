@@ -25,11 +25,13 @@ abstract class RoomDb : RoomDatabase() {
         @Synchronized
         fun getInstance(ctx: Context): RoomDb {             // create new or open existing
             if(instance == null)
-                instance = Room.databaseBuilder(ctx.applicationContext, RoomDb::class.java,
-                    ROOM_DB_NAME)               // could also set db name
-                                                // from local.defaults.properties
-                                                // via Secrets Gradle Plugin
-                    .fallbackToDestructiveMigration()
+                instance = Room.databaseBuilder(
+                    ctx.applicationContext, RoomDb::class.java,
+                    ROOM_DB_NAME
+                )               // could also set db name
+                    // from local.defaults.properties
+                    // via Secrets Gradle Plugin
+                    .fallbackToDestructiveMigration(false)
                     .addCallback(roomCallback)
                     .build()
 

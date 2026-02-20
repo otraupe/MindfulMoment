@@ -1,36 +1,37 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.opappdevs.mindfulmoment.R
 
-//TODO: add primary button label
 enum class OnboardingPages(
-    val iconVector: ImageVector,
+    val iconRes: Int,
     val iconContentDescriptionRes: Int,
     val titleRes: Int,
     val bodyRes: Int,
     val infoRes: Int? = null,
 ) {
     INTRODUCTION(
-        Icons.Filled.Favorite,
+        R.drawable.ic_favorite_24px_rounded,
         R.string.ui_onboarding_pages_introduction_icon_cd,
         R.string.ui_onboarding_pages_introduction_title,
         R.string.ui_onboarding_pages_introduction_body,
         R.string.ui_onboarding_pages_introduction_body_sub
     ),
     NOTIFICATIONS(
-        Icons.Filled.Notifications,
+        R.drawable.ic_notifications_24px_rounded,
         R.string.ui_onboarding_pages_notifications_icon_cd,
         R.string.ui_onboarding_pages_notifications_title,
         R.string.ui_onboarding_pages_notifications_body,
         R.string.ui_onboarding_pages_notifications_body_sub
     ),
+    ALARMS(
+        R.drawable.ic_alarm_24px_rounded,
+        R.string.ui_onboarding_pages_alarms_icon_cd,
+        R.string.ui_onboarding_pages_alarms_title,
+        R.string.ui_onboarding_pages_alarms_body,
+        R.string.ui_onboarding_pages_alarms_body_sub
+    ),
     PROFILE(
-        Icons.Filled.Person,
+        R.drawable.ic_person_24px_rounded,
         R.string.ui_onboarding_pages_profile_icon_cd,
         R.string.ui_onboarding_pages_profile_title,
         R.string.ui_onboarding_pages_profile_body,

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
@@ -50,8 +51,8 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulTimePickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.icon.MindfulCheckMark
-import com.opappdevs.mindfulmoment.ui.view.base.permission.Permission
-import com.opappdevs.mindfulmoment.ui.view.base.permission.PermissionButton
+import com.opappdevs.mindfulmoment.ui.view.base.permissions.Permissions
+import com.opappdevs.mindfulmoment.ui.view.base.permissions.PermissionButton
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import kotlinx.coroutines.Dispatchers
@@ -60,15 +61,15 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.Locale
 
-// TODO: make this a PermissionPage
-
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun PageNotifications(
+    pageNumber: Int,
     page: OnboardingPages,
     pagerState: PagerState,
     setPageDone: () -> Unit,
-    notificationSettingsUseCases: NotificationSettingsUseCases
+    notificationSettingsUseCases: NotificationSettingsUseCases,
+    pagesDone: List<OnboardingPages>
 ) {
     Timber.d("PageNotifications")
 
@@ -83,6 +84,7 @@ fun PageNotifications(
     val checkMarkVisible = rememberSaveable { mutableStateOf(false) }
     val animateCheckMark = rememberSaveable { mutableStateOf(false) }
 
+    //show checkmark on older devices if notifications already enabled in the app
     LaunchedEffect(Unit) {
         if (!notificationPermissionRequired) {
             if (notificationSettingsUseCases.getNotificationsEnabled()) {
@@ -91,7 +93,9 @@ fun PageNotifications(
         }
     }
 
-    var primaryButtonEnabled by rememberSaveable { mutableStateOf(true) }
+    var primaryButtonEnabled by rememberSaveable {
+        mutableStateOf(!pagesDone.contains(page))
+    }
     var primaryButtonStringRes by rememberSaveable { mutableIntStateOf(R.string.ui_onboarding_pages_notifications_button_primary) }
 
     var notificationTimeMinutes by rememberSaveable {
@@ -175,6 +179,7 @@ fun PageNotifications(
     )
 
     OnboardingPage(
+        pageNumber = pageNumber,
         baseContent = page,
         pagerState = pagerState
     ) {
@@ -207,6 +212,7 @@ fun PageNotifications(
                         Timber.d("showDatePickerDialog set to true")
                         showTimePicker()
                     },
+                shape = RoundedCornerShape(8.dp),
                 colors = OutlinedTextFieldDefaults.colors().copy(
                     disabledTextColor = MaterialTheme.colorScheme.onSurface,
                     disabledIndicatorColor = MaterialTheme.colorScheme.outline,
@@ -248,7 +254,7 @@ fun PageNotifications(
             if (notificationPermissionRequired && notificationTimeMinutes >= 0) {
                 PermissionButton(
                     labelRes = primaryButtonStringRes,
-                    permission = Permission.NOTIFICATION,
+                    permission = Permissions.POST_NOTIFICATION,
                     uiVisibleState = checkMarkVisible,
                     uiAnimateState = animateCheckMark,
                     modifier = Modifier.padding(top = 4.dp),

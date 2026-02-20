@@ -19,8 +19,10 @@
     <string name="ui_base_label_birthdate">Geburtsdatum</string>
     <string name="ui_base_label_time">Uhrzeit</string>
 
+    <string name="ui_base_error_unspecified">Ein unbekannter Fehler ist aufgetreten</string>
+
     //Formatting
-    <string name="formatting_time_hour_minute">%02d:%02d"</string>
+    <string name="formatting_time_hour_minute">%1$02d:%2$02d"</string>
 
     // Onboarding
     <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
@@ -37,7 +39,9 @@
         startest.
     </string>
     <string name="ui_onboarding_pages_introduction_body_sub">
-        Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.
+        Achtsamkeit ist die Fähigkeit, einmal ganz im Hier und Jetzt zu sein. Sie gibt dir die
+        Möglichkeit, zu spüren, wie es dir geht und was du brauchst, um dich wohlzufühlen.
+        \n\nWeitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.
     </string>
     <string name="ui_onboarding_pages_introduction_button_primary">Super</string>
 
@@ -58,6 +62,32 @@
     <string name="ui_onboarding_pages_notifications_success">Aktiviert</string>
     <string name="ui_onboarding_pages_notifications_toast_empty_time">Bitte wähle eine Uhrzeit</string>
     <string name="ui_onboarding_pages_notifications_select_time">Uhrzeit wählen</string>
+
+    <string name="ui_onboarding_pages_alarms_icon_cd">Wecker</string>
+    <string name="ui_onboarding_pages_alarms_title">Genaue Erinnerungen</string>
+    <string name="ui_onboarding_pages_alarms_body">
+        Um dich zu einem genauen Zeitpunkt an deinen achtsamen Moment erinnern zu können, benötigt
+        Mindful Moment die Berechtigung dafür, exakte Alarme einzustellen. Ohne genaue Erinnerungen
+        kann Mindful Moment dich nur zu einer ungefähren Zeit erinnern.
+        \n\nFür neue Gewohnheiten ist es hilfreich, einen festen Zeitplan einzuhalten.
+    </string>
+    <string name="ui_onboarding_pages_alarms_body_sub">
+        Das kannst du auch später noch in den Einstellungen machen.
+        \n\nHintergrund: Ab Android 14 wird die Berechtigung zum Einstellen exakter Alarme nicht mehr
+        automatisch erteilt, sondern erfordert eine Bestätigung durch den Nutzer. Ohne diese
+        Berechtigung können nur ungefähre Alarme gesetzt werden, die vom Betriebssystem nach
+        verschiedenen Kriterien ausgeführt werden (zum Beispiel Akku-Laufzeit).
+    </string>
+    <string name="ui_onboarding_pages_alarms_button_primary">Gerne</string>
+    <string name="ui_onboarding_pages_alarms_button_primary_alt">Toll</string>
+    <string name="ui_onboarding_pages_alarms_button_primary_alt2">Na gut</string>
+    <string name="ui_onboarding_pages_alarms_button_secondary">Nicht nötig</string>
+    <string name="ui_onboarding_pages_alarms_success">Aktiviert</string>
+    <string name="ui_onboarding_pages_alarms_dialog_title">Hinweis</string>
+    <string name="ui_onboarding_pages_alarms_dialog_text">In den folgenden Einstellungen tippe auf
+        \"Mindful Moment\" und erlaube anschließend, Wecker und Erinnerungen einzurichten. Kehre
+        danach durch zweimaliges Zurückgehen zur App zurück.
+    </string>
 
     <string name="ui_onboarding_pages_profile_icon_cd">Benutzer</string>
     <string name="ui_onboarding_pages_profile_title">Persönliche Angaben</string>
@@ -99,10 +129,21 @@
         \n\nDoch erlauben?
     </string>
     <string name="ui_permissions_notifications_settings_body">
-        "Mindful Moment kann dich nicht an deinen täglichen Moment der Achtsamkeit erinnern." +
-        "\n\nMöchtest du zu den Einstellungen gehen?"
+        Mindful Moment kann dich nicht an deinen täglichen Moment der Achtsamkeit erinnern.
+        \n\nMöchtest du zu den Einstellungen gehen?
     </string>
 
+
     // Main
+
+
+    // Notifications
+    <string name="notifications_channels_reminder_name">Erinnerungen</string>
+    <string name="notifications_channels_reminder_description">Erinnerungen an die App-Nutzung</string>
+
+    <string name="notifications_types_daily_reminder_title">Dein achtsamer Moment</string>
+    <string name="notifications_types_daily_reminder_text">Tippe hier für deinen heutigen achtsamen Moment</string>
+
+
 
 </resources>

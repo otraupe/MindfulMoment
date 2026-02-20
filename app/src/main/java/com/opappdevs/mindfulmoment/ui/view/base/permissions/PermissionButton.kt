@@ -1,11 +1,10 @@
-package com.opappdevs.mindfulmoment.ui.view.base.permission
+package com.opappdevs.mindfulmoment.ui.view.base.permissions
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -36,7 +35,7 @@ import timber.log.Timber
 @Composable
 fun PermissionButton(
     labelRes: Int,
-    permission: Permission,
+    permission: Permissions,
     uiVisibleState: MutableState<Boolean>,
     uiAnimateState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
@@ -176,7 +175,7 @@ fun PermissionButton(
 fun PreviewPermissionButton() {
     PermissionButton(
         labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
-        permission = Permission.NOTIFICATION,
+        permission = Permissions.POST_NOTIFICATION,
         uiVisibleState = remember { mutableStateOf(false) },
         uiAnimateState = remember { mutableStateOf(false) },
         modifier = Modifier,
