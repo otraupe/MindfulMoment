@@ -8,7 +8,6 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -105,7 +104,7 @@ fun NavGraph(
         composable(
             route = Destinations.Imprint.route,
         ) {
-            Imprint()
+            Imprint(navController = navController)
         }
     }
 }
