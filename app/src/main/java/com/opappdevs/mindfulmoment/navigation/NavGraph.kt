@@ -1,5 +1,6 @@
 package com.opappdevs.mindfulmoment.navigation
 
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -86,7 +87,15 @@ fun NavGraph(
 //                    animationSpec = tween(baseTransitionMillis),
 //                    targetAlpha = 0f
 //                )
+//            },
+//            popExitTransition = {
+//                fadeOut(
+//                    animationSpec = tween(baseTransitionMillis),
+//                    targetAlpha = 0f
+//                )
 //            }
+            exitTransition = { ExitTransition.None },
+            popExitTransition = { ExitTransition.None } //TODO: race condition with pop from backstack?
         ) {
             Onboarding(
                 navController = navController,

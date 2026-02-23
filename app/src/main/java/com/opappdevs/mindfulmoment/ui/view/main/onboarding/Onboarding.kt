@@ -53,36 +53,25 @@ fun Onboarding(
         MutableTransitionState(initialState = false)
     }
 
-    MindfulBackground(
-        background = {
-            Image(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(R.drawable.bg_heart_on_grass),
-                contentDescription = stringResource(R.string.ui_onboarding_background_cd),
-                contentScale = ContentScale.Crop
-            )
-        }
+    AnimatedVisibility(
+        visible = welcomeVisible.value,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(dimensionResource(R.dimen.mindful_base_page_padding)),
+        enter = EnterTransition.None,
+        exit = fadeOut(),
     ) {
-        AnimatedVisibility(
-            visible = welcomeVisible.value,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(dimensionResource(R.dimen.mindful_base_page_padding)),
-            enter = EnterTransition.None,
-            exit = fadeOut(),
-        ) {
-            WelcomeContent(welcomeVisible, pagerTransitionState)
-        }
-        OnboardingPager(
-            pagesToShow = pagesToShow,
-            snackHostState = snackState,
-            navHostController = navController,
-            pagerTransitionState = pagerTransitionState,
-            notificationSettingsUseCases = viewModel.notificationSettingsUseCases,
-            profileSettingsUseCases = viewModel.profileSettingsUseCases,
-            canScheduleExactAlarms = { viewModel.canScheduleExactAlarms() }
-        )
+        WelcomeContent(welcomeVisible, pagerTransitionState)
     }
+    OnboardingPager(
+        pagesToShow = pagesToShow,
+        snackHostState = snackState,
+        navHostController = navController,
+        pagerTransitionState = pagerTransitionState,
+        notificationSettingsUseCases = viewModel.notificationSettingsUseCases,
+        profileSettingsUseCases = viewModel.profileSettingsUseCases,
+        canScheduleExactAlarms = { viewModel.canScheduleExactAlarms() }
+    )
 }
 
 @ThemePreviews

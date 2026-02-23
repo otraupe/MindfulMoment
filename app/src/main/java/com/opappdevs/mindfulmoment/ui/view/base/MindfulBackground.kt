@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun MindfulBackground(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
     background: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
