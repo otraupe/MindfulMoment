@@ -3,9 +3,15 @@
 
     /* Base colors */
 
+    //base grays
     <color name="dark_gray">#FF333333</color>
     <color name="medium_gray">#FF777777</color>
     <color name="light_gray">#FFAAAAAA</color>
+
+    //system ui scrim colors
+    <color name="transparent">#00000000</color>
+    <color name="light_transparent">#18000000</color>
+    <color name="semi_transparent">#4d000000</color>
 
     // card background
     <color name="warm_white">#fffff8ef</color>
