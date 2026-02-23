@@ -133,11 +133,27 @@
         \n\nMöchtest du zu den Einstellungen gehen?
     </string>
 
+    // Imprint
+    <string name="ui_legal_imprint_title">Impressum</string>
+    <string name="ui_legal_imprint_published_by">Herausgegeben von:</string>
+    <string name="ui_legal_imprint_name_address">
+        Ole Traupe
+        \nTautenburger Str. 24
+        \n12249 Berlin
+        \nDeutschland
+    </string>
+    <string name="ui_legal_imprint_contact">Kontakt:</string>
+    <string name="ui_legal_imprint_email">Email: info@op-appdevs.com</string>
+    <string name="ui_legal_imprint_website">Website: www.op-appdevs.com</string>
+    <string name="ui_legal_imprint_copyright">© 2026 Ole Traupe</string>
+    <string name="ui_legal_imprint_form_title">Rechtsform:</string>
+    <string name="ui_legal_imprint_form_text">Privater, nicht-kommerzieller Betrieb.</string>
+
+
 
     // Main
     <string name="ui_main_button_testing_display_daily_notification">Zeige tägliche Erinnerung</string>
     <string name="ui_main_button_testing_cancel_daily_alarm">Täglichen Alarm löschen</string>
-
 
     // Notifications
     <string name="notifications_channels_reminder_name">Erinnerungen</string>

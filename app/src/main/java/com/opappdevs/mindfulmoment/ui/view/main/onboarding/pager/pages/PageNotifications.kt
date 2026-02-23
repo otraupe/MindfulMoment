@@ -207,7 +207,7 @@ fun PageNotifications(
                 ),
                 modifier = Modifier
                     .width(dimensionResource(R.dimen.mindful_base_textField_width))
-                    .padding(vertical = dimensionResource(R.dimen.mindful_base_text_spacing))
+                    .padding(vertical = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
                     .clickable {
                         Timber.d("showDatePickerDialog set to true")
                         showTimePicker()
@@ -233,7 +233,7 @@ fun PageNotifications(
                 }
             } else {
                 Box(
-                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.mindful_base_text_spacing)),
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.mindful_base_card_sub_spacing)),
                     contentAlignment = Alignment.Center,
                 ) {
                     MindfulCheckMark(

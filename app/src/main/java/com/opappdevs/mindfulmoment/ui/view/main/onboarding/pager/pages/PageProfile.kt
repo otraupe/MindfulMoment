@@ -155,7 +155,7 @@ fun PageProfile(
                 ),
                 modifier = Modifier
                     .width(dimensionResource(R.dimen.mindful_base_textField_width))
-                    .padding(top = dimensionResource(R.dimen.mindful_base_text_spacing))
+                    .padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
                     .onFocusChanged { focusState ->
                         if (focusState.isFocused) {
                             Timber.d("Profile name text field gained focus")
@@ -197,7 +197,7 @@ fun PageProfile(
                 singleLine = true,
                 modifier = Modifier
                     .width(dimensionResource(R.dimen.mindful_base_textField_width))
-                    .padding(top = dimensionResource(R.dimen.mindful_base_text_spacing))
+                    .padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
                     .clickable {
                         focusManager.clearFocus()
                         showDatePickerDialog = true

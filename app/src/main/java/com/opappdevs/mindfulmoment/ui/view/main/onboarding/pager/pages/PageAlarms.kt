@@ -118,7 +118,7 @@ fun PageAlarms(
                 }
             } else {
                 Box(
-                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.mindful_base_text_spacing)),
+                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.mindful_base_card_sub_spacing)),
                     contentAlignment = Alignment.Center,
                 ) {
                     MindfulCheckMark(
