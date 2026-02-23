@@ -12,5 +12,6 @@
     <dimen name="mindful_base_button_min_width">128dp</dimen>
     <dimen name="mindful_base_button_height">48dp</dimen>
     <dimen name="mindful_base_textField_width">240dp</dimen>
+    <dimen name="mindful_base_divider_thickness">2dp</dimen>
 
 </resources>

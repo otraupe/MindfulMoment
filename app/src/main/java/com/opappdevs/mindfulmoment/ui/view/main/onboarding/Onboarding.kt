@@ -20,6 +20,7 @@ import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPager
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import timber.log.Timber
 
 @Composable
 fun Onboarding(
@@ -37,9 +38,13 @@ fun Onboarding(
     val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
 
     val pagesToShow = if (viewModel.canScheduleExactAlarms()) {
-        OnboardingPages.entries.filter { it != OnboardingPages.ALARMS }
+        val resultingPages = OnboardingPages.entries.filter { it != OnboardingPages.ALARMS }
+        Timber.d("pagesToShow: $resultingPages")
+        resultingPages
     } else {
-        OnboardingPages.entries
+        val resultingPages = OnboardingPages.entries
+        Timber.d("pagesToShow: $resultingPages")
+        resultingPages
     }
 
     val welcomeVisible = remember { mutableStateOf(true) }

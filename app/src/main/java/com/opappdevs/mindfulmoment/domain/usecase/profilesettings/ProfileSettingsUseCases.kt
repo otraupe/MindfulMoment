@@ -3,9 +3,11 @@ package com.opappdevs.mindfulmoment.domain.usecase.profilesettings
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetBirthdayMillisUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetOnboardingCompleteUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetProfileNameUseCase
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetSleepDesiredHoursUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetBirthdayMillisUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetOnboardingCompleteUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetProfileNameUseCase
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetSleepDesiredHoursUseCase
 import javax.inject.Inject
 
 data class ProfileSettingsUseCases @Inject constructor(
@@ -15,4 +17,6 @@ data class ProfileSettingsUseCases @Inject constructor(
     val setBirthdayMillisUseCase: SetBirthdayMillisUseCase,
     val getOnboardingCompleteUseCase: GetOnboardingCompleteUseCase,
     val setOnboardingCompleteUseCase: SetOnboardingCompleteUseCase,
+    val getSleepDurationHoursUseCase: GetSleepDesiredHoursUseCase,
+    val setSleepDurationHoursUseCase: SetSleepDesiredHoursUseCase
 )

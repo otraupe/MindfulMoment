@@ -33,10 +33,12 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.INTRODUCTION
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.NOTIFICATIONS
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.PROFILE
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.SLEEP
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageAlarms
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageSleep
 import timber.log.Timber
 
 @Composable
@@ -67,11 +69,11 @@ fun OnboardingPager(
         Timber.d("LaunchedEffect pageDone: ${pagesDone.lastOrNull()}")
         val lpd = pagesDone.lastOrNull()
         if (lpd != null) {
-            if (!lpd.isLastPage()) {
+            if (lpd != pagesToShow.lastOrNull()) {
                 //add next page
-                pages.value += pagesToShow[lpd.ordinal + 1]
+                pages.value += pagesToShow[pagesDone.size]
 
-                if (lpd.isFirstPage()) {
+                if (lpd == pagesToShow.firstOrNull()) {
                     snackHostState.showSnackbar(
                         message = "Wischen zum Zurückgehen",
                         actionLabel = "OK",
@@ -163,6 +165,15 @@ fun OnboardingPager(
                             pagerState = pagerState,
                             setPageDone = { updatePageDoneValue(page) },
                             canScheduleExactAlarms = canScheduleExactAlarms,
+                            pagesDone = pagesDone
+                        )
+                    SLEEP ->
+                        PageSleep(
+                            pageNumber = pageNumber,
+                            page = page,
+                            pagerState = pagerState,
+                            setPageDone = { updatePageDoneValue(page) },
+                            profileSettingsUseCases = profileSettingsUseCases,
                             pagesDone = pagesDone
                         )
                 }

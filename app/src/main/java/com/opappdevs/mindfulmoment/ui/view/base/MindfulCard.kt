@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.unit.dp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
@@ -16,11 +17,15 @@ import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 @Composable
 fun MindfulCard(
     modifier: Modifier = Modifier,
+    isDialog: Boolean = false,
     content: @Composable () -> Unit
 ) {
     Card(
         //outer padding
-        modifier = modifier.padding(dimensionResource(R.dimen.mindful_base_page_padding)),
+        modifier = modifier.padding(
+            if (isDialog) 0.dp
+            else dimensionResource(R.dimen.mindful_base_page_padding)
+        ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
@@ -29,7 +34,9 @@ fun MindfulCard(
     ) {
         Box(
             //content padding
-            modifier = Modifier.padding(dimensionResource(R.dimen.mindful_base_card_padding))
+            modifier = Modifier.padding(
+                if (isDialog) 24.dp
+                else dimensionResource(R.dimen.mindful_base_card_padding))
         ) {
             content()
         }

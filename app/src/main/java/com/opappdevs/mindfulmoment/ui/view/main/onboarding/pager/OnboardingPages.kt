@@ -36,8 +36,14 @@ enum class OnboardingPages(
         R.string.ui_onboarding_pages_profile_title,
         R.string.ui_onboarding_pages_profile_body,
         R.string.ui_onboarding_pages_profile_body_sub
+    ),
+    SLEEP(
+        R.drawable.ic_sleep_score_24px_rounded,
+        R.string.ui_onboarding_pages_sleep_icon_cd,
+        R.string.ui_onboarding_pages_sleep_title,
+        R.string.ui_onboarding_pages_sleep_body,
+        R.string.ui_onboarding_pages_sleep_body_sub
     );
 
     fun isFirstPage() = ordinal == 0
-    fun isLastPage() = ordinal == OnboardingPages.entries.size - 1
 }

@@ -4,7 +4,6 @@ import android.text.Layout
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AlignmentSpan
-import java.net.URI
 
 fun String.centered(): Spannable {              // Spannable allows for formatted strings
     val centeredText: Spannable = SpannableString(this)
@@ -14,4 +13,12 @@ fun String.centered(): Spannable {              // Spannable allows for formatte
         Spannable.SPAN_INCLUSIVE_INCLUSIVE      // pre-/appended strings are centered as well
     )
     return centeredText
+}
+
+fun String.safeToInt(): Int {
+    return try {
+        this.toInt()
+    } catch (_: Throwable) {
+        -1
+    }
 }

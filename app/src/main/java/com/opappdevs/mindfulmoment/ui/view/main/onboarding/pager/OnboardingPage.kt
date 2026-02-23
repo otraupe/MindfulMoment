@@ -108,7 +108,7 @@ fun OnboardingPage(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    if (!baseContent.isFirstPage()) {
+                    if (!baseContent.isFirstPage()) { //TODO: dangerous, should check against pagesToShow.isFirstOrNull()
                         //goes back to previous page
                         MindfulIconButtonBack(
                             contentDescription = stringResource(R.string.ui_base_button_back_cd)

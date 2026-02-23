@@ -1,7 +1,6 @@
 package com.opappdevs.mindfulmoment.ext
 
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.Date
 import java.util.Locale
 
@@ -13,6 +12,13 @@ fun Int.toHourMinuteString(): String {
 
     return String.format(Locale.getDefault(),
         "%02d:%02d", hours, remainingMinutes)
+}
+
+fun Int.toHoursSleepString(): String {
+    if (this < 0) return ""
+
+    return String.format(Locale.getDefault(),
+        "%d Stunden", this)
 }
 
 fun Long.toSimpleDateString(): String {

@@ -8,12 +8,16 @@ import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetOn
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetOnboardingCompleteUseCaseImpl
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetProfileNameUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetProfileNameUseCaseImpl
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetSleepDesiredHoursUseCase
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.GetSleepDesiredHoursUseCaseImpl
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetBirthdayMillisUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetBirthdayMillisUseCaseImpl
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetOnboardingCompleteUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetOnboardingCompleteUseCaseImpl
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetProfileNameUseCase
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetProfileNameUseCaseImpl
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetSleepDesiredHoursUseCase
+import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.usecases.SetSleepDesiredHoursUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -67,6 +71,20 @@ object ProfileSettingsUseCasesModule {
     }
 
     @Provides
+    fun provideGetSleepDesiredHoursUseCase(
+        preferencesManager: PreferencesManager
+    ): GetSleepDesiredHoursUseCase {
+        return GetSleepDesiredHoursUseCaseImpl(preferencesManager)
+    }
+
+    @Provides
+    fun provideSetSleepDesiredHoursUseCase(
+        preferencesManager: PreferencesManager
+    ): SetSleepDesiredHoursUseCase {
+        return SetSleepDesiredHoursUseCaseImpl(preferencesManager)
+    }
+
+    @Provides
     fun provideProfileSettingsUseCases(
         getProfileName: GetProfileNameUseCase,
         setProfileName: SetProfileNameUseCase,
@@ -74,6 +92,8 @@ object ProfileSettingsUseCasesModule {
         setBirthdayMillis: SetBirthdayMillisUseCase,
         getOnboardingComplete: GetOnboardingCompleteUseCase,
         setOnboardingComplete: SetOnboardingCompleteUseCase,
+        getSleepDesiredHours: GetSleepDesiredHoursUseCase,
+        setSleepDesiredHours: SetSleepDesiredHoursUseCase,
     ): ProfileSettingsUseCases {
         return ProfileSettingsUseCases(
             getProfileName,
@@ -81,7 +101,9 @@ object ProfileSettingsUseCasesModule {
             getBirthdayMillis,
             setBirthdayMillis,
             getOnboardingComplete,
-            setOnboardingComplete
+            setOnboardingComplete,
+            getSleepDesiredHours,
+            setSleepDesiredHours
         )
     }
 }

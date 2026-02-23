@@ -66,10 +66,9 @@ fun PageProfile(
 
     val context = LocalContext.current
 
-    //as this is the last page, we don't need it here
-//    var primaryButtonEnabled by rememberSaveable {
-//        mutableStateOf(pagesDone.contains(page))
-//    }
+    var primaryButtonEnabled by rememberSaveable {
+        mutableStateOf(!pagesDone.contains(page))
+    }
 
     var profileNameText by rememberSaveable(stateSaver = TextFieldValueSaver) {
         mutableStateOf(
@@ -128,7 +127,7 @@ fun PageProfile(
         ) {
             OutlinedTextField(
                 value = profileNameText,
-                onValueChange = {profileNameText = it},
+                onValueChange = { profileNameText = it },
                 label = {
                     Text(
                         text = stringResource(R.string.ui_base_label_name),
@@ -216,7 +215,8 @@ fun PageProfile(
                 labelRes = R.string.ui_onboarding_pages_profile_button_primary ,
                 modifier = Modifier.padding(
                     top = 48.dp
-                )
+                ),
+                enabled = primaryButtonEnabled
             ) {
                 focusManager.clearFocus()
                 if (profileNameText.text.isBlank()) {
@@ -232,6 +232,7 @@ fun PageProfile(
                         duration = SHORT
                     )
                 } else {
+                    primaryButtonEnabled = false
                     setPageDone()
                 }
             }

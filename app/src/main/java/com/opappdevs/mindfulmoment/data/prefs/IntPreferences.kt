@@ -6,4 +6,7 @@ object IntPreferences {
 
     // negative: not set
     val NOTIFICATION_DAILY_TIME_MINUTES = Preference.IntPreference("notifications.daily.time", -1)
+
+    // negative: not set
+    val PROFILE_SLEEP_DESIRED_HOURS = Preference.IntPreference("profile.sleep.desiredHours", -1)
 }
