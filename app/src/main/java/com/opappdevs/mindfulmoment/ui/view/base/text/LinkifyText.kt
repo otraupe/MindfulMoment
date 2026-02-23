@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.core.text.util.LinkifyCompat
 
@@ -49,6 +50,7 @@ fun LinkifyText(
                 addStyle(
                     style = SpanStyle(
                         color = linkColor,
+                        fontWeight = FontWeight.SemiBold,
                         textDecoration = TextDecoration.None
                     ),
                     start = start,

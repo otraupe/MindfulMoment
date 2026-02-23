@@ -3,26 +3,29 @@ package com.opappdevs.mindfulmoment.ui.view.main.legal
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.navigation.NavHostController
+import androidx.compose.ui.unit.dp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.text.LinkifyText
 
 @Composable
 fun Imprint() {
-    MindfulCard {
+    MindfulCard(modifier = Modifier.padding(bottom = 16.dp)) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
-            Text(
+            Text( //TODO: custom text with auto-scaling
                 text = stringResource(id = R.string.ui_legal_imprint_title),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
@@ -30,12 +33,12 @@ fun Imprint() {
                     .fillMaxWidth()
                     .padding(vertical = dimensionResource(R.dimen.mindful_base_card_padding))
             )
-            Text(
+            Text( //TODO: typography
                 text = stringResource(id = R.string.ui_legal_imprint_published_by),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_card_padding))
             )
-            Text(
+            Text( //TODO: typography
                 text = stringResource(id = R.string.ui_legal_imprint_name_address),
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_text_spacing))
             )
