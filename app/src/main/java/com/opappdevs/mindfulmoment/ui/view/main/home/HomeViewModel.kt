@@ -16,9 +16,15 @@ class HomeViewModel @Inject constructor(
     init {
         scheduleAlarmWorker()
     }
-    //test daily reminder notification
+    //test show daily reminder notification
     fun testSendDailyReminder() {
         _notificationService.showNotification(
+            NotificationService.NotificationType.DAILY_REMINDER
+        )
+    }
+    //test cancel daily alarm
+    fun testCancelDailyAlarm() {
+        _alarmScheduler.cancelForNotification(
             NotificationService.NotificationType.DAILY_REMINDER
         )
     }

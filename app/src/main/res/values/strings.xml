@@ -135,6 +135,8 @@
 
 
     // Main
+    <string name="ui_main_button_testing_display_daily_notification">Zeige tägliche Erinnerung</string>
+    <string name="ui_main_button_testing_cancel_daily_alarm">Täglichen Alarm löschen</string>
 
 
     // Notifications

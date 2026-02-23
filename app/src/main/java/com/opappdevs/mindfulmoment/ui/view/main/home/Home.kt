@@ -32,9 +32,14 @@ fun Home(
             fontSize = 72.sp
         )
         MindfulButton(
-            labelRes = R.string.ui_base_button_dummy,
+            labelRes = R.string.ui_main_button_testing_display_daily_notification,
             modifier = Modifier.padding(top = 16.dp),
             onClick = { viewModel.testSendDailyReminder() }
+        )
+        MindfulButton(
+            labelRes = R.string.ui_main_button_testing_cancel_daily_alarm,
+            modifier = Modifier.padding(top = 16.dp),
+            onClick = { viewModel.testCancelDailyAlarm() }
         )
     }
 }
