@@ -91,7 +91,7 @@ fun PageProfile(
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = initialDate
     )
-    var showDatePickerDialog by remember { mutableStateOf(false) }
+    val (showDatePickerDialog, setShowDatePickerDialog) = remember { mutableStateOf(false) }
 
     if (showDatePickerDialog) {
         Timber.d("showDatePickerDialog is true")
@@ -101,7 +101,7 @@ fun PageProfile(
             confirmButtonTextRes = R.string.ui_base_button_ok,
             dismissButtonTextRes = R.string.ui_base_button_cancel,
             onConfirm = {
-                showDatePickerDialog = false // Hide the dialog
+                setShowDatePickerDialog(false) // Hide the dialog
                 datePickerState.selectedDateMillis?.let { millis ->
                     birthDateMillis = millis
                     profileSettingsUseCases.setBirthdayMillisUseCase(birthDateMillis)
@@ -109,8 +109,8 @@ fun PageProfile(
                     birthDateText = birthDateMillis.toSimpleDateString()
                 }
             },
-            onDismiss = { showDatePickerDialog = false },
-            onDismissRequest = { showDatePickerDialog = false }
+            onDismiss = { setShowDatePickerDialog(false) },
+            onDismissRequest = { setShowDatePickerDialog(false) }
         )
     }
 
@@ -200,7 +200,7 @@ fun PageProfile(
                     .padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
                     .clickable {
                         focusManager.clearFocus()
-                        showDatePickerDialog = true
+                        setShowDatePickerDialog(true)
                     },
                 shape = RoundedCornerShape(8.dp),
                 colors = OutlinedTextFieldDefaults.colors().copy(

@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.SnackbarHostState
@@ -12,18 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.annotations.ThemePreviews
 import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
-import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPager
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 

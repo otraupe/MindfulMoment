@@ -17,10 +17,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.text.LinkifyText
 
 @Composable
-fun Imprint(
-    navController: NavHostController,
-    snackState: SnackbarHostState
-) {
+fun Imprint() {
     MindfulCard {
         Column(
             modifier = Modifier.fillMaxWidth()

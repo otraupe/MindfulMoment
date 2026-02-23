@@ -29,7 +29,7 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.Onboarding
 fun NavGraph(
     navController: NavHostController,       // nav controller for navigating programmatically
     snackState: SnackbarHostState,          // snack bar host state for displaying snack bars
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
     startDestination: String = Destinations.Home.route,   // first composable to auto-navigate to
 ) {
     val baseTransitionMillis = remember { 500 }
@@ -105,10 +105,7 @@ fun NavGraph(
         composable(
             route = Destinations.Imprint.route,
         ) {
-            Imprint(
-                navController = navController,
-                snackState = snackState
-            )
+            Imprint()
         }
     }
 }

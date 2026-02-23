@@ -16,14 +16,17 @@
         android:roundIcon="@mipmap/ic_launcher_heart_gradient_centered_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MindfulMoment"
-        android:intentMatchingFlags="enforceIntentFilter">
+        android:intentMatchingFlags="enforceIntentFilter"
+        tools:targetApi="36"> <!--suppress warning for intentMatchintFlags attribute-->
+        <!--the following allows restricted resizing e.g. via the nosensor setting below;
+        from Android 17 on this will be ineffective/ignored!-->
+        <property android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" android:value="true" />
         <activity
             android:name=".ui.view.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="nosensor">
-            <property android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" android:value="true" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,7 +42,7 @@
                 <!-- This and exported=true are crucial for the receiver to receive any external event -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>>
+        </receiver>
 
 <!--        ============================================================-->
 <!--        == Add this block to disable WorkManager's default auto-initializer.-->

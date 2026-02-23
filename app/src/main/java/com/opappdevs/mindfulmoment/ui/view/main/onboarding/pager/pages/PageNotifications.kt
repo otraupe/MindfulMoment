@@ -106,6 +106,7 @@ fun PageNotifications(
     }
     val (showTimePickerDialog, setShowTimePickerDialog) = remember { mutableStateOf(false) }
     val timePickerState = rememberTimePickerState(is24Hour = true)
+    val simpleTimeFormattingString = stringResource(R.string.formatting_time_hour_minute)
 
     fun showTimePicker() {
         if (notificationTimeMinutes < 0) {
@@ -128,7 +129,7 @@ fun PageNotifications(
             onConfirm = {
                 setShowTimePickerDialog(false)
                 // 3. Format the selected time and update the text field
-                notificationTimeText = String.format(Locale.getDefault(), context.getString(R.string.formatting_time_hour_minute),
+                notificationTimeText = String.format(Locale.getDefault(), simpleTimeFormattingString,
                     timePickerState.hour, timePickerState.minute)
 
                 notificationTimeMinutes = timePickerState.hour * 60 + timePickerState.minute

@@ -66,7 +66,7 @@ fun LinkifyText(
     }
 
     // 4. Use ClickableText to handle clicks on the annotated string
-    ClickableText(
+    ClickableText( //TODO: deprecated
         text = annotatedString,
         style = MaterialTheme.typography.bodyLarge.copy(
             color = MaterialTheme.colorScheme.onSurface // Ensure default text color is correct
