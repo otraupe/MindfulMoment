@@ -10,7 +10,7 @@ enum class OnboardingPages(
     val infoRes: Int? = null,
 ) {
     INTRODUCTION(
-        R.drawable.ic_favorite_24px_rounded,
+        R.drawable.ic_favorite_24px_rounded_centered,
         R.string.ui_onboarding_pages_introduction_icon_cd,
         R.string.ui_onboarding_pages_introduction_title,
         R.string.ui_onboarding_pages_introduction_body,
