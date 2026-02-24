@@ -32,10 +32,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -53,7 +52,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.pager.PagerScrollAnimationSpec
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
-//TODO: function a bit long
+//TODO: function a bit long and/or convoluted
 
 @Composable
 fun OnboardingPage(
@@ -67,8 +66,6 @@ fun OnboardingPage(
 
     val infoVisible = remember { mutableStateOf(false) }
 
-    //TODO: instead of computing a derived state for each page
-    //  we could compute one offset state and one page index the offset pertains to
     val offsetDerivedState by remember {
         derivedStateOf {
             val absOffset = pagerState.getOffsetDistanceInPages(pageNumber)
@@ -82,8 +79,11 @@ fun OnboardingPage(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(.8f)
-            .alpha(offsetDerivedState.first)
-            .scale(offsetDerivedState.second)
+            .graphicsLayer {
+                alpha = offsetDerivedState.first
+                scaleX = offsetDerivedState.second
+                scaleY = offsetDerivedState.second
+            }
     ) {
         Column(
             modifier = Modifier.fillMaxSize()

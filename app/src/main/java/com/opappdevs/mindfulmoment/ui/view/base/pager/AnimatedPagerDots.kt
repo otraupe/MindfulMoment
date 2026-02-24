@@ -2,8 +2,6 @@ package com.opappdevs.mindfulmoment.ui.view.base.pager
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -16,7 +14,7 @@ fun AnimatedPagerDots(
     count: Int,
     currentlyAddedPages: MutableState<List<OnboardingPages>>,
     pagerState: PagerState,
-    modifier: Modifier = Modifier.fillMaxWidth().wrapContentHeight()
+    modifier: Modifier = Modifier
 ) {
     Row (
         modifier = modifier,
