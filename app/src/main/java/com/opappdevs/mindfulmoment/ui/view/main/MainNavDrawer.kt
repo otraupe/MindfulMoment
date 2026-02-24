@@ -3,12 +3,12 @@ package com.opappdevs.mindfulmoment.ui.view.main
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.opappdevs.mindfulmoment.navigation.Destinations
+import com.opappdevs.mindfulmoment.navigation.navigateIfNew
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -55,7 +55,7 @@ fun MainNavDrawer(
                         selected = false,
                         onClick = {
                             scope.launch { drawerState.close() }
-                            navController.navigate(Destinations.Imprint.route)
+                            navController.navigateIfNew(Destinations.Imprint.route)
 //                            selectedItem.value = item
                         },
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
