@@ -1,7 +1,9 @@
 package com.opappdevs.mindfulmoment.ui.view.base.permissions
 
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -24,6 +26,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulAlertDialog
 import timber.log.Timber
 
+@RequiresApi(Build.VERSION_CODES.S) //-> Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
 @Composable
 fun PermissionAlarmsButton(
     labelRes: Int,
@@ -38,7 +41,7 @@ fun PermissionAlarmsButton(
 
     var permissionResultNotHandled by remember { mutableStateOf(false) }
 
-    var (showHintDialog, setShowHintDialog) = remember { mutableStateOf(false) }
+    val (showHintDialog, setShowHintDialog) = remember { mutableStateOf(false) }
 
     // This observes the lifecycle to handle app response coming back from settings
     val lifecycleOwner = LocalLifecycleOwner.current //onboarding destination
