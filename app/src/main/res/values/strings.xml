@@ -187,29 +187,29 @@
         <![CDATA[<!DOCTYPE html>
         <html lang="de">
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 800px; margin: auto; padding: 20px;">
-        <h1>Datenschutzerklärung</h1>
+        <h2>Datenschutzerklärung</h2>
         <br>
         <p>Diese Datenschutzerklärung beschreibt, wie <strong>OP AppDevs</strong> („wir“, „uns“ oder „unser“) personenbezogene Daten im Zusammenhang mit der Nutzung der Android‑Anwendung <strong>Mindful Moment</strong> („die App“) verarbeitet. Wir verpflichten uns, Ihre Privatsphäre im Einklang mit der Datenschutz‑Grundverordnung (EU) 2016/679 („DSGVO“) und den geltenden Datenschutzgesetzen zu schützen.</p>
         <br>
         <br>
-        <h2>1. Verantwortlicher</h2>
+        <h3>1. Verantwortlicher</h3>
         <br>
         <p>Der Verantwortliche im Sinne der DSGVO ist:</p>
         <p>
         <strong>Unternehmen:</strong> OP AppDevs<br>
         <strong>Verantwortlicher:</strong> Ole Traupe<br>
         <strong>Adresse:</strong> Tautenburger Str. 24, 12249 Berlin, Deutschland<br>
-        <strong>E‑Mail:</strong> <a href="mailto:info@op-appdevs.com">info@op-appdevs.com</a><br>
-        <strong>Website:</strong> <a href="https://www.op-appdevs.com" target="_blank" rel="noopener noreferrer">https://www.op-appdevs.com</a>
+        <strong>E‑Mail:</strong> <a href="mailto:info@op-appdevs.com"><b>info@op-appdevs.com</b></a><br>
+        <strong>Website:</strong> <a href="https://www.op-appdevs.com" target="_blank" rel="noopener noreferrer"><b>www.op-appdevs.com</b></a>
         </p>
         <br>
         <br>
-        <h2>2. Geltungsbereich</h2>
+        <h3>2. Geltungsbereich</h3>
         <br>
-        <p>Diese Datenschutzerklärung gilt ausschließlich für die App. Sie gilt nicht für unsere Website (sofern vorhanden) oder für Dienste Dritter, die nicht von uns betrieben werden.</p>
+        <p>Diese Datenschutzerklärung gilt <strong>ausschließlich für die App</strong>. Sie gilt nicht für unsere Website (sofern vorhanden) oder für Dienste Dritter, die nicht von uns betrieben werden.</p>
         <br>
         <br>
-        <h2>3. Erhobene und verarbeitete Daten</h2>
+        <h3>3. Erhobene und verarbeitete Daten</h3>
         <br>
         <p>Die App ermöglicht es Nutzerinnen und Nutzern, allgemeine Wohlbefindens‑ und Schlafdaten einzugeben. Alle diese Daten werden <strong>lokal auf Ihrem Gerät gespeichert</strong> und <strong>nicht an unsere Server übermittelt</strong> oder von uns ferngesteuert verarbeitet.</p>
         <br>
@@ -224,19 +224,19 @@
         <br>
         <p>Die Verarbeitung erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</strong>, nämlich zur Gewährleistung der Sicherheit und Stabilität der App sowie zur Fehlerbehebung und Verbesserung der Leistung.</p>
         <br>
-        <p>Weitere Informationen zur Datenverarbeitung durch Google finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</p>
+        <p>Weitere Informationen zur Datenverarbeitung durch Google finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"><b>Datenschutzerklärung von Google</b></a>.</p>
         <br>
         <br>
-        <h2>4. Lokale Datenspeicherung und Backups</h2>
+        <h3>4. Lokale Datenspeicherung und Backups</h3>
         <br>
         <p>Alle von Ihnen eingegebenen Wohlbefindens‑ und Schlafdaten verbleiben unter Ihrer vollständigen Kontrolle auf Ihrem Gerät. Sie können optional <strong>verschlüsselte, passwortgeschützte Backups</strong> erstellen und diese bei einem Cloud‑Speicherdienst Ihrer Wahl sichern.</p>
         <br>
         <p>Wir haben keinen Zugriff auf oder Kontrolle über Ihre verschlüsselten Backups oder Ihre Cloud‑Konten. Da der Verschlüsselungsschlüssel (das Passwort) ausschließlich in Ihrem Besitz ist, können wir keine Daten entschlüsseln, wiederherstellen oder einsehen.</p>
         <br>
         <br>
-        <h2>5. Aufbewahrung der Daten</h2>
+        <h3>5. Aufbewahrung der Daten</h3>
         <br>
-        <p>Ihre Daten werden ausschließlich auf Ihrem Gerät gespeichert und bleiben dort, bis Sie sie löschen. Sie können Ihre Daten jederzeit entfernen, indem Sie:</p>
+        <p>Ihre Daten werden <strong>ausschließlich auf Ihrem Gerät</strong> gespeichert und bleiben dort, bis Sie sie löschen. Sie können Ihre Daten jederzeit entfernen, indem Sie:</p>
         <ul>
           <li>Einträge in der App löschen,</li>
           <li>gespeicherte Backups entfernen oder</li>
@@ -245,9 +245,9 @@
         <p>Da keine personenbezogenen Daten auf unseren Servern gespeichert werden, können wir Daten nicht in Ihrem Namen löschen oder abrufen.</p>
         <br>
         <br>
-        <h2>6. Ihre Rechte nach der DSGVO</h2>
+        <h3>6. Ihre Rechte nach der DSGVO</h3>
         <br>
-        <p>Da keine personenbezogenen Daten an uns übermittelt oder von uns gespeichert werden, gelten die meisten Betroffenenrechte der DSGVO (z. B. Auskunft, Berichtigung, Datenübertragbarkeit) nur eingeschränkt. Sie behalten jedoch jederzeit die volle Kontrolle über Ihre Daten und können:</p>
+        <p>Da keine personenbezogenen Daten an uns übermittelt oder von uns gespeichert werden, gelten die meisten Betroffenenrechte der DSGVO (z. B. Auskunft, Berichtigung, Datenübertragbarkeit) nur eingeschränkt. Sie behalten jedoch <strong>jederzeit die volle Kontrolle</strong> über Ihre Daten und können:</p>
         <ul>
           <li>lokal gespeicherte Daten einsehen, ändern oder löschen,</li>
           <li>eine erteilte Zustimmung (falls zutreffend) widerrufen, indem Sie die App deinstallieren,</li>
@@ -257,24 +257,24 @@
         <p>Wenn Sie Fragen zu Ihren Rechten haben, können Sie uns über die angegebenen Kontaktdaten erreichen.</p>
         <br>
         <br>
-        <h2>7. Datensicherheit</h2>
+        <h3>7. Datensicherheit</h3>
         <br>
-        <p>Wir treffen angemessene technische und organisatorische Maßnahmen, um die in der App gespeicherten Daten vor unbefugtem Zugriff, Verlust oder Missbrauch zu schützen. Die Sicherheit Ihrer verschlüsselten Backups hängt jedoch von der Stärke Ihres Passworts und der Sicherheit des von Ihnen gewählten Cloud‑Speichers ab.</p>
-        <br>
-        <br>
-        <h2>8. Datenschutz von Kindern</h2>
-        <br>
-        <p>Die App richtet sich nicht an Personen unter 16 Jahren. Wir erheben wissentlich keine personenbezogenen Daten von Minderjährigen. Sollten Sie annehmen, dass ein Kind die App genutzt und uns personenbezogene Daten übermittelt hat, kontaktieren Sie uns bitte umgehend.</p>
+        <p>Wir treffen <strong>angemessene technische und organisatorische Maßnahmen</strong>, um die in der App gespeicherten Daten vor unbefugtem Zugriff, Verlust oder Missbrauch zu schützen. Die Sicherheit Ihrer verschlüsselten Backups hängt jedoch von der Stärke Ihres Passworts und der Sicherheit des von Ihnen gewählten Cloud‑Speichers ab.</p>
         <br>
         <br>
-        <h2>9. Änderungen dieser Datenschutzerklärung</h2>
+        <h3>8. Datenschutz von Kindern</h3>
         <br>
-        <p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden durch die Aktualisierung des oben genannten Datums „Letzte Aktualisierung“ angezeigt. Durch die fortgesetzte Nutzung der App nach Inkrafttreten geänderter Bestimmungen erklären Sie sich mit der aktualisierten Datenschutzerklärung einverstanden.</p>
+        <p>Die App richtet sich <strong>nicht an Personen unter 16 Jahren</strong>. Wir erheben wissentlich keine personenbezogenen Daten von Minderjährigen. Sollten Sie annehmen, dass ein Kind die App genutzt und uns personenbezogene Daten übermittelt hat, kontaktieren Sie uns bitte umgehend.</p>
         <br>
         <br>
-        <h2>10. Kontakt</h2>
+        <h3>9. Änderungen dieser Datenschutzerklärung</h3>
         <br>
-        <p>Wenn Sie Fragen oder Anliegen zu dieser Datenschutzerklärung oder zur Verarbeitung Ihrer Daten haben, kontaktieren Sie uns bitte unter den oben genannten Kontaktdaten, vorzugsweise per Email.</p>
+        <p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden durch die Aktualisierung des <strong>unten genannten Datums</strong> „Letzte Aktualisierung“ angezeigt. Durch die fortgesetzte Nutzung der App nach Inkrafttreten geänderter Bestimmungen erklären Sie sich mit der aktualisierten Datenschutzerklärung einverstanden.</p>
+        <br>
+        <br>
+        <h3>10. Kontakt</h3>
+        <br>
+        <p>Wenn Sie Fragen oder Anliegen zu dieser Datenschutzerklärung oder zur Verarbeitung Ihrer Daten haben, kontaktieren Sie uns bitte unter den angegebenen Kontaktdaten, vorzugsweise per Email.</p>
         <br>
         <br>
         <p><strong>Letzte Aktualisierung:</strong> 25. Februar 2026</p>
