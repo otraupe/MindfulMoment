@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.rememberLifecycleOwner
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -51,7 +51,10 @@ fun PermissionButton(
     var permissionOnceDenied by remember { mutableStateOf(false) }
 
     // This observes the lifecycle to handle app response coming back from settings
-    val lifecycleOwner = LocalLifecycleOwner.current //onboarding destination
+    // This LifecycleOwner is automatically moved to DESTROYED when
+    // it leaves composition and its maxLifecycle is the maximum of either
+    // the maxLifecycle you set or the Lifecycle.State of the parentLifecycleOwner (-> Onboarding)
+    val lifecycleOwner = rememberLifecycleOwner()
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { source, event ->
             Timber.d("Lifecycle event $event from source $source")
