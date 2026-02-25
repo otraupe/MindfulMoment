@@ -3,13 +3,14 @@ package com.opappdevs.mindfulmoment.ui.view.base.text
 import android.text.SpannableString
 import android.text.style.URLSpan
 import android.text.util.Linkify
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -27,9 +28,7 @@ fun LinkifyText(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    val linkColor = MaterialTheme.colorScheme.tertiary
-
-    val uriHandler = LocalUriHandler.current
+    val linkColor = MaterialTheme.colorScheme.primary
 
     val annotatedString = remember(text) {
         // 1. Create a SpannableString and run LinkifyCompat on it.
@@ -47,19 +46,37 @@ fun LinkifyText(
                 val end = spannable.getSpanEnd(span)
 
                 // Apply a style to make the link look clickable.
-                addStyle(
-                    style = SpanStyle(
-                        color = linkColor,
-                        fontWeight = FontWeight.SemiBold,
-                        textDecoration = TextDecoration.None
-                    ),
-                    start = start,
-                    end = end
-                )
+//                addStyle(
+//                    style = SpanStyle(
+//                        color = linkColor,
+//                        fontWeight = FontWeight.Bold,
+//                        textDecoration = TextDecoration.None
+//                    ),
+//                    start = start,
+//                    end = end
+//                )
                 // Add an annotation to the link range, storing the URL.
-                addStringAnnotation(
-                    tag = "URL",
-                    annotation = span.url,
+                // Use the modern LinkAnnotation
+                addLink(
+                    url = LinkAnnotation.Url(
+                        url = span.url,
+                        styles = TextLinkStyles(
+                            style = SpanStyle( // You can define styles directly here too
+                                color = linkColor,
+                                fontWeight = FontWeight.Bold,
+                                textDecoration = TextDecoration.Underline
+                            ),
+                            focusedStyle = SpanStyle(
+                                textDecoration = TextDecoration.Underline
+                            ),
+                            hoveredStyle = SpanStyle(
+                                textDecoration = TextDecoration.Underline
+                            ),
+                            pressedStyle = SpanStyle(
+                                textDecoration = TextDecoration.Underline
+                            ),
+                        )
+                    ),
                     start = start,
                     end = end
                 )
@@ -67,18 +84,12 @@ fun LinkifyText(
         }
     }
 
-    // 4. Use ClickableText to handle clicks on the annotated string
-    ClickableText( //TODO: deprecated
+    // 4. Use the standard Text composable. It automatically handles LinkAnnotation.
+    Text(
         text = annotatedString,
         style = MaterialTheme.typography.bodyLarge.copy(
             color = MaterialTheme.colorScheme.onSurface // Ensure default text color is correct
         ),
-        modifier = modifier,
-        onClick = { offset ->
-            annotatedString.getStringAnnotations(tag = "URL", start = offset, end = offset)
-                .firstOrNull()?.let { annotation ->
-                    uriHandler.openUri(annotation.item)
-                }
-        }
+        modifier = modifier
     )
 }

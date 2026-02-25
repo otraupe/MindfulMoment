@@ -31,7 +31,7 @@ fun MindfulTextButton(
         Text(
             text = stringResource(labelRes),
             style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Bold
             )
         )
     }
