@@ -38,7 +38,7 @@ fun PermissionAlarmsButton(
 
     var permissionResultNotHandled by remember { mutableStateOf(false) }
 
-    var showHintDialog by remember { mutableStateOf(false) }
+    var (showHintDialog, setShowHintDialog) = remember { mutableStateOf(false) }
 
     // This observes the lifecycle to handle app response coming back from settings
     val lifecycleOwner = LocalLifecycleOwner.current //onboarding destination
@@ -85,11 +85,11 @@ fun PermissionAlarmsButton(
             confirmButtonTextRes = R.string.ui_base_button_ok,
             dismissButtonTextRes = R.string.ui_base_button_cancel,
             onConfirm = {
-                showHintDialog = false
+                setShowHintDialog(false)
                 requestPermissionLambda()
             },
-            onDismiss = { showHintDialog },
-            onDismissRequest = { showHintDialog }
+            onDismiss = { setShowHintDialog(false) },
+            onDismissRequest = { setShowHintDialog(false) }
         )
     }
 
@@ -99,7 +99,7 @@ fun PermissionAlarmsButton(
         enabled = enabled,
         onClick = {
             if (!canScheduleExactAlarms()) {
-                showHintDialog = true
+                setShowHintDialog(true)
             } else {
                 onClick()
             }
