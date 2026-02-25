@@ -182,6 +182,6 @@
     <string name="notifications_channels_reminder_description">Erinnerungen an die App-Nutzung</string>
 
     <string name="notifications_types_daily_reminder_title">Dein achtsamer Moment</string>
-    <string name="notifications_types_daily_reminder_text">Tippe hier für deinen heutigen achtsamen Moment</string>
+    <string name="notifications_types_daily_reminder_text">Tippe hier für deinen achtsamen Moment</string>
 
 </resources>
