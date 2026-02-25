@@ -6,7 +6,9 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.navigation.navigateIfNew
 import kotlinx.coroutines.CoroutineScope
@@ -50,7 +52,7 @@ fun MainNavDrawer(
                                 contentDescription = null
                             )
                                },
-                        label = { Text("Impressum") },
+                        label = { Text(stringResource(R.string.ui_legal_imprint_title)) },
 //                        selected = item == selectedItem.value,
                         selected = false,
                         onClick = {

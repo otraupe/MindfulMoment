@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.opappdevs.mindfulmoment.ui.view.main.home.Home
 import com.opappdevs.mindfulmoment.ui.view.main.legal.Imprint
+import com.opappdevs.mindfulmoment.ui.view.main.legal.PrivacyPolicy
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.Onboarding
 
 /**
@@ -81,20 +82,8 @@ fun NavGraph(
         }
         composable(
             route = Destinations.Onboarding.route,
-//            exitTransition = {
-//                fadeOut(
-//                    animationSpec = tween(baseTransitionMillis),
-//                    targetAlpha = 0f
-//                )
-//            },
-//            popExitTransition = {
-//                fadeOut(
-//                    animationSpec = tween(baseTransitionMillis),
-//                    targetAlpha = 0f
-//                )
-//            }
-            exitTransition = { ExitTransition.None },
-            popExitTransition = { ExitTransition.None } //TODO: race condition with pop from backstack?
+            exitTransition = { ExitTransition.None }, //race condition with pop from backstack?
+            popExitTransition = { ExitTransition.None }
         ) {
             Onboarding(
                 navController = navController,
@@ -105,6 +94,11 @@ fun NavGraph(
             route = Destinations.Imprint.route,
         ) {
             Imprint(navController = navController)
+        }
+        composable(
+            route = Destinations.PrivacyPolicy.route,
+        ) {
+            PrivacyPolicy(navController = navController)
         }
     }
 }
