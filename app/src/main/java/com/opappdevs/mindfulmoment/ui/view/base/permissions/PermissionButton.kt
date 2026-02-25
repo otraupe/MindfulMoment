@@ -45,8 +45,8 @@ fun PermissionButton(
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
-    var showRationaleDialog by remember { mutableStateOf(false) }
-    var showSettingsDialog by remember { mutableStateOf(false) }
+    var (showRationaleDialog, setShowRationaleDialog) = remember { mutableStateOf(false) }
+    var (showSettingsDialog, setShowSettingsDialog) = remember { mutableStateOf(false) }
     var permissionResultNotHandled by remember { mutableStateOf(false) }
     var permissionOnceDenied by remember { mutableStateOf(false) }
 
@@ -129,11 +129,11 @@ fun PermissionButton(
             confirmButtonTextRes = R.string.ui_base_button_ok,
             dismissButtonTextRes = R.string.ui_base_button_cancel,
             onConfirm = {
-                showRationaleDialog = false
+                setShowRationaleDialog(false)
                 requestPermissionLambda()
             },
-            onDismiss = { showRationaleDialog = false },
-            onDismissRequest = { showRationaleDialog = false }
+            onDismiss = { setShowRationaleDialog(false) },
+            onDismissRequest = { setShowRationaleDialog(false) }
         )
     }
 
@@ -151,7 +151,7 @@ fun PermissionButton(
             confirmButtonTextRes = R.string.ui_base_button_yes_please,
             dismissButtonTextRes = R.string.ui_base_button_no_thanks,
             onConfirm = {
-                showSettingsDialog = false
+                setShowSettingsDialog(false)
                 permissionResultNotHandled = true
                 val intent: Intent = if (permission.id == Manifest.permission.POST_NOTIFICATIONS) {
                     Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
@@ -166,8 +166,8 @@ fun PermissionButton(
                 }
                 context.startActivity(intent)
             },
-            onDismiss = { showSettingsDialog = false },
-            onDismissRequest = { showSettingsDialog = false }
+            onDismiss = { setShowSettingsDialog(false) },
+            onDismissRequest = { setShowSettingsDialog(false) }
         )
     }
 }
