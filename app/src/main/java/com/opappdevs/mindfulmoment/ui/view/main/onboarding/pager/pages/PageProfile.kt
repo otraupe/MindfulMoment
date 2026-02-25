@@ -245,9 +245,12 @@ fun PageProfile(
 //fun PreviewPageProfile() {
 //    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
 //        PageProfile (
+//            pageNumber = 0,
 //            page = OnboardingPages.PROFILE,
 //            pagerState = rememberPagerState { 0 },
-//            setPageDone = { (OnboardingPages.PROFILE) }
+//            setPageDone = { (OnboardingPages.PROFILE) },
+//            profileSettingsUseCases = ProfileSettingsUseCases,
+//            pagesDone = listOf()
 //        )
 //    }
 //}

@@ -54,7 +54,7 @@ fun PageSleep(
     profileSettingsUseCases: ProfileSettingsUseCases,
     pagesDone: List<OnboardingPages>
 ) {
-    Timber.d("PageProfile")
+    Timber.d("PageSleep")
 
     val context = LocalContext.current
 
@@ -164,12 +164,15 @@ fun PageSleep(
 
 //@ThemePreviews
 //@Composable
-//fun PreviewPageProfile() {
+//fun PreviewPageSleep() {
 //    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-//        PageProfile (
-//            page = OnboardingPages.PROFILE,
+//        PageSleep (
+//            pageNumber = 0,
+//            page = OnboardingPages.SLEEP,
 //            pagerState = rememberPagerState { 0 },
-//            setPageDone = { (OnboardingPages.PROFILE) }
+//            setPageDone = { (OnboardingPages.SLEEP) },
+//            profileSettingsUseCases = ProfileSettingsUseCases,
+//            pagesDone = listOf()
 //        )
 //    }
 //}

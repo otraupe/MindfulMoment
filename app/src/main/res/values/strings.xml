@@ -47,9 +47,9 @@
         startest.
     </string>
     <string name="ui_onboarding_pages_introduction_body_sub">
-        Achtsamkeit ist die Fähigkeit, einmal ganz im Hier und Jetzt zu sein. Sie gibt dir die
+        <![CDATA[Achtsamkeit ist die Fähigkeit, einmal ganz im Hier und Jetzt zu sein. Sie gibt dir die
         Möglichkeit, zu spüren, wie es dir geht und was du brauchst, um dich wohlzufühlen.
-        \n\nWeitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.
+        <br><br>Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.]]>
     </string>
     <string name="ui_onboarding_pages_introduction_button_primary">Super</string>
 
@@ -61,7 +61,7 @@
         \n\nWähle dafür zunächst eine Uhrzeit.
     </string>
     <string name="ui_onboarding_pages_notifications_body_sub">
-        Das kannst du auch später noch in den Einstellungen machen.
+        <![CDATA[Das kannst du auch später noch in den Einstellungen machen.]]>
     </string>
     <string name="ui_onboarding_pages_notifications_button_primary">Gerne</string>
     <string name="ui_onboarding_pages_notifications_button_primary_alt">Toll</string>
@@ -79,11 +79,11 @@
         \n\nFür neue Gewohnheiten ist es hilfreich, einen festen Zeitplan einzuhalten.
     </string>
     <string name="ui_onboarding_pages_alarms_body_sub">
-        Das kannst du auch später noch in den Einstellungen machen.
-        \n\nHintergrund: Ab Android 14 wird die Berechtigung zum Einstellen exakter Alarme nicht mehr
+        <![CDATA[Das kannst du auch später noch in den Einstellungen machen.
+        <br><br>Hintergrund: Ab Android 14 wird die Berechtigung zum Einstellen exakter Alarme nicht mehr
         automatisch erteilt, sondern erfordert eine Bestätigung durch den Nutzer. Ohne diese
         Berechtigung können nur ungefähre Alarme gesetzt werden, die vom Betriebssystem nach
-        verschiedenen Kriterien ausgeführt werden (zum Beispiel Akku-Laufzeit).
+        verschiedenen Kriterien ausgeführt werden (zum Beispiel Akku-Laufzeit).]]>
     </string>
     <string name="ui_onboarding_pages_alarms_button_primary">Gerne</string>
     <string name="ui_onboarding_pages_alarms_button_primary_alt">Toll</string>
@@ -103,12 +103,12 @@
         uns helfen, dich in der Achtsamkeit zu unterstützen.
     </string>
     <string name="ui_onboarding_pages_profile_body_sub">
-        Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät
+        <![CDATA[Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät
         gespeichert. Die App übermittelt keine Daten an irgendwelche Server, da Mindful Moment
         keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt.
-        \n\n(Ausgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
+        <br><br>(Ausgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
         Backups kannst du in den Einstellungen aktivieren. Auf Wunsch werden deine Backups
-        verschlüsselt, dies erfordert ein App-Kennwort \u2012 ggf. zusammen mit Biometrie.)
+        verschlüsselt, dies erfordert ein App-Kennwort \u2012 ggf. zusammen mit Biometrie.)]]>
     </string>
     <string name="ui_onboarding_pages_profile_button_primary">Fertig</string>
     <string name="ui_onboarding_pages_profile_toast_empty_name">Bitte wähle einen Namen</string>
@@ -122,15 +122,24 @@
         Fähigkeit, die Herausforderungen des Alltags zu bewältigen.
     </string>
     <string name="ui_onboarding_pages_sleep_body_sub">
-        Allgemein gilt, dass Teenager durchschnittlich zwischen 8 und 10 Stunden und Erwachsene
+        <![CDATA[Allgemein gilt, dass Teenager durchschnittlich zwischen 8 und 10 Stunden und Erwachsene
         zwischen 7 und 9 Stunden erholsamen (ungestörten) Schlaf genießen sollten (amerikanische
         National Sleep Foundation, NSF). Dazu kann auch ein Mittags\u00ADschlaf gehören.
-        \n\nWichtig ist, dass sich die Schlafdauer von Mensch zu Mensch unterscheidet und im
+        <br><br>Wichtig ist, dass sich die Schlafdauer von Mensch zu Mensch unterscheidet und im
         Alter auch abnehmen kann. Weniger als 8 bzw. 7 Schlafstunden sollten es aber nicht sein und
-        können ein Zeichen einer Erkrankung oder eines ungesunden Lebensstils sein.
+        können ein Zeichen einer Erkrankung oder eines ungesunden Lebensstils sein.]]>
     </string>
     <string name="ui_onboarding_pages_sleep_button_primary">So</string>
     <string name="ui_onboarding_pages_sleep_toast_empty_hours">Bitte wähle eine Schlafdauer</string>
+
+    <string name="ui_onboarding_pages_complete_icon_cd">Haken</string>
+    <string name="ui_onboarding_pages_complete_title">Das war\'s</string>
+    <string name="ui_onboarding_pages_complete_body">
+        Das war die Einführung. Freu\' dich jetzt auf deinen ersten achtsamen Moment!
+        \n\nNäheres dazu, wie Mindful Moment deine Daten verwendet, findest du übrigens in unserer
+        Datenschutzerklärung (Info-Button rechts oben).
+    </string>
+    <string name="ui_onboarding_pages_complete_button_primary">Prima</string>
 
     // Navigation
     <string name="ui_navigation_double_back_exit">Noch einmal zum Schließen</string>
@@ -172,6 +181,106 @@
     <string name="ui_legal_imprint_copyright">© 2026 Ole Traupe</string>
     <string name="ui_legal_imprint_form_title">Rechtsform:</string>
     <string name="ui_legal_imprint_form_text">Privater, nicht-kommerzieller Betrieb.</string>
+
+    <string name="ui_legal_privacy_title">Datenschutzerklärung</string>
+    <string name="ui_legal_privacy_policy">
+        <![CDATA[<!DOCTYPE html>
+        <html lang="de">
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 800px; margin: auto; padding: 20px;">
+        <h1>Datenschutzerklärung</h1>
+        <br>
+        <p>Diese Datenschutzerklärung beschreibt, wie <strong>OP AppDevs</strong> („wir“, „uns“ oder „unser“) personenbezogene Daten im Zusammenhang mit der Nutzung der Android‑Anwendung <strong>Mindful Moment</strong> („die App“) verarbeitet. Wir verpflichten uns, Ihre Privatsphäre im Einklang mit der Datenschutz‑Grundverordnung (EU) 2016/679 („DSGVO“) und den geltenden Datenschutzgesetzen zu schützen.</p>
+        <br>
+        <br>
+        <h2>1. Verantwortlicher</h2>
+        <br>
+        <p>Der Verantwortliche im Sinne der DSGVO ist:</p>
+        <p>
+        <strong>Unternehmen:</strong> OP AppDevs<br>
+        <strong>Verantwortlicher:</strong> Ole Traupe<br>
+        <strong>Adresse:</strong> Tautenburger Str. 24, 12249 Berlin, Deutschland<br>
+        <strong>E‑Mail:</strong> <a href="mailto:info@op-appdevs.com">info@op-appdevs.com</a><br>
+        <strong>Website:</strong> <a href="https://www.op-appdevs.com" target="_blank" rel="noopener noreferrer">https://www.op-appdevs.com</a>
+        </p>
+        <br>
+        <br>
+        <h2>2. Geltungsbereich</h2>
+        <br>
+        <p>Diese Datenschutzerklärung gilt ausschließlich für die App. Sie gilt nicht für unsere Website (sofern vorhanden) oder für Dienste Dritter, die nicht von uns betrieben werden.</p>
+        <br>
+        <br>
+        <h2>3. Erhobene und verarbeitete Daten</h2>
+        <br>
+        <p>Die App ermöglicht es Nutzerinnen und Nutzern, allgemeine Wohlbefindens‑ und Schlafdaten einzugeben. Alle diese Daten werden <strong>lokal auf Ihrem Gerät gespeichert</strong> und <strong>nicht an unsere Server übermittelt</strong> oder von uns ferngesteuert verarbeitet.</p>
+        <br>
+        <p>Wir verwenden <strong>keine Analyse‑, Werbe‑ oder Tracking‑Dienste.</strong></p>
+        <br>
+        <p>Die App integriert jedoch <strong>Firebase Crashlytics</strong>, einen Dienst der Google LLC, um <strong>anonyme technische Informationen</strong> über App‑Abstürze und Leistungsprobleme zu erfassen. Dies kann Folgendes beinhalten:</p>
+        <ul>
+          <li>Gerätemodell und Betriebssystemversion</li>
+          <li>App‑Version und Absturzprotokolle</li>
+          <li>Allgemeine technische Informationen zur App‑Leistung</li>
+        </ul>
+        <br>
+        <p>Die Verarbeitung erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</strong>, nämlich zur Gewährleistung der Sicherheit und Stabilität der App sowie zur Fehlerbehebung und Verbesserung der Leistung.</p>
+        <br>
+        <p>Weitere Informationen zur Datenverarbeitung durch Google finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</p>
+        <br>
+        <br>
+        <h2>4. Lokale Datenspeicherung und Backups</h2>
+        <br>
+        <p>Alle von Ihnen eingegebenen Wohlbefindens‑ und Schlafdaten verbleiben unter Ihrer vollständigen Kontrolle auf Ihrem Gerät. Sie können optional <strong>verschlüsselte, passwortgeschützte Backups</strong> erstellen und diese bei einem Cloud‑Speicherdienst Ihrer Wahl sichern.</p>
+        <br>
+        <p>Wir haben keinen Zugriff auf oder Kontrolle über Ihre verschlüsselten Backups oder Ihre Cloud‑Konten. Da der Verschlüsselungsschlüssel (das Passwort) ausschließlich in Ihrem Besitz ist, können wir keine Daten entschlüsseln, wiederherstellen oder einsehen.</p>
+        <br>
+        <br>
+        <h2>5. Aufbewahrung der Daten</h2>
+        <br>
+        <p>Ihre Daten werden ausschließlich auf Ihrem Gerät gespeichert und bleiben dort, bis Sie sie löschen. Sie können Ihre Daten jederzeit entfernen, indem Sie:</p>
+        <ul>
+          <li>Einträge in der App löschen,</li>
+          <li>gespeicherte Backups entfernen oder</li>
+          <li>die App deinstallieren.</li>
+        </ul>
+        <p>Da keine personenbezogenen Daten auf unseren Servern gespeichert werden, können wir Daten nicht in Ihrem Namen löschen oder abrufen.</p>
+        <br>
+        <br>
+        <h2>6. Ihre Rechte nach der DSGVO</h2>
+        <br>
+        <p>Da keine personenbezogenen Daten an uns übermittelt oder von uns gespeichert werden, gelten die meisten Betroffenenrechte der DSGVO (z. B. Auskunft, Berichtigung, Datenübertragbarkeit) nur eingeschränkt. Sie behalten jedoch jederzeit die volle Kontrolle über Ihre Daten und können:</p>
+        <ul>
+          <li>lokal gespeicherte Daten einsehen, ändern oder löschen,</li>
+          <li>eine erteilte Zustimmung (falls zutreffend) widerrufen, indem Sie die App deinstallieren,</li>
+          <li>Daten verwalten, die bei Ihrem Cloud‑Dienst gespeichert sind.</li>
+        </ul>
+        <br>
+        <p>Wenn Sie Fragen zu Ihren Rechten haben, können Sie uns über die angegebenen Kontaktdaten erreichen.</p>
+        <br>
+        <br>
+        <h2>7. Datensicherheit</h2>
+        <br>
+        <p>Wir treffen angemessene technische und organisatorische Maßnahmen, um die in der App gespeicherten Daten vor unbefugtem Zugriff, Verlust oder Missbrauch zu schützen. Die Sicherheit Ihrer verschlüsselten Backups hängt jedoch von der Stärke Ihres Passworts und der Sicherheit des von Ihnen gewählten Cloud‑Speichers ab.</p>
+        <br>
+        <br>
+        <h2>8. Datenschutz von Kindern</h2>
+        <br>
+        <p>Die App richtet sich nicht an Personen unter 16 Jahren. Wir erheben wissentlich keine personenbezogenen Daten von Minderjährigen. Sollten Sie annehmen, dass ein Kind die App genutzt und uns personenbezogene Daten übermittelt hat, kontaktieren Sie uns bitte umgehend.</p>
+        <br>
+        <br>
+        <h2>9. Änderungen dieser Datenschutzerklärung</h2>
+        <br>
+        <p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden durch die Aktualisierung des oben genannten Datums „Letzte Aktualisierung“ angezeigt. Durch die fortgesetzte Nutzung der App nach Inkrafttreten geänderter Bestimmungen erklären Sie sich mit der aktualisierten Datenschutzerklärung einverstanden.</p>
+        <br>
+        <br>
+        <h2>10. Kontakt</h2>
+        <br>
+        <p>Wenn Sie Fragen oder Anliegen zu dieser Datenschutzerklärung oder zur Verarbeitung Ihrer Daten haben, kontaktieren Sie uns bitte unter den oben genannten Kontaktdaten, vorzugsweise per Email.</p>
+        <br>
+        <br>
+        <p><strong>Letzte Aktualisierung:</strong> 25. Februar 2026</p>
+        </body>
+        </html>]]>
+    </string>
 
     // Main
     <string name="ui_main_button_testing_display_daily_notification">Zeige tägliche Erinnerung</string>

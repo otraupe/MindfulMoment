@@ -51,8 +51,8 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulTimePickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.icon.MindfulCheckMark
-import com.opappdevs.mindfulmoment.ui.view.base.permissions.Permissions
 import com.opappdevs.mindfulmoment.ui.view.base.permissions.PermissionButton
+import com.opappdevs.mindfulmoment.ui.view.base.permissions.Permissions
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import kotlinx.coroutines.Dispatchers
@@ -299,15 +299,18 @@ fun PageNotifications(
     }
 }
 
+//TODO: remove usecases from composables, then we can have previews again
 //@ThemePreviews
 //@Composable
 //fun PreviewPageNotifications() {
 //    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
 //        PageNotifications(
+//            pageNumber = 0,
 //            page = OnboardingPages.NOTIFICATIONS,
 //            pagerState = rememberPagerState { 0 },
-//            setPageDone = {},
-//            notificationSettingsActions = NotificationSettingsUseCases()
+//            setPageDone = { (OnboardingPages.NOTIFICATIONS) },
+//            notificationSettingsUseCases = NotificationSettingsUseCases,
+//            pagesDone = listOf()
 //        )
 //    }
 //}

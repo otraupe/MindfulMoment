@@ -37,14 +37,16 @@ fun Onboarding(
 //    }
     val viewModel: OnboardingViewModel = hiltViewModel() //scoped to backstack entry
 
-    val pagesToShow = if (viewModel.canScheduleExactAlarms()) {
-        val resultingPages = OnboardingPages.entries.filter { it != OnboardingPages.ALARMS }
-        Timber.d("pagesToShow: $resultingPages")
-        resultingPages
-    } else {
-        val resultingPages = OnboardingPages.entries
-        Timber.d("pagesToShow: $resultingPages")
-        resultingPages
+    val pagesToShow = remember {
+        if (viewModel.canScheduleExactAlarms()) {
+            val resultingPages = OnboardingPages.entries.filter { it != OnboardingPages.ALARMS }
+            Timber.d("pagesToShow: $resultingPages")
+            resultingPages
+        } else {
+            val resultingPages = OnboardingPages.entries
+            Timber.d("pagesToShow: $resultingPages")
+            resultingPages
+        }
     }
 
     val welcomeVisible = remember { mutableStateOf(true) }

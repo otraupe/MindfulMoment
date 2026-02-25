@@ -23,14 +23,14 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import timber.log.Timber
 
 @Composable
-fun PageIntroduction(
+fun PageComplete(
     pageNumber: Int,
     page: OnboardingPages,
     pagerState: PagerState,
     setPageDone: () -> Unit,
     pagesDone: List<OnboardingPages>
 ) {
-    Timber.d("PageIntroduction")
+    Timber.d("PageComplete")
     OnboardingPage(
         pageNumber = pageNumber,
         baseContent = page,
@@ -46,17 +46,22 @@ fun PageIntroduction(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+//            MindfulTextButton(
+//                R.string.ui_legal_privacy_title,
+//                modifier = Modifier.padding(
+//                    top = dimensionResource(R.dimen.mindful_base_card_padding)
+//                ),
+//            ) {
+//                onNavigate()
+//            }
             MindfulButton(
-                R.string.ui_onboarding_pages_introduction_button_primary,
+                R.string.ui_onboarding_pages_complete_button_primary,
                 modifier = Modifier.padding(
                     top = dimensionResource(R.dimen.mindful_base_card_padding)
                 ),
                 enabled = primaryButtonEnabled
             ) {
-                // check input conditions - none to check here
-                // disable button; ensures pagedone.value can not go backwards
                 primaryButtonEnabled = false
-                // send done
                 setPageDone()
             }
         }
@@ -65,13 +70,13 @@ fun PageIntroduction(
 
 @ThemePreviews
 @Composable
-fun PreviewPageIntroduction() {
+fun PreviewPageComplete() {
     MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-        PageIntroduction(
+        PageComplete(
             pageNumber = 0,
-            page = OnboardingPages.INTRODUCTION,
+            page = OnboardingPages.COMPLETE,
             pagerState = rememberPagerState { 0 },
-            setPageDone = { (OnboardingPages.INTRODUCTION) },
+            setPageDone = { (OnboardingPages.COMPLETE) },
             pagesDone = listOf()
         )
     }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.opappdevs.mindfulmoment.R
+import com.opappdevs.mindfulmoment.annotations.ThemePreviews
+import com.opappdevs.mindfulmoment.ui.theme.MindfulMomentTheme
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.icon.MindfulCheckMark
 import com.opappdevs.mindfulmoment.ui.view.base.permissions.PermissionAlarmsButton
@@ -150,15 +153,17 @@ fun PageAlarms(
     }
 }
 
-//@ThemePreviews
-//@Composable
-//fun PreviewPageNotifications() {
-//    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
-//        PageNotifications(
-//            page = OnboardingPages.NOTIFICATIONS,
-//            pagerState = rememberPagerState { 0 },
-//            setPageDone = {},
-//            notificationSettingsActions = NotificationSettingsUseCases()
-//        )
-//    }
-//}
+@ThemePreviews
+@Composable
+fun PreviewPageAlarms() {
+    MindfulMomentTheme(darkTheme = false, dynamicColor = false) {
+        PageAlarms(
+            pageNumber = 0,
+            page = OnboardingPages.ALARMS,
+            pagerState = rememberPagerState { 0 },
+            setPageDone = { (OnboardingPages.ALARMS) },
+            canScheduleExactAlarms = { false },
+            pagesDone = listOf()
+        )
+    }
+}

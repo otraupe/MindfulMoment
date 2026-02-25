@@ -29,7 +29,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -38,6 +37,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
@@ -45,11 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
-import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonBack
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonInfo
-import com.opappdevs.mindfulmoment.ui.view.base.pager.PagerScrollAnimationSpec
-import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 //TODO: function a bit long and/or convoluted
@@ -62,8 +60,6 @@ fun OnboardingPage(
     focusManager: FocusManager? = null,
     customContent: @Composable () -> Unit
 ) {
-    val scope = rememberCoroutineScope()
-
     val infoVisible = remember { mutableStateOf(false) }
 
     val offsetDerivedState by remember {
@@ -108,19 +104,19 @@ fun OnboardingPage(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    if (!baseContent.isFirstPage()) { //TODO: dangerous, should check against pagesToShow.isFirstOrNull()
-                        //goes back to previous page
-                        MindfulIconButtonBack(
-                            contentDescription = stringResource(R.string.ui_base_button_back_cd)
-                        ) {
-                            scope.launch {
-                                pagerState.animateScrollToPage(
-                                    page = pagerState.currentPage - 1,
-                                    animationSpec = PagerScrollAnimationSpec.deceleratingScrollAnimationSpec()
-                                )
-                            }
-                        }
-                    }
+//                    if (!baseContent.isFirstPage()) { //TODO: dangerous, should check against pagesToShow.isFirstOrNull()
+//                        //goes back to previous page
+//                        MindfulIconButtonBack(
+//                            contentDescription = stringResource(R.string.ui_base_button_back_cd)
+//                        ) {
+//                            scope.launch {
+//                                pagerState.animateScrollToPage(
+//                                    page = pagerState.currentPage - 1,
+//                                    animationSpec = PagerScrollAnimationSpec.deceleratingScrollAnimationSpec()
+//                                )
+//                            }
+//                        }
+//                    }
                     Spacer(Modifier.weight(1f))
                     baseContent.infoRes?.let {
                         Crossfade(
@@ -194,7 +190,9 @@ fun OnboardingPage(
                         exit = fadeOut(),
                     ) {
                         Text(
-                            text = stringResource(baseContent.infoRes),
+                            text = AnnotatedString.fromHtml(
+                                stringResource(baseContent.infoRes)
+                            ),
                             textAlign = TextAlign.Justify,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontSize = 18.sp,

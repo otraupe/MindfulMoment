@@ -43,7 +43,12 @@ enum class OnboardingPages(
         R.string.ui_onboarding_pages_sleep_title,
         R.string.ui_onboarding_pages_sleep_body,
         R.string.ui_onboarding_pages_sleep_body_sub
+    ),
+    COMPLETE(
+        R.drawable.ic_check_circle_24px_rounded,
+        R.string.ui_onboarding_pages_complete_icon_cd,
+        R.string.ui_onboarding_pages_complete_title,
+        R.string.ui_onboarding_pages_complete_body,
+        R.string.ui_legal_privacy_policy
     );
-
-    fun isFirstPage() = ordinal == 0
 }

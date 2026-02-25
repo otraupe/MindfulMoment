@@ -34,7 +34,9 @@ import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.NOTIFICATIONS
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.PROFILE
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.SLEEP
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages.COMPLETE
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageAlarms
+import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageComplete
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageIntroduction
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageNotifications
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages.PageProfile
@@ -122,7 +124,7 @@ fun OnboardingPager(
         visibleState = pagerTransitionState,
         modifier = Modifier.fillMaxSize(),
         enter = fadeIn() + scaleIn(initialScale = .5f),
-        exit = scaleOut(targetScale = .5f) + fadeOut(), //onboarding already fades out
+        exit = scaleOut(targetScale = .5f) + fadeOut(),
     ) {
         Column {
             MindfulHorizontalPager(
@@ -174,6 +176,14 @@ fun OnboardingPager(
                             pagerState = pagerState,
                             setPageDone = { updatePageDoneValue(page) },
                             profileSettingsUseCases = profileSettingsUseCases,
+                            pagesDone = pagesDone
+                        )
+                    COMPLETE ->
+                        PageComplete(
+                            pageNumber = pageNumber,
+                            page = page,
+                            pagerState = pagerState,
+                            setPageDone = { updatePageDoneValue(page) },
                             pagesDone = pagesDone
                         )
                 }
