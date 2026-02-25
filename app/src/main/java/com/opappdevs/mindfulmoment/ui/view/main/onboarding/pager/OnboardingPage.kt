@@ -1,5 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -29,6 +30,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -48,6 +50,7 @@ import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonInfo
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 //TODO: function a bit long and/or convoluted
@@ -60,7 +63,15 @@ fun OnboardingPage(
     focusManager: FocusManager? = null,
     customContent: @Composable () -> Unit
 ) {
+    val scope = rememberCoroutineScope()
+
     val infoVisible = remember { mutableStateOf(false) }
+
+    BackHandler(enabled = infoVisible.value) {
+        scope.launch {
+            infoVisible.value = false
+        }
+    }
 
     val offsetDerivedState by remember {
         derivedStateOf {

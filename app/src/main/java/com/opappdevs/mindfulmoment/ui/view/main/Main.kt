@@ -38,18 +38,16 @@ fun Main(
     val navController = rememberNavController()
     val snackBarHostState = remember { SnackbarHostState() }    // will not survive config changes
     val scope = rememberCoroutineScope()    // for basic UI transformations...
-    // such as opening the nav drawer; coroutines will be cancelled
+    // such as opening the nav drawer; coroutines will be canceled
     // if the calling composable leaves the composition
 
+    DoubleBackToExit(navController = navController, scope = scope)
     // close the drawer on back gesture
-    if (drawerState.isOpen) {
-        BackHandler(enabled = true) {
-            scope.launch {
-                drawerState.close()
-            }
+    BackHandler(enabled = drawerState.isOpen) {
+        scope.launch {
+            drawerState.close()
         }
     }
-    DoubleBackToExit(navController = navController, scope = scope)
     MindfulBackground(
         modifier = Modifier.fillMaxSize(),
         background = {
