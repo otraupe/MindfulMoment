@@ -35,6 +35,7 @@ fun PageIntroduction(
         pageNumber = pageNumber,
         baseContent = page,
         pagerState = pagerState,
+        infoButtonRes = R.string.ui_onboarding_pages_introduction_button_info
     ) {
         var primaryButtonEnabled by rememberSaveable {
             mutableStateOf(!pagesDone.contains(page))
@@ -53,10 +54,7 @@ fun PageIntroduction(
                 ),
                 enabled = primaryButtonEnabled
             ) {
-                // check input conditions - none to check here
-                // disable button; ensures pagedone.value can not go backwards
                 primaryButtonEnabled = false
-                // send done
                 setPageDone()
             }
         }

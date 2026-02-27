@@ -19,6 +19,7 @@
     <string name="ui_base_label_birthdate">Geburtsdatum</string>
     <string name="ui_base_label_time">Uhrzeit</string>
     <string name="ui_base_label_sleep_duration">Schlafdauer</string>
+    <string name="ui_base_label_tips">Hinweise</string>
 
     <string name="ui_base_error_unspecified">Ein unbekannter Fehler ist aufgetreten</string>
     <string name="ui_base_very_long_dummy_text">
@@ -42,9 +43,10 @@
     <string name="ui_onboarding_pages_introduction_title">Dein achtsamer Moment</string>
     <string name="ui_onboarding_pages_introduction_body">
         Achtsamkeit ist wichtig für dein Wohlbefinden und deine Gesundheit. Mindful Moment möchte dir
-        dabei helfen, dich in Achtsamkeit zu üben.
-        \n\nDafür brauchst du jeden Tag nur <b>5\u00A0Minuten</b>, am Besten morgens bevor du in den Tag
+        helfen, dich in Achtsamkeit zu üben.
+        \n\nDafür brauchst du jeden Tag nur <b>5\u00A0Minuten</b> \u2012 am Besten morgens bevor du in den Tag
         startest.
+        \n\nWas Achtsamkeit ist:
     </string>
     <string name="ui_onboarding_pages_introduction_body_sub">
         <![CDATA[Achtsamkeit ist die Fähigkeit, einmal ganz im Hier und Jetzt zu sein. Sie gibt dir die
@@ -52,13 +54,13 @@
         <br><br>Weitere Informationen zu Achtsamkeit kannst du später im App-Menü finden.]]>
     </string>
     <string name="ui_onboarding_pages_introduction_button_primary">Super</string>
+    <string name="ui_onboarding_pages_introduction_button_info">Achtsamkeit</string>
 
     <string name="ui_onboarding_pages_notifications_icon_cd">Glocke</string>
     <string name="ui_onboarding_pages_notifications_title">Benachrichtigungen</string>
     <string name="ui_onboarding_pages_notifications_body">
-        Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden? Dann aktiviere
-        Benachrichtigungen.
-        \n\nWähle dafür zunächst eine Uhrzeit.
+        Möchtest du jeden Tag an deinen achtsamen Moment erinnert werden? Dann wähle dafür zunächst
+        eine Uhrzeit.
     </string>
     <string name="ui_onboarding_pages_notifications_body_sub">
         <![CDATA[Das kannst du auch später noch in den Einstellungen machen.]]>
@@ -74,12 +76,11 @@
     <string name="ui_onboarding_pages_alarms_title">Genaue Erinnerungen</string>
     <string name="ui_onboarding_pages_alarms_body">
         Um dich zu einem genauen Zeitpunkt an deinen achtsamen Moment erinnern zu können, benötigt
-        Mindful Moment die Berechtigung dafür, exakte Alarme einzustellen. Ohne genaue Erinnerungen
-        kann Mindful Moment dich nur zu einer ungefähren Zeit erinnern.
+        Mindful Moment die Berechtigung dafür, exakte Alarme einzustellen.
         \n\nFür neue Gewohnheiten ist es hilfreich, einen festen Zeitplan einzuhalten.
     </string>
     <string name="ui_onboarding_pages_alarms_body_sub">
-        <![CDATA[Das kannst du auch später noch in den Einstellungen machen.
+        <![CDATA[Ohne genaue Erinnerungen kann Mindful Moment dich nur zu einer ungefähren Zeit erinnern.
         <br><br>Hintergrund: Ab Android 14 wird die Berechtigung zum Einstellen exakter Alarme nicht mehr
         automatisch erteilt, sondern erfordert eine Bestätigung durch den Nutzer. Ohne diese
         Berechtigung können nur ungefähre Alarme gesetzt werden, die vom Betriebssystem nach
@@ -99,11 +100,11 @@
     <string name="ui_onboarding_pages_profile_icon_cd">Benutzer</string>
     <string name="ui_onboarding_pages_profile_title">Persönliche Angaben</string>
     <string name="ui_onboarding_pages_profile_body">
-        Bitte sag uns, wie du genannt werden möchtest und wann du geboren wurdest. Dein Alter kann
-        uns helfen, dich in der Achtsamkeit zu unterstützen.
+        Bitte sag uns, wie du genannt werden möchtest und wann du geboren wurdest.
     </string>
     <string name="ui_onboarding_pages_profile_body_sub">
-        <![CDATA[Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät
+        <![CDATA[Dein Alter kann uns helfen, dich in der Achtsamkeit zu unterstützen.
+        <br><br>Diese und alle weiteren Angaben und Daten werden ausschließlich auf deinem Gerät
         gespeichert. Die App übermittelt keine Daten an irgendwelche Server, da Mindful Moment
         keine Server betreibt und der App die Berechtigung für den Internetzugriff fehlt.
         <br><br>(Ausgenommen sind Backups, sofern ein Cloud-Speicherziel gewählt wird.
@@ -118,11 +119,11 @@
     <string name="ui_onboarding_pages_sleep_title">Erwünschte Schlafdauer</string>
     <string name="ui_onboarding_pages_sleep_body">
         Bitte gib an, wie lange du am liebsten schläfst, damit du dich kraftvoll und erholt fühlst.
-        Ausreichend Schlaf ist wichtig für deine körperliche und geistige Gesundheit, und für deine
-        Fähigkeit, die Herausforderungen des Alltags zu bewältigen.
     </string>
     <string name="ui_onboarding_pages_sleep_body_sub">
-        <![CDATA[Allgemein gilt, dass Teenager durchschnittlich zwischen 8 und 10 Stunden und Erwachsene
+        <![CDATA[Ausreichend Schlaf ist wichtig für deine körperliche und geistige Gesundheit, und
+        für deine Fähigkeit, die Herausforderungen des Alltags zu bewältigen.
+        <br><br>Allgemein gilt, dass Teenager durchschnittlich zwischen 8 und 10 Stunden und Erwachsene
         zwischen 7 und 9 Stunden erholsamen (ungestörten) Schlaf genießen sollten (amerikanische
         National Sleep Foundation, NSF). Dazu kann auch ein Mittags\u00ADschlaf gehören.
         <br><br>Wichtig ist, dass sich die Schlafdauer von Mensch zu Mensch unterscheidet und im
@@ -135,9 +136,8 @@
     <string name="ui_onboarding_pages_complete_icon_cd">Haken</string>
     <string name="ui_onboarding_pages_complete_title">Das war\'s</string>
     <string name="ui_onboarding_pages_complete_body">
-        Das war die Einführung. Freu\' dich jetzt auf deinen ersten achtsamen Moment!
-        \n\nNäheres dazu, wie Mindful Moment deine Daten verwendet, findest du übrigens in unserer
-        Datenschutzerklärung (Info-Button rechts oben).
+        Das war die Einführung. Freue dich jetzt auf deinen ersten achtsamen Moment!
+        \n\nNäheres dazu, wie Mindful Moment deine Daten verwendet, findest du hier:
     </string>
     <string name="ui_onboarding_pages_complete_button_primary">Prima</string>
 
@@ -182,7 +182,7 @@
     <string name="ui_legal_imprint_form_title">Rechtsform:</string>
     <string name="ui_legal_imprint_form_text">Privater, nicht-kommerzieller Betrieb.</string>
 
-    <string name="ui_legal_privacy_title">Datenschutzerklärung</string>
+    <string name="ui_legal_privacy_title">Datenschutz\u00ADerklärung</string>
 
     // Main
     <string name="ui_main_button_testing_display_daily_notification">Zeige tägliche Erinnerung</string>

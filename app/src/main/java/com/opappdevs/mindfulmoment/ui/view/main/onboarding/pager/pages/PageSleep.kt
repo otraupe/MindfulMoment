@@ -97,7 +97,8 @@ fun PageSleep(
     OnboardingPage(
         pageNumber = pageNumber,
         baseContent = page,
-        pagerState = pagerState
+        pagerState = pagerState,
+        infoButtonRes = R.string.ui_base_label_tips
     ) {
         Column(
             modifier = Modifier
@@ -143,7 +144,7 @@ fun PageSleep(
             MindfulButton(
                 labelRes = R.string.ui_onboarding_pages_sleep_button_primary ,
                 modifier = Modifier.padding(
-                    top = 48.dp
+                    top = dimensionResource(R.dimen.mindful_base_card_padding)
                 ),
                 enabled = primaryButtonEnabled
             ) {

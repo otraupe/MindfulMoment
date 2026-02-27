@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,9 +15,9 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -34,7 +35,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -48,20 +50,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
+import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonInfo
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
-
-//TODO: function a bit long and/or convoluted
 
 @Composable
 fun OnboardingPage(
     pageNumber: Int, //TODO: this is not pretty
     baseContent: OnboardingPages,
     pagerState: PagerState,
+    infoButtonRes: Int? = null,
     focusManager: FocusManager? = null,
-    customContent: @Composable () -> Unit
+    customContent: @Composable () -> Unit = {}
 ) {
     val scope = rememberCoroutineScope()
 
@@ -80,6 +82,15 @@ fun OnboardingPage(
             Pair(1.1f - absOffset, 1f - absOffset / 8) //1.1f: avoid full
         // transparency; could trigger garbage collection (really?)
         }
+    }
+
+    val gradientHeight = dimensionResource(R.dimen.mindful_scrollable_text_bottom_gradient_height)
+    val gradientColor = MaterialTheme.colorScheme.surface
+    val fadingEdgeGradient = remember {
+        Brush.verticalGradient(
+            0.0f to Color.Transparent,
+            1.0f to gradientColor
+        )
     }
 
     MindfulCard(
@@ -114,21 +125,8 @@ fun OnboardingPage(
                 // icon buttons
                 Row(
                     modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
                 ) {
-//                    if (!baseContent.isFirstPage()) { //TODO: dangerous, should check against pagesToShow.isFirstOrNull()
-//                        //goes back to previous page
-//                        MindfulIconButtonBack(
-//                            contentDescription = stringResource(R.string.ui_base_button_back_cd)
-//                        ) {
-//                            scope.launch {
-//                                pagerState.animateScrollToPage(
-//                                    page = pagerState.currentPage - 1,
-//                                    animationSpec = PagerScrollAnimationSpec.deceleratingScrollAnimationSpec()
-//                                )
-//                            }
-//                        }
-//                    }
-                    Spacer(Modifier.weight(1f))
                     baseContent.infoRes?.let {
                         Crossfade(
                             targetState = infoVisible,
@@ -168,26 +166,47 @@ fun OnboardingPage(
                     .weight(1f)
             ) {
                 Column(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
-                            .verticalScroll(rememberScrollState()),
                     ) {
-                        Text(
-                            text = stringResource(baseContent.bodyRes),
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.headlineSmall.copy(
-                                fontSize = 18.sp,
-                                lineHeight = 21.sp,
-                                hyphens = Hyphens.Auto, //enable hyphenation
-                                lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
-                            ),
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState())
+                        ) {
+                            Text(
+                                text = stringResource(baseContent.bodyRes),
+                                textAlign = TextAlign.Center,
+                                style = MaterialTheme.typography.headlineSmall.copy(
+                                    fontSize = 18.sp,
+                                    lineHeight = 21.sp,
+                                    hyphens = Hyphens.Auto, //enable hyphenation
+                                    lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                            )
+                            infoButtonRes?.let {
+                                MindfulTextButton(
+                                    labelRes = infoButtonRes,
+                                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                                    fontSize = 24,
+                                ) { infoVisible.value = true }
+                            }
+                            Spacer(modifier = Modifier.height(gradientHeight))
+                        }
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .wrapContentHeight()
+                                .height(gradientHeight)
+                                .align(Alignment.BottomCenter)
+                                .background(fadingEdgeGradient)
+
                         )
                     }
                     // input elements, buttons and such
@@ -200,27 +219,68 @@ fun OnboardingPage(
                         enter = fadeIn(),
                         exit = fadeOut(),
                     ) {
-                        Text(
-                            text = AnnotatedString.fromHtml(
-                                stringResource(baseContent.infoRes)
-                            ),
-                            textAlign = TextAlign.Justify,
-                            style = MaterialTheme.typography.headlineSmall.copy(
-                                fontSize = 18.sp,
-                                lineHeight = 21.sp,
-                                hyphens = Hyphens.Auto, //enable hyphenation
-                                lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
-                            ),
-                            modifier = Modifier
-                                .background(
-                                    color = MaterialTheme.colorScheme.background,
-                                    shape = RectangleShape
+                        Box {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .verticalScroll(rememberScrollState())
+                                    .background(color = MaterialTheme.colorScheme.surface)
+                            ) {
+                                Text(
+                                    text = AnnotatedString.fromHtml(
+                                        stringResource(baseContent.infoRes)
+                                    ),
+                                    textAlign = TextAlign.Justify,
+                                    style = MaterialTheme.typography.headlineSmall.copy(
+                                        fontSize = 18.sp,
+                                        lineHeight = 21.sp,
+                                        hyphens = Hyphens.Auto, //enable hyphenation
+                                        lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
+                                    ),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
                                 )
-                                .verticalScroll(rememberScrollState())
-                        )
+                                Spacer(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(gradientHeight)
+                                )
+                            }
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(gradientHeight)
+                                    .align(Alignment.BottomCenter)
+                                    .background(fadingEdgeGradient)
+
+                            )
+                        }
                     }
                 }
             }
         }
     }
 }
+
+//private fun Modifier.fadingBottomEdge(brush: Brush, edgeHeight: Dp) = this
+//    .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
+//    .drawWithContent {
+//        drawContent()
+//        val brushHeight = edgeHeight.toPx()
+//        drawRect(
+//            brush = brush,
+//            blendMode = BlendMode.DstIn,
+//            // Draw the rectangle at the bottom of the composable area.
+//            topLeft = Offset(0f, this.size.height - brushHeight),
+//            size = Size(this.size.width, brushHeight)
+//        )
+//    }
+
+//@Composable
+//private fun pixelsToDp(pixels: Int) = with(LocalDensity.current) {
+//    pixels.toDp()
+//}
+//@Composable
+//private fun dpToPixels(dp: Dp) = with(LocalDensity.current) {
+//    dp.toPx()
+//}

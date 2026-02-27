@@ -214,7 +214,7 @@ fun PageProfile(
             MindfulButton(
                 labelRes = R.string.ui_onboarding_pages_profile_button_primary ,
                 modifier = Modifier.padding(
-                    top = 48.dp
+                    top = dimensionResource(R.dimen.mindful_base_card_padding)
                 ),
                 enabled = primaryButtonEnabled
             ) {

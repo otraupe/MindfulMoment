@@ -35,6 +35,7 @@ fun PageComplete(
         pageNumber = pageNumber,
         baseContent = page,
         pagerState = pagerState,
+        infoButtonRes = R.string.ui_legal_privacy_title
     ) {
         var primaryButtonEnabled by rememberSaveable {
             mutableStateOf(!pagesDone.contains(page))
@@ -46,14 +47,6 @@ fun PageComplete(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            MindfulTextButton(
-//                R.string.ui_legal_privacy_title,
-//                modifier = Modifier.padding(
-//                    top = dimensionResource(R.dimen.mindful_base_card_padding)
-//                ),
-//            ) {
-//                onNavigate()
-//            }
             MindfulButton(
                 R.string.ui_onboarding_pages_complete_button_primary,
                 modifier = Modifier.padding(
