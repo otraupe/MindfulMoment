@@ -38,6 +38,7 @@ import com.opappdevs.mindfulmoment.ext.toHoursSleepString
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.Duration.SHORT
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindfulToast
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
+import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulAlertDialog
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulStringPickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.rememberPickerState
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
@@ -69,6 +70,8 @@ fun PageSleep(
     }
     var sleepDesiredHoursText by rememberSaveable { mutableStateOf(sleepDesiredHours.toHoursSleepString()) }
 
+    val (showSleepWarningDialog, setShowSleepWarningDialog) = remember { mutableStateOf(false) }
+
     val pickerHours = remember { 1..24 }
     val startIndex by remember {
         derivedStateOf { pickerHours.indexOf(if (sleepDesiredHours < 0) 8 else sleepDesiredHours) }
@@ -88,9 +91,24 @@ fun PageSleep(
                 sleepDesiredHours = sleepHoursPickerState.selectedItem.safeToInt()
                 profileSettingsUseCases.setSleepDurationHoursUseCase(sleepDesiredHours)
                 sleepDesiredHoursText = sleepDesiredHours.toHoursSleepString()
+                if (!(7..10).contains(sleepDesiredHours)) {
+                    setShowSleepWarningDialog(true)
+                }
                         },
             onDismiss = { setShowSleepPickerDialog(false) },
             onDismissRequest = { setShowSleepPickerDialog(false) }
+        )
+    }
+
+    if (showSleepWarningDialog) {
+        MindfulAlertDialog(
+            titleRes = R.string.ui_base_label_tip,
+            textRes = R.string.ui_onboarding_pages_sleep_hours_warning_text,
+            confirmButtonTextRes = R.string.ui_base_button_ok,
+            dismissButtonTextRes = null,
+            onConfirm = { setShowSleepWarningDialog(false) },
+            onDismiss = {},
+            onDismissRequest = {}
         )
     }
 

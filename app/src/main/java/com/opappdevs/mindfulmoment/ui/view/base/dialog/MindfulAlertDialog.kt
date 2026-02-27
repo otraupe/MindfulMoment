@@ -14,7 +14,7 @@ fun MindfulAlertDialog(
     titleRes: Int,
     textRes: Int,
     confirmButtonTextRes: Int,
-    dismissButtonTextRes: Int,
+    dismissButtonTextRes: Int?,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
     onDismissRequest: () -> Unit = {}
@@ -34,7 +34,7 @@ fun MindfulAlertDialog(
                 onClick = onConfirm
             )
         },
-        dismissButton = {
+        dismissButton = { if (dismissButtonTextRes != null)
             MindfulTextButton(
                 labelRes = dismissButtonTextRes,
                 onClick = onDismiss

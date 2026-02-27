@@ -19,6 +19,7 @@
     <string name="ui_base_label_birthdate">Geburtsdatum</string>
     <string name="ui_base_label_time">Uhrzeit</string>
     <string name="ui_base_label_sleep_duration">Schlafdauer</string>
+    <string name="ui_base_label_tip">Hinweis</string>
     <string name="ui_base_label_tips">Hinweise</string>
 
     <string name="ui_base_error_unspecified">Ein unbekannter Fehler ist aufgetreten</string>
@@ -132,6 +133,9 @@
     </string>
     <string name="ui_onboarding_pages_sleep_button_primary">So</string>
     <string name="ui_onboarding_pages_sleep_toast_empty_hours">Bitte wähle eine Schlafdauer</string>
+    <string name="ui_onboarding_pages_sleep_hours_warning_text">
+        Die empfohlene Schlafdauer liegt zwischen 7 und 10 Stunden (siehe Hinweise).
+    </string>
 
     <string name="ui_onboarding_pages_complete_icon_cd">Haken</string>
     <string name="ui_onboarding_pages_complete_title">Das war\'s</string>

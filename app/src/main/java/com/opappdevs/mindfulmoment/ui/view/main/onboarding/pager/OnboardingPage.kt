@@ -32,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -67,7 +68,7 @@ fun OnboardingPage(
 ) {
     val scope = rememberCoroutineScope()
 
-    val infoVisible = remember { mutableStateOf(false) }
+    val infoVisible = rememberSaveable { mutableStateOf(false) }
 
     BackHandler(enabled = infoVisible.value) {
         scope.launch {
@@ -261,26 +262,3 @@ fun OnboardingPage(
         }
     }
 }
-
-//private fun Modifier.fadingBottomEdge(brush: Brush, edgeHeight: Dp) = this
-//    .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
-//    .drawWithContent {
-//        drawContent()
-//        val brushHeight = edgeHeight.toPx()
-//        drawRect(
-//            brush = brush,
-//            blendMode = BlendMode.DstIn,
-//            // Draw the rectangle at the bottom of the composable area.
-//            topLeft = Offset(0f, this.size.height - brushHeight),
-//            size = Size(this.size.width, brushHeight)
-//        )
-//    }
-
-//@Composable
-//private fun pixelsToDp(pixels: Int) = with(LocalDensity.current) {
-//    pixels.toDp()
-//}
-//@Composable
-//private fun dpToPixels(dp: Dp) = with(LocalDensity.current) {
-//    dp.toPx()
-//}
