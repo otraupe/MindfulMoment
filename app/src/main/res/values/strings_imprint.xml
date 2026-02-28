@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_legal_imprint">
+        <![CDATA[<!DOCTYPE html>
+        <html lang="de">
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 800px; margin: auto; padding: 20px;">
+        <h2>Impressum</h2>
+        <br>
+        <br>
+        <h3>Herausgegeben von:</h3>
+        <br>
+        <b>OP AppDevs</b><br>
+        Ole Traupe<br>
+        Tautenburger Str. 24<br>
+        12249 Berlin<br>
+        Deutschland<br>
+        <br>
+        <br>
+        <h3>Kontakt:</h3>
+        <br>
+        E‑Mail: <a href="mailto:info@op-appdevs.com"><b>info@op-appdevs.com</b></a><br>
+        Website: <a href="https://www.op-appdevs.com" target="_blank" rel="noopener noreferrer"><b>www.op-appdevs.com</b></a><br>
+        <br>
+        <br>
+        <h3>Rechtsform:</h3>
+        <br>
+        Privater, nicht-kommerzieller Betrieb.<br>
+        <br>
+        <br>
+        © 2026 Ole Traupe
+        </body>
+        </html>]]>
+    </string>
+</resources>

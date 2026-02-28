@@ -1,13 +1,12 @@
 package com.opappdevs.mindfulmoment.navigation
 
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import timber.log.Timber
 
 class NavHelper {
     companion object {
-        fun currentRoute(navController: NavHostController): String? {
+        private fun currentRoute(navController: NavHostController): String? {
             val navBackStackEntry = navController.currentBackStackEntry
             return navBackStackEntry?.destination?.route
         }

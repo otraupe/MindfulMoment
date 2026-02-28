@@ -36,8 +36,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -50,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
+import com.opappdevs.mindfulmoment.ui.util.fadingEdgeBrush
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
@@ -86,13 +85,7 @@ fun OnboardingPage(
     }
 
     val gradientHeight = dimensionResource(R.dimen.mindful_scrollable_text_bottom_gradient_height)
-    val gradientColor = MaterialTheme.colorScheme.surface
-    val fadingEdgeGradient = remember {
-        Brush.verticalGradient(
-            0.0f to Color.Transparent,
-            1.0f to gradientColor
-        )
-    }
+    val fadingEdgeGradient = fadingEdgeBrush()
 
     MindfulCard(
         modifier = Modifier
@@ -207,7 +200,6 @@ fun OnboardingPage(
                                 .height(gradientHeight)
                                 .align(Alignment.BottomCenter)
                                 .background(fadingEdgeGradient)
-
                         )
                     }
                     // input elements, buttons and such

@@ -1,15 +1,27 @@
 package com.opappdevs.mindfulmoment.ui.view.main
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material3.*
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.opappdevs.mindfulmoment.R
-import com.opappdevs.mindfulmoment.navigation.Destinations
 import com.opappdevs.mindfulmoment.navigation.navigateIfNew
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -25,43 +37,39 @@ fun MainNavDrawer(
     navController: NavHostController,
     content: @Composable () -> Unit
 ) {
-//    val items = listOf(Icons.Default.Favorite, Icons.Default.Face, Icons.Default.Email)
-//    val selectedItem = remember { mutableStateOf(items[0]) }
+    navController.currentBackStackEntryAsState()
+    val items = MainNavItems.entries
+    val selectedItem = remember { mutableStateOf(items[0]) }
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-//                Spacer(Modifier.height(12.dp))
-//                items.forEach { item ->
-//                    NavigationDrawerItem(
-//                        icon = { Icon(item, contentDescription = null) },
-//                        label = { Text(item.name) },
-////                        selected = item == selectedItem.value,
-//                        selected = false,
-//                        onClick = {
-//                            scope.launch { drawerState.close() }
-////                            selectedItem.value = item
-//                        },
-//                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-//                    )
-//                }
-                NavigationDrawerItem(
+                Spacer(Modifier.height(dimensionResource(R.dimen.mindful_base_card_sub_spacing)))
+                items.forEach { item ->
+                    NavigationDrawerItem(
                         icon = {
                             Icon(
-                                imageVector = Icons.Filled.Email,
-                                contentDescription = null
+                                ImageVector.vectorResource(item.iconRes),
+                                contentDescription = stringResource(item.iconCdRes)
                             )
                                },
-                        label = { Text(stringResource(R.string.ui_legal_imprint_title)) },
-//                        selected = item == selectedItem.value,
-                        selected = false,
+                        label = { Text(stringResource(item.labelRes)) },
+                        selected = item == selectedItem.value,
                         onClick = {
                             scope.launch { drawerState.close() }
-                            navController.navigateIfNew(Destinations.Imprint.route)
-//                            selectedItem.value = item
+                            selectedItem.value = item
+                            navController.navigateIfNew(item.route)
                         },
-                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                        modifier = Modifier.padding(
+                            NavigationDrawerItemDefaults.ItemPadding
+                        ),
+                        colors = NavigationDrawerItemDefaults.colors(
+                            selectedContainerColor = MaterialTheme.colorScheme.primary,
+                            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                            selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        )
                     )
+                }
             }
         },
         gesturesEnabled = gesturesEnabled,     // allows swiping for open/close and clicking outside to close

@@ -38,7 +38,7 @@
     <string name="ui_onboarding_welcome_title">Mindful\nMoment</string>
     <string name="ui_onboarding_welcome_subtitle">Dein Moment der\nAchtsamkeit</string>
     <string name="ui_onboarding_startButton_label">Los geht\'s</string>
-    <string name="ui_onboarding_background_cd">Background image: heart on grass</string>
+    <string name="ui_onboarding_background_cd">Hintergrundbild: Herz auf Gras</string>
 
     <string name="ui_onboarding_pages_introduction_icon_cd">Herz</string>
     <string name="ui_onboarding_pages_introduction_title">Dein achtsamer Moment</string>
@@ -191,6 +191,12 @@
     // Main
     <string name="ui_main_button_testing_display_daily_notification">Zeige tägliche Erinnerung</string>
     <string name="ui_main_button_testing_cancel_daily_alarm">Täglichen Alarm löschen</string>
+
+    <string name="ui_main_navigation_destination_home">Home</string>
+
+    <string name="ui_main_navigation_icon_home_cd">Haus</string>
+    <string name="ui_main_navigation_icon_privacy_cd">Schild</string>
+    <string name="ui_main_navigation_icon_imprint_cd">Brief</string>
 
     // Notifications
     <string name="notifications_channels_reminder_name">Erinnerungen</string>
