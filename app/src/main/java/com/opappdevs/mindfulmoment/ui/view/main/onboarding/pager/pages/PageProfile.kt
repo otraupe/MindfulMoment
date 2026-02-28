@@ -1,6 +1,5 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,9 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -47,6 +44,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.MindfulToast.Companion.showMindf
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulDatePickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.savers.TextFieldValueSaver
+import com.opappdevs.mindfulmoment.ui.view.base.text.MindfulClickableTextField
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import timber.log.Timber
@@ -175,42 +173,13 @@ fun PageProfile(
                     },
                 shape = RoundedCornerShape(8.dp)
             )
-            OutlinedTextField(
-                value = birthDateText,
-                onValueChange = {}, // No-op, made read-only
-                enabled = false,
-                label = {
-                    Text(
-                        text = stringResource(R.string.ui_base_label_birthdate),
-                        maxLines = 1,
-                        autoSize = TextAutoSize.StepBased(
-                            minFontSize = 12.sp,
-                            maxFontSize = 18.sp
-                        )
-                    )
-                },
-                textStyle = LocalTextStyle.current.copy(
-                    fontSize = 22.sp,
-                    textAlign = TextAlign.Center,
-                ),
-                singleLine = true,
-                modifier = Modifier
-                    .width(dimensionResource(R.dimen.mindful_base_textField_width))
-                    .padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
-                    .clickable {
-                        focusManager.clearFocus()
-                        setShowDatePickerDialog(true)
-                    },
-                shape = RoundedCornerShape(8.dp),
-                colors = OutlinedTextFieldDefaults.colors().copy(
-                    disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                    disabledIndicatorColor = MaterialTheme.colorScheme.outline,
-                    disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    //For Icons
-                    disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant)
-            )
+            MindfulClickableTextField(
+                labelRes = R.string.ui_base_label_birthdate,
+                textValue = birthDateText,
+            ) {
+                focusManager.clearFocus()
+                setShowDatePickerDialog(true)
+            }
             MindfulButton(
                 labelRes = R.string.ui_onboarding_pages_profile_button_primary ,
                 modifier = Modifier.padding(

@@ -3,21 +3,13 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 import android.os.Build
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TimePickerSelectionMode
 import androidx.compose.material3.rememberTimePickerState
@@ -35,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +44,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulTimePickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.icon.MindfulCheckMark
 import com.opappdevs.mindfulmoment.ui.view.base.permissions.PermissionButton
 import com.opappdevs.mindfulmoment.ui.view.base.permissions.Permissions
+import com.opappdevs.mindfulmoment.ui.view.base.text.MindfulClickableTextField
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import kotlinx.coroutines.Dispatchers
@@ -188,41 +180,12 @@ fun PageNotifications(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(
-                value = notificationTimeText,
-                onValueChange = {}, // No-op, made read-only
-                enabled = false,
-                label = {
-                    Text(
-                        text = stringResource(R.string.ui_base_label_time),
-                        maxLines = 1,
-                        autoSize = TextAutoSize.StepBased(
-                            minFontSize = 12.sp,
-                            maxFontSize = 18.sp
-                        )
-                    )
-                        },
-                textStyle = LocalTextStyle.current.copy(
-                    fontSize = 22.sp,   //TODO: set up my own typography
-                    textAlign = TextAlign.Center
-                ),
-                modifier = Modifier
-                    .width(dimensionResource(R.dimen.mindful_base_textField_width))
-                    .padding(vertical = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
-                    .clickable {
-                        Timber.d("showDatePickerDialog set to true")
-                        showTimePicker()
-                    },
-                shape = RoundedCornerShape(8.dp),
-                colors = OutlinedTextFieldDefaults.colors().copy(
-                    disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                    disabledIndicatorColor = MaterialTheme.colorScheme.outline,
-                    disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    //For Icons
-                    disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant)
-            )
+            MindfulClickableTextField(
+                labelRes = R.string.ui_base_label_time,
+                textValue = notificationTimeText,
+            ) {
+                showTimePicker()
+            }
             if (!checkMarkVisible.value) {
                 MindfulTextButton(
                     labelRes = R.string.ui_onboarding_pages_notifications_button_secondary,

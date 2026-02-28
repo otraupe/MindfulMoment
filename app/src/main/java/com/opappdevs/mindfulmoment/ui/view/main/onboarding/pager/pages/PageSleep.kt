@@ -1,20 +1,11 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -27,10 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.ProfileSettingsUseCases
 import com.opappdevs.mindfulmoment.ext.safeToInt
@@ -41,6 +28,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulButton
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulAlertDialog
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.MindfulStringPickerDialog
 import com.opappdevs.mindfulmoment.ui.view.base.dialog.rememberPickerState
+import com.opappdevs.mindfulmoment.ui.view.base.text.MindfulClickableTextField
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
 import timber.log.Timber
@@ -124,41 +112,12 @@ fun PageSleep(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(
-                value = sleepDesiredHoursText,
-                onValueChange = {}, // No-op, made read-only
-                enabled = false,
-                label = {
-                    Text(
-                        text = stringResource(R.string.ui_base_label_sleep_duration),
-                        maxLines = 1,
-                        autoSize = TextAutoSize.StepBased(
-                            minFontSize = 12.sp,
-                            maxFontSize = 18.sp
-                        )
-                    )
-                },
-                textStyle = LocalTextStyle.current.copy(
-                    fontSize = 22.sp,
-                    textAlign = TextAlign.Center,
-                ),
-                singleLine = true,
-                modifier = Modifier
-                    .width(dimensionResource(R.dimen.mindful_base_textField_width))
-                    .padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
-                    .clickable {
-                        setShowSleepPickerDialog(true)
-                    },
-                shape = RoundedCornerShape(8.dp),
-                colors = OutlinedTextFieldDefaults.colors().copy(
-                    disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                    disabledIndicatorColor = MaterialTheme.colorScheme.outline,
-                    disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    //For Icons
-                    disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant)
-            )
+            MindfulClickableTextField(
+                labelRes = R.string.ui_base_label_sleep_duration,
+                textValue = sleepDesiredHoursText,
+            ) {
+                setShowSleepPickerDialog(true)
+            }
             MindfulButton(
                 labelRes = R.string.ui_onboarding_pages_sleep_button_primary ,
                 modifier = Modifier.padding(
