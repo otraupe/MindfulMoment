@@ -24,7 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.opappdevs.mindfulmoment.R
-import com.opappdevs.mindfulmoment.navigation.Destinations
+import com.opappdevs.mindfulmoment.navigation.Destination
 import com.opappdevs.mindfulmoment.navigation.DoubleBackToExit
 import com.opappdevs.mindfulmoment.navigation.NavGraph
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
@@ -62,14 +62,14 @@ fun Main(
         MainNavDrawer(
             drawerState = drawerState,
             scope = scope,
-            gesturesEnabled = (currentRoute(navController) != Destinations.Onboarding.route),
+            gesturesEnabled = (currentRoute(navController) != Destination.Onboarding.route),
             navController = navController,
         ) {
             Scaffold(
                 containerColor = Color.Transparent,
                 contentWindowInsets = WindowInsets(0.dp),
                 topBar = {
-                    if (currentRoute(navController) != Destinations.Onboarding.route) {
+                    if (currentRoute(navController) != Destination.Onboarding.route) {
                         MainTopBar(drawerState, scope)
                     }
                 },
@@ -79,9 +79,9 @@ fun Main(
                     navController = navController,
                     snackState = snackBarHostState,
                     startDestination = if (!isOnboardingComplete) {
-                        Destinations.Onboarding.route
+                        Destination.Onboarding.route
                     } else {
-                        Destinations.Home.route
+                        Destination.Home.route
                     },
                     modifier = Modifier.padding(contentPadding),
                 )

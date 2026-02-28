@@ -30,7 +30,7 @@ fun NavGraph(
     navController: NavHostController,       // nav controller for navigating programmatically
     snackState: SnackbarHostState,          // snack bar host state for displaying snack bars
     modifier: Modifier = Modifier,
-    startDestination: String = Destinations.Home.route,   // first composable to auto-navigate to
+    startDestination: String = Destination.Home.route,   // first composable to auto-navigate to
 ) {
     val baseTransitionMillis = remember { 500 }
     NavHost(
@@ -73,7 +73,7 @@ fun NavGraph(
         }
     ) {
         composable(
-            route = Destinations.Home.route,
+            route = Destination.Home.route,
         ) {
             Home(
                 navController = navController,
@@ -81,7 +81,7 @@ fun NavGraph(
             )
         }
         composable(
-            route = Destinations.Onboarding.route,
+            route = Destination.Onboarding.route,
             exitTransition = { ExitTransition.None }, //race condition with pop from backstack?
             popExitTransition = { ExitTransition.None }
         ) {
@@ -91,12 +91,12 @@ fun NavGraph(
             )
         }
         composable(
-            route = Destinations.Imprint.route,
+            route = Destination.Imprint.route,
         ) {
             Imprint(navController = navController)
         }
         composable(
-            route = Destinations.PrivacyPolicy.route,
+            route = Destination.PrivacyPolicy.route,
         ) {
             PrivacyPolicy(navController = navController)
         }

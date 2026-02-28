@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.opappdevs.mindfulmoment.domain.usecase.notificationsettings.NotificationSettingsUseCases
 import com.opappdevs.mindfulmoment.domain.usecase.profilesettings.ProfileSettingsUseCases
-import com.opappdevs.mindfulmoment.navigation.Destinations
+import com.opappdevs.mindfulmoment.navigation.Destination
 import com.opappdevs.mindfulmoment.ui.view.base.pager.AnimatedPagerDots
 import com.opappdevs.mindfulmoment.ui.view.base.pager.MindfulHorizontalPager
 import com.opappdevs.mindfulmoment.ui.view.base.pager.PagerScrollAnimationSpec
@@ -85,8 +85,8 @@ fun OnboardingPager(
             } else {
                 pagerTransitionState.targetState = false
                 profileSettingsUseCases.setOnboardingCompleteUseCase()
-                navHostController.navigate(Destinations.Home.route) {
-                    popUpTo(Destinations.Onboarding.route) {
+                navHostController.navigate(Destination.Home.route) {
+                    popUpTo(Destination.Onboarding.route) {
                         inclusive = true
                     }
                 }
@@ -101,8 +101,8 @@ fun OnboardingPager(
 //        // the target state was false (it has just finished disappearing).
 //        // Additionally we ensure this does not happen right at the start.
 //        if (pagerTransitionState.isIdle && !pagerTransitionState.currentState && pages.value.size > 1) {
-//            navHostController.navigate(Destinations.Home.route) {
-//                popUpTo(Destinations.Onboarding.route) {
+//            navHostController.navigate(Destination.Home.route) {
+//                popUpTo(Destination.Onboarding.route) {
 //                    inclusive = true
 //                }
 //            }

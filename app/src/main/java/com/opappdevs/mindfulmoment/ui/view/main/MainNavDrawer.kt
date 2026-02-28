@@ -22,6 +22,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.opappdevs.mindfulmoment.R
+import com.opappdevs.mindfulmoment.navigation.Destination
+import com.opappdevs.mindfulmoment.navigation.NavHelper
 import com.opappdevs.mindfulmoment.navigation.navigateIfNew
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -52,11 +54,23 @@ fun MainNavDrawer(
                                 ImageVector.vectorResource(item.iconRes),
                                 contentDescription = stringResource(item.iconCdRes)
                             )
-                               },
+                        },
                         label = { Text(stringResource(item.labelRes)) },
                         selected = item == selectedItem.value,
                         onClick = {
-                            navController.navigateIfNew(item.route)
+                            //home: pop backstack until there
+                            if (item == MainNavItems.HOME) {
+                                navController.popBackStack(
+                                    route = Destination.Home.route,
+                                    inclusive = false
+                                )
+                            } else {
+                                //prevent endless backstack
+                                val popUpTo = if (
+                                    NavHelper.currentRoute(navController) == Destination.Home.route
+                                ) null else Destination.Home
+                                navController.navigateIfNew(item.route, popUpTo)
+                            }
                             scope.launch { drawerState.close() }
                             selectedItem.value = item
                         },

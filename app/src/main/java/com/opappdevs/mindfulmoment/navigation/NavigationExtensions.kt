@@ -8,8 +8,16 @@ import androidx.navigation.NavHostController
  *
  * @param route The destination route to navigate to.
  */
-fun NavHostController.navigateIfNew(route: String) {
+fun NavHostController.navigateIfNew(route: String, popUpTo: Destination? = null) {
     if (this.currentBackStackEntry?.destination?.route != route) {
-        this.navigate(route)
+        if (popUpTo != null) {
+            this.navigate(route) {
+                popUpTo(popUpTo.route) {
+                    inclusive = false
+                }
+            }
+        } else {
+            this.navigate(route)
+        }
     }
 }
