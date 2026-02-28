@@ -56,9 +56,9 @@ fun MainNavDrawer(
                         label = { Text(stringResource(item.labelRes)) },
                         selected = item == selectedItem.value,
                         onClick = {
+                            navController.navigateIfNew(item.route)
                             scope.launch { drawerState.close() }
                             selectedItem.value = item
-                            navController.navigateIfNew(item.route)
                         },
                         modifier = Modifier.padding(
                             NavigationDrawerItemDefaults.ItemPadding
