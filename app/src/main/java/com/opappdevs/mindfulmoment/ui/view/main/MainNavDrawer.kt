@@ -12,8 +12,6 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
@@ -24,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.navigation.Destination
 import com.opappdevs.mindfulmoment.navigation.NavHelper
+import com.opappdevs.mindfulmoment.navigation.currentRoute
 import com.opappdevs.mindfulmoment.navigation.navigateIfNew
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -41,7 +40,8 @@ fun MainNavDrawer(
 ) {
     navController.currentBackStackEntryAsState()
     val items = MainNavItems.entries
-    val selectedItem = remember { mutableStateOf(items[0]) }
+    val selectedItem = MainNavItems.getItemFromRoute(currentRoute(navController))
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -56,7 +56,7 @@ fun MainNavDrawer(
                             )
                         },
                         label = { Text(stringResource(item.labelRes)) },
-                        selected = item == selectedItem.value,
+                        selected = item == selectedItem,
                         onClick = {
                             //home: pop backstack until there
                             if (item == MainNavItems.HOME) {
@@ -72,7 +72,6 @@ fun MainNavDrawer(
                                 navController.navigateIfNew(item.route, popUpTo)
                             }
                             scope.launch { drawerState.close() }
-                            selectedItem.value = item
                         },
                         modifier = Modifier.padding(
                             NavigationDrawerItemDefaults.ItemPadding

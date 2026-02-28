@@ -11,7 +11,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -20,13 +19,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.navigation.Destination
 import com.opappdevs.mindfulmoment.navigation.DoubleBackToExit
 import com.opappdevs.mindfulmoment.navigation.NavGraph
+import com.opappdevs.mindfulmoment.navigation.currentRoute
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulBackground
 import kotlinx.coroutines.launch
 
@@ -88,10 +86,4 @@ fun Main(
             }
         }
     }
-}
-
-@Composable
-fun currentRoute(navController: NavHostController): String? {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    return navBackStackEntry?.destination?.route
 }

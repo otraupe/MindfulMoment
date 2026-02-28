@@ -27,4 +27,9 @@ enum class MainNavItems(
         iconCdRes = R.string.ui_main_navigation_icon_privacy_cd,
         labelRes = R.string.ui_legal_privacy_title
     ),;
+
+    companion object {
+        fun getItemFromRoute(route: String?) =
+            entries.firstOrNull { it.route == route }
+    }
 }
