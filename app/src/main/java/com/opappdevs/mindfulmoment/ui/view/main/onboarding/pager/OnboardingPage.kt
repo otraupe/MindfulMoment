@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.util.fadingEdgeBrush
+import com.opappdevs.mindfulmoment.ui.util.verticalColumnScrollbar
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonClose
@@ -86,6 +87,11 @@ fun OnboardingPage(
 
     val gradientHeight = dimensionResource(R.dimen.mindful_scrollable_text_bottom_gradient_height)
     val fadingEdgeGradient = fadingEdgeBrush()
+
+    val bodyTextScrollState = rememberScrollState()
+    val infoTextScrollState = rememberScrollState()
+
+    val showFadingTextBottomEdge = remember { false } //TODO: testing
 
     MindfulCard(
         modifier = Modifier
@@ -155,7 +161,7 @@ fun OnboardingPage(
             // body
             Box(
                 modifier = Modifier
-                    .padding(top = dimensionResource(R.dimen.mindful_base_card_padding))
+                    .padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing))
                     .fillMaxWidth()
                     .weight(1f)
             ) {
@@ -171,7 +177,9 @@ fun OnboardingPage(
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .verticalScroll(rememberScrollState())
+                                .verticalColumnScrollbar(bodyTextScrollState)
+                                .verticalScroll(bodyTextScrollState)
+                                .padding(end = 8.dp)
                         ) {
                             Text(
                                 text = stringResource(baseContent.bodyRes),
@@ -192,15 +200,19 @@ fun OnboardingPage(
                                     fontSize = 24,
                                 ) { infoVisible.value = true }
                             }
-                            Spacer(modifier = Modifier.height(gradientHeight))
+                            if (showFadingTextBottomEdge) {
+                                Spacer(modifier = Modifier.height(gradientHeight))
+                            }
                         }
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(gradientHeight)
-                                .align(Alignment.BottomCenter)
-                                .background(fadingEdgeGradient)
-                        )
+                        if (showFadingTextBottomEdge) {
+                            Spacer(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(gradientHeight)
+                                    .align(Alignment.BottomCenter)
+                                    .background(fadingEdgeGradient)
+                            )
+                        }
                     }
                     // input elements, buttons and such
                     customContent()
@@ -216,8 +228,10 @@ fun OnboardingPage(
                             Column(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .verticalScroll(rememberScrollState())
+                                    .verticalColumnScrollbar(infoTextScrollState)
+                                    .verticalScroll(infoTextScrollState)
                                     .background(color = MaterialTheme.colorScheme.surface)
+                                    .padding(end = 8.dp)
                             ) {
                                 Text(
                                     text = AnnotatedString.fromHtml(
@@ -233,20 +247,18 @@ fun OnboardingPage(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                 )
+                                Spacer(modifier = Modifier.height(gradientHeight))
+                            }
+                            if (showFadingTextBottomEdge) {
                                 Spacer(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .height(gradientHeight)
+                                        .align(Alignment.BottomCenter)
+                                        .background(fadingEdgeGradient)
+
                                 )
                             }
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(gradientHeight)
-                                    .align(Alignment.BottomCenter)
-                                    .background(fadingEdgeGradient)
-
-                            )
                         }
                     }
                 }

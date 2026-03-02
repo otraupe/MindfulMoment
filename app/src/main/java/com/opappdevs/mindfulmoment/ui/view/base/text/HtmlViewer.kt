@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.util.fadingEdgeBrush
+import com.opappdevs.mindfulmoment.ui.util.verticalColumnScrollbar
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonBack
 
@@ -36,6 +37,8 @@ fun HtmlViewer(
 ) {
     val gradientHeight = dimensionResource(R.dimen.mindful_scrollable_text_bottom_gradient_height)
     val fadingEdgeGradient = fadingEdgeBrush()
+
+    val scrollState = rememberScrollState()
 
     MindfulCard(modifier = Modifier.padding(bottom = 16.dp)) {
         Column(
@@ -49,7 +52,8 @@ fun HtmlViewer(
             ) {
                 Column(
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState())
+                        .verticalColumnScrollbar(scrollState)
+                        .verticalScroll(scrollState)
                         .background(color = MaterialTheme.colorScheme.surface)
                 ) {
                     Text(
