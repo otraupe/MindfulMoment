@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TimePickerSelectionMode
@@ -65,6 +66,9 @@ fun PageNotifications(
     Timber.d("PageNotifications")
 
     val context = LocalContext.current
+
+    val scope = rememberCoroutineScope()
+    val bodyTextScrollState = rememberScrollState()
 
     val notificationPermissionRequired = remember {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
@@ -176,6 +180,7 @@ fun PageNotifications(
         pageNumber = pageNumber,
         baseContent = page,
         pagerState = pagerState,
+        bodyTextScrollState = bodyTextScrollState,
         customContent = {
             MindfulClickableTextField(
                 labelRes = R.string.ui_base_label_time,
@@ -250,6 +255,9 @@ fun PageNotifications(
                         messageRes = R.string.ui_onboarding_pages_notifications_toast_empty_time,
                         duration = SHORT
                     )
+                    scope.launch {
+                        bodyTextScrollState.animateScrollTo(bodyTextScrollState.maxValue)
+                    }
                 } else {
                     if (!notificationSettingsUseCases.getNotificationsEnabled()) {
                         animateCheckMark.value = true

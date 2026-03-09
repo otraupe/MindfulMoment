@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -65,6 +66,7 @@ fun OnboardingPage(
     pagerState: PagerState,
     infoButtonRes: Int? = null,
     focusManager: FocusManager? = null,
+    bodyTextScrollState: ScrollState = rememberScrollState(),
     customContent: @Composable () -> Unit = {},
     buttons: @Composable () -> Unit
 ) {
@@ -90,7 +92,7 @@ fun OnboardingPage(
     val gradientHeight = dimensionResource(R.dimen.mindful_scrollable_text_bottom_gradient_height)
     val fadingEdgeGradient = fadingEdgeBrush()
 
-    val bodyTextScrollState = rememberScrollState()
+//    val bodyTextScrollState = rememberScrollState()
     val infoTextScrollState = rememberScrollState()
 
     val showFadingTextBottomEdge = remember { true } //TODO: testing

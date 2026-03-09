@@ -3,6 +3,7 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -43,6 +45,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.savers.TextFieldValueSaver
 import com.opappdevs.mindfulmoment.ui.view.base.text.MindfulClickableTextField
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.Calendar
 
@@ -59,6 +62,9 @@ fun PageProfile(
     Timber.d("PageProfile")
 
     val context = LocalContext.current
+
+    val scope = rememberCoroutineScope()
+    val bodyTextScrollState = rememberScrollState()
 
     var primaryButtonEnabled by rememberSaveable {
         mutableStateOf(!pagesDone.contains(page))
@@ -112,6 +118,7 @@ fun PageProfile(
         baseContent = page,
         pagerState = pagerState,
         focusManager = focusManager,
+        bodyTextScrollState = bodyTextScrollState,
         customContent = {
             OutlinedTextField(
                 value = profileNameText,
@@ -184,12 +191,18 @@ fun PageProfile(
                     messageRes = R.string.ui_onboarding_pages_profile_toast_empty_name,
                     duration = SHORT
                 )
+                scope.launch {
+                    bodyTextScrollState.animateScrollTo(bodyTextScrollState.maxValue)
+                }
             } else if (birthDateMillis < 0) {
                 showMindfulToast(
                     context = context,
                     messageRes = R.string.ui_onboarding_pages_profile_toast_empty_birthday,
                     duration = SHORT
                 )
+                scope.launch {
+                    bodyTextScrollState.animateScrollTo(bodyTextScrollState.maxValue)
+                }
             } else {
                 primaryButtonEnabled = false
                 setPageDone()

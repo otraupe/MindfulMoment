@@ -2,6 +2,7 @@ package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -9,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -27,6 +29,7 @@ import com.opappdevs.mindfulmoment.ui.view.base.dialog.rememberPickerState
 import com.opappdevs.mindfulmoment.ui.view.base.text.MindfulClickableTextField
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPage
 import com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.OnboardingPages
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,6 +45,9 @@ fun PageSleep(
     Timber.d("PageSleep")
 
     val context = LocalContext.current
+
+    val scope = rememberCoroutineScope()
+    val bodyTextScrollState = rememberScrollState()
 
     var primaryButtonEnabled by rememberSaveable {
         mutableStateOf(!pagesDone.contains(page))
@@ -101,6 +107,7 @@ fun PageSleep(
         baseContent = page,
         pagerState = pagerState,
         infoButtonRes = R.string.ui_base_label_tips,
+        bodyTextScrollState = bodyTextScrollState,
         customContent = {
             MindfulClickableTextField(
                 labelRes = R.string.ui_base_label_sleep_duration,
@@ -121,6 +128,9 @@ fun PageSleep(
                     messageRes = R.string.ui_onboarding_pages_sleep_toast_empty_hours,
                     duration = SHORT
                 )
+                scope.launch {
+                    bodyTextScrollState.animateScrollTo(bodyTextScrollState.maxValue)
+                }
             } else {
                 primaryButtonEnabled = false
                 setPageDone()
