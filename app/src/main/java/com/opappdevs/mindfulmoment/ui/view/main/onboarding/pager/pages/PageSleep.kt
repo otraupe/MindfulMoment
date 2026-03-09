@@ -1,9 +1,6 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -14,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -82,7 +78,7 @@ fun PageSleep(
                 if (!(7..10).contains(sleepDesiredHours)) {
                     setShowSleepWarningDialog(true)
                 }
-                        },
+            },
             onDismiss = { setShowSleepPickerDialog(false) },
             onDismissRequest = { setShowSleepPickerDialog(false) }
         )
@@ -104,37 +100,30 @@ fun PageSleep(
         pageNumber = pageNumber,
         baseContent = page,
         pagerState = pagerState,
-        infoButtonRes = R.string.ui_base_label_tips
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        infoButtonRes = R.string.ui_base_label_tips,
+        customContent = {
             MindfulClickableTextField(
                 labelRes = R.string.ui_base_label_sleep_duration,
                 textValue = sleepDesiredHoursText,
             ) {
                 setShowSleepPickerDialog(true)
             }
-            MindfulButton(
-                labelRes = R.string.ui_onboarding_pages_sleep_button_primary ,
-                modifier = Modifier.padding(
-                    top = dimensionResource(R.dimen.mindful_base_card_padding)
-                ),
-                enabled = primaryButtonEnabled
-            ) {
-                if (sleepDesiredHours < 0) {
-                    showMindfulToast(
-                        context = context,
-                        messageRes = R.string.ui_onboarding_pages_sleep_toast_empty_hours,
-                        duration = SHORT
-                    )
-                } else {
-                    primaryButtonEnabled = false
-                    setPageDone()
-                }
+        }
+    ) {
+        MindfulButton(
+            labelRes = R.string.ui_onboarding_pages_sleep_button_primary,
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing)),
+            enabled = primaryButtonEnabled
+        ) {
+            if (sleepDesiredHours < 0) {
+                showMindfulToast(
+                    context = context,
+                    messageRes = R.string.ui_onboarding_pages_sleep_toast_empty_hours,
+                    duration = SHORT
+                )
+            } else {
+                primaryButtonEnabled = false
+                setPageDone()
             }
         }
     }

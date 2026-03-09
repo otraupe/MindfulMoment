@@ -1,10 +1,9 @@
 package com.opappdevs.mindfulmoment.ui.view.main.onboarding.pager.pages
 
+import android.os.Build
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
@@ -71,7 +70,7 @@ fun PageAlarms(
                 integerResource(R.integer.ui_animation_check_mark)
             else 0
         ),
-        label = "animate notifications check mark scale",
+        label = "animate alarms check mark scale",
         finishedListener = {
             if (animateCheckMark.value) {
                 coroutineScope.launch {
@@ -84,8 +83,8 @@ fun PageAlarms(
                         }
                     }
                 }
-            }
-            else primaryButtonStringRes = R.string.ui_onboarding_pages_notifications_button_primary_alt
+            } else primaryButtonStringRes =
+                R.string.ui_onboarding_pages_notifications_button_primary_alt
         }
     )
 
@@ -106,44 +105,44 @@ fun PageAlarms(
         baseContent = page,
         pagerState = pagerState
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (!checkMarkVisible.value) {
-                MindfulTextButton(
-                    labelRes = R.string.ui_onboarding_pages_alarms_button_secondary,
-                    enabled = skipButtonEnabled
-                ) {
-                    skipButtonEnabled = false
-                    primaryButtonStringRes = R.string.ui_onboarding_pages_notifications_button_primary_alt2
-                    setPageDone()
-                }
-            } else {
-                Box(
-                    modifier = Modifier.padding(bottom = dimensionResource(R.dimen.mindful_base_card_sub_spacing)),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    MindfulCheckMark(
-                        modifier = Modifier
-                            .size(72.dp)
-                            .scale(scale)
-                            .alpha(alpha/2)
-                    )
-                    Text(
-                        text = stringResource(R.string.ui_onboarding_pages_notifications_success),
-                        textAlign = TextAlign.Center,
-                        fontSize = 24.sp,
-                        modifier = Modifier.alpha(alpha).scale(scale)
-                    )
-                }
+        if (!checkMarkVisible.value) {
+            MindfulTextButton(
+                labelRes = R.string.ui_onboarding_pages_alarms_button_secondary,
+                enabled = skipButtonEnabled,
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing)),
+            ) {
+                skipButtonEnabled = false
+                primaryButtonStringRes =
+                    R.string.ui_onboarding_pages_notifications_button_primary_alt2
+                setPageDone()
             }
+        } else {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                MindfulCheckMark(
+                    modifier = Modifier
+                        .size(72.dp)
+                        .scale(scale)
+                        .alpha(alpha / 2)
+                )
+                Text(
+                    text = stringResource(R.string.ui_onboarding_pages_notifications_success),
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .alpha(alpha)
+                        .scale(scale)
+                )
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PermissionAlarmsButton(
                 labelRes = primaryButtonStringRes,
                 uiVisibleState = checkMarkVisible,
                 uiAnimateState = animateCheckMark,
                 canScheduleExactAlarms = canScheduleExactAlarms,
-                modifier = Modifier.padding(top = 4.dp),
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_button_top_padding)),
                 enabled = primaryButtonEnabled
             ) {
                 primaryButtonEnabled = false

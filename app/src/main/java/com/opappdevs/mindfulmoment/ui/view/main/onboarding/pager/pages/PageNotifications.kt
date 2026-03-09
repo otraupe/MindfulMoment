@@ -4,8 +4,6 @@ import android.os.Build
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
@@ -27,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -121,8 +120,10 @@ fun PageNotifications(
             onConfirm = {
                 setShowTimePickerDialog(false)
                 // 3. Format the selected time and update the text field
-                notificationTimeText = String.format(Locale.getDefault(), simpleTimeFormattingString,
-                    timePickerState.hour, timePickerState.minute)
+                notificationTimeText = String.format(
+                    Locale.getDefault(), simpleTimeFormattingString,
+                    timePickerState.hour, timePickerState.minute
+                )
 
                 notificationTimeMinutes = timePickerState.hour * 60 + timePickerState.minute
                 notificationSettingsUseCases.setNotificationTime(notificationTimeMinutes)
@@ -154,8 +155,8 @@ fun PageNotifications(
                         }
                     }
                 }
-            }
-            else primaryButtonStringRes = R.string.ui_onboarding_pages_notifications_button_primary_alt
+            } else primaryButtonStringRes =
+                R.string.ui_onboarding_pages_notifications_button_primary_alt
         }
     )
 
@@ -174,86 +175,89 @@ fun PageNotifications(
     OnboardingPage(
         pageNumber = pageNumber,
         baseContent = page,
-        pagerState = pagerState
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        pagerState = pagerState,
+        customContent = {
             MindfulClickableTextField(
                 labelRes = R.string.ui_base_label_time,
                 textValue = notificationTimeText,
             ) {
                 showTimePicker()
             }
-            if (!checkMarkVisible.value) {
-                MindfulTextButton(
-                    labelRes = R.string.ui_onboarding_pages_notifications_button_secondary,
-                    enabled = skipButtonEnabled
-                ) {
-                    skipButtonEnabled = false
-                    primaryButtonStringRes = R.string.ui_onboarding_pages_notifications_button_primary_alt2
-                    setPageDone()
-                }
-            } else {
-                Box(
-                    contentAlignment = Alignment.Center,
-                ) {
-                    MindfulCheckMark(
-                        modifier = Modifier
-                            .size(72.dp)
-                            .scale(scale)
-                            .alpha(alpha/2)
-                    )
-                    Text(
-                        text = stringResource(R.string.ui_onboarding_pages_notifications_success),
-                        textAlign = TextAlign.Center,
-                        fontSize = 24.sp,
-                        modifier = Modifier.alpha(alpha).scale(scale)
-                    )
-                }
+        }
+    ) {
+        if (!checkMarkVisible.value) {
+            MindfulTextButton(
+                labelRes = R.string.ui_onboarding_pages_notifications_button_secondary,
+                enabled = skipButtonEnabled,
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_card_sub_spacing)),
+            ) {
+                skipButtonEnabled = false
+                primaryButtonStringRes =
+                    R.string.ui_onboarding_pages_notifications_button_primary_alt2
+                setPageDone()
             }
+        } else {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                MindfulCheckMark(
+                    modifier = Modifier
+                        .size(72.dp)
+                        .scale(scale)
+                        .alpha(alpha / 2)
+                )
+                Text(
+                    text = stringResource(R.string.ui_onboarding_pages_notifications_success),
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .alpha(alpha)
+                        .scale(scale)
+                )
+            }
+        }
 
-            if (notificationPermissionRequired && notificationTimeMinutes >= 0) {
-                PermissionButton(
-                    labelRes = primaryButtonStringRes,
-                    permission = Permissions.POST_NOTIFICATION,
-                    uiVisibleState = checkMarkVisible,
-                    uiAnimateState = animateCheckMark,
-                    modifier = Modifier.padding(top = 4.dp),
-                    getPermissionRequestedBefore = {
-                        notificationSettingsUseCases.getNotificationPermissionRequested()
-                    },
-                    setPermissionRequestedBefore = {
-                        notificationSettingsUseCases.setNotificationPermissionRequested()
-                    },
-                    enabled = primaryButtonEnabled
-                ) {
-                    notificationSettingsUseCases.setNotificationsEnabled()
-                    primaryButtonEnabled = false
-                    setPageDone()
-                }
-            } else {
-                MindfulButton(
-                    labelRes = primaryButtonStringRes,
-                    modifier = Modifier.padding(top = 4.dp),
-                    enabled = primaryButtonEnabled
-                ) {
-                    if (notificationTimeMinutes < 0) {
-                         showMindfulToast(
-                            context = context,
-                            messageRes = R.string.ui_onboarding_pages_notifications_toast_empty_time,
-                            duration = SHORT
-                         )
+        if (notificationPermissionRequired && notificationTimeMinutes >= 0) {
+            PermissionButton(
+                labelRes = primaryButtonStringRes,
+                permission = Permissions.POST_NOTIFICATION,
+                uiVisibleState = checkMarkVisible,
+                uiAnimateState = animateCheckMark,
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_button_top_padding)),
+                getPermissionRequestedBefore = {
+                    notificationSettingsUseCases.getNotificationPermissionRequested()
+                },
+                setPermissionRequestedBefore = {
+                    notificationSettingsUseCases.setNotificationPermissionRequested()
+                },
+                enabled = primaryButtonEnabled
+            ) {
+                notificationSettingsUseCases.setNotificationsEnabled()
+                primaryButtonEnabled = false
+                setPageDone()
+            }
+        } else {
+            MindfulButton(
+                labelRes = primaryButtonStringRes,
+                modifier = Modifier.padding(
+                    top = dimensionResource(R.dimen.mindful_base_button_top_padding)
+                ),
+                enabled = primaryButtonEnabled
+            ) {
+                if (notificationTimeMinutes < 0) {
+                    showMindfulToast(
+                        context = context,
+                        messageRes = R.string.ui_onboarding_pages_notifications_toast_empty_time,
+                        duration = SHORT
+                    )
+                } else {
+                    if (!notificationSettingsUseCases.getNotificationsEnabled()) {
+                        animateCheckMark.value = true
+                        checkMarkVisible.value = true
+                        notificationSettingsUseCases.setNotificationsEnabled()
                     } else {
-                        if (!notificationSettingsUseCases.getNotificationsEnabled()) {
-                            animateCheckMark.value = true
-                            checkMarkVisible.value = true
-                            notificationSettingsUseCases.setNotificationsEnabled()
-                        } else {
-                            primaryButtonEnabled = false
-                            setPageDone()
-                        }
+                        primaryButtonEnabled = false
+                        setPageDone()
                     }
                 }
             }

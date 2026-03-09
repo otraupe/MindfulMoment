@@ -36,7 +36,8 @@ fun MindfulCard(
             //content padding
             modifier = Modifier.padding(
                 if (isDialog) 24.dp
-                else dimensionResource(R.dimen.mindful_base_card_padding))
+                else dimensionResource(R.dimen.mindful_base_card_padding)
+            )
         ) {
             content()
         }

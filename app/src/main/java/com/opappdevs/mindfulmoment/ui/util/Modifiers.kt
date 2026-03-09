@@ -9,8 +9,10 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.offset
 
 @Composable
 fun Modifier.verticalColumnScrollbar(
@@ -52,5 +54,22 @@ fun Modifier.verticalColumnScrollbar(
                 size = Size(width.toPx(), scrollBarHeight)
             )
         }
+    }
+}
+
+//Source: https://medium.com/mobile-app-development-publication/negative-padding-for-jetpack-compose-made-possible-c82283d15564
+fun Modifier.negativeRightSidePadding(padding: Dp): Modifier {
+    return layout { measurable, constraints ->
+        val placeable =
+            // Step 1: Set the offset to the constraint
+            measurable.measure(constraints.offset(
+                horizontal = padding.roundToPx()
+            ))
+        layout(
+            // Step 2: Adjust the layout width based on the adjusted constraint
+            width = placeable.width - padding.roundToPx(),
+            height = placeable.height
+            // Step 3: Place it in the adjusted layout width position
+        ) { placeable.place(x = 0, y = 0) }
     }
 }

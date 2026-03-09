@@ -11,9 +11,12 @@
     <dimen name="mindful_base_text_spacing">8dp</dimen>
     <dimen name="mindful_base_button_min_width">128dp</dimen>
     <dimen name="mindful_base_button_height">48dp</dimen>
+    <dimen name="mindful_base_button_top_padding">4dp</dimen>
     <dimen name="mindful_base_textField_width">240dp</dimen>
     <dimen name="mindful_base_divider_thickness">2dp</dimen>
 
     <dimen name="mindful_scrollable_text_bottom_gradient_height">32dp</dimen>
+    <dimen name="mindful_scrollable_scrollbar_content_padding">16dp</dimen>
+    <dimen name="mindful_scrollable_scrollbar_width">8dp</dimen>
 
 </resources>

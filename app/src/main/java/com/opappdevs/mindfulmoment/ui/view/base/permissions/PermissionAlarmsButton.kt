@@ -121,12 +121,14 @@ fun PermissionAlarmsButton(
 @Preview
 @Composable
 fun PreviewPermissionAlarmsButton() {
-    PermissionAlarmsButton(
-        labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
-        uiVisibleState = remember { mutableStateOf(false) },
-        uiAnimateState = remember { mutableStateOf(false) },
-        canScheduleExactAlarms = { true },
-        modifier = Modifier,
-        onClick = {}
-    )
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        PermissionAlarmsButton(
+            labelRes = R.string.ui_onboarding_pages_notifications_button_primary,
+            uiVisibleState = remember { mutableStateOf(false) },
+            uiAnimateState = remember { mutableStateOf(false) },
+            canScheduleExactAlarms = { true },
+            modifier = Modifier,
+            onClick = {}
+        )
+    }
 }

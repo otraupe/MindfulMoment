@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.util.fadingEdgeBrush
+import com.opappdevs.mindfulmoment.ui.util.negativeRightSidePadding
 import com.opappdevs.mindfulmoment.ui.util.verticalColumnScrollbar
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.MindfulTextButton
@@ -64,7 +65,8 @@ fun OnboardingPage(
     pagerState: PagerState,
     infoButtonRes: Int? = null,
     focusManager: FocusManager? = null,
-    customContent: @Composable () -> Unit = {}
+    customContent: @Composable () -> Unit = {},
+    buttons: @Composable () -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
@@ -91,7 +93,10 @@ fun OnboardingPage(
     val bodyTextScrollState = rememberScrollState()
     val infoTextScrollState = rememberScrollState()
 
-    val showFadingTextBottomEdge = remember { false } //TODO: testing
+    val showFadingTextBottomEdge = remember { true } //TODO: testing
+
+    val negativeScrollableRightSidePaddingDp = dimensionResource(R.dimen.mindful_scrollable_scrollbar_content_padding)
+    val scrollBarWidth = dimensionResource(R.dimen.mindful_scrollable_scrollbar_width)
 
     MindfulCard(
         modifier = Modifier
@@ -177,31 +182,42 @@ fun OnboardingPage(
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .verticalColumnScrollbar(bodyTextScrollState)
+                                .negativeRightSidePadding(negativeScrollableRightSidePaddingDp)
+                                .verticalColumnScrollbar(
+                                    scrollState = bodyTextScrollState,
+                                    width = scrollBarWidth
+                                )
                                 .verticalScroll(bodyTextScrollState)
-                                .padding(end = 8.dp)
                         ) {
-                            Text(
-                                text = stringResource(baseContent.bodyRes),
-                                textAlign = TextAlign.Center,
-                                style = MaterialTheme.typography.headlineSmall.copy(
-                                    fontSize = 18.sp,
-                                    lineHeight = 21.sp,
-                                    hyphens = Hyphens.Auto, //enable hyphenation
-                                    lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
-                                ),
+                            Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                            )
-                            infoButtonRes?.let {
-                                MindfulTextButton(
-                                    labelRes = infoButtonRes,
-                                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                                    fontSize = 24,
-                                ) { infoVisible.value = true }
-                            }
-                            if (showFadingTextBottomEdge) {
-                                Spacer(modifier = Modifier.height(gradientHeight))
+                                    .padding(end = negativeScrollableRightSidePaddingDp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = stringResource(baseContent.bodyRes),
+                                    textAlign = TextAlign.Center,
+                                    style = MaterialTheme.typography.headlineSmall.copy(
+                                        fontSize = 18.sp,
+                                        lineHeight = 21.sp,
+                                        hyphens = Hyphens.Auto, //enable hyphenation
+                                        lineBreak = LineBreak.Paragraph //higher-quality hyphenation to reduce gaps
+                                    ),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                )
+                                infoButtonRes?.let {
+                                    MindfulTextButton(
+                                        labelRes = infoButtonRes,
+                                        fontSize = 24,
+                                        modifier = Modifier.padding(top = dimensionResource(R.dimen.mindful_base_button_top_padding)),
+                                    ) { infoVisible.value = true }
+                                }
+                                customContent()
+                                if (showFadingTextBottomEdge) {
+                                    Spacer(modifier = Modifier.height(gradientHeight))
+                                }
                             }
                         }
                         if (showFadingTextBottomEdge) {
@@ -214,13 +230,13 @@ fun OnboardingPage(
                             )
                         }
                     }
-                    // input elements, buttons and such
-                    customContent()
+                    // buttons
+                    buttons()
                 }
                 baseContent.infoRes?.let {
                     androidx.compose.animation.AnimatedVisibility(
+                        modifier = Modifier.negativeRightSidePadding(negativeScrollableRightSidePaddingDp),
                         visible = infoVisible.value,
-                        modifier = Modifier.fillMaxSize(),
                         enter = fadeIn(),
                         exit = fadeOut(),
                     ) {
@@ -228,10 +244,12 @@ fun OnboardingPage(
                             Column(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .verticalColumnScrollbar(infoTextScrollState)
+                                    .verticalColumnScrollbar(
+                                        scrollState = infoTextScrollState,
+                                        width = scrollBarWidth
+                                    )
                                     .verticalScroll(infoTextScrollState)
                                     .background(color = MaterialTheme.colorScheme.surface)
-                                    .padding(end = 8.dp)
                             ) {
                                 Text(
                                     text = AnnotatedString.fromHtml(
@@ -246,6 +264,7 @@ fun OnboardingPage(
                                     ),
                                     modifier = Modifier
                                         .fillMaxWidth()
+                                        .padding(end = negativeScrollableRightSidePaddingDp)
                                 )
                                 Spacer(modifier = Modifier.height(gradientHeight))
                             }
@@ -255,8 +274,8 @@ fun OnboardingPage(
                                         .fillMaxWidth()
                                         .height(gradientHeight)
                                         .align(Alignment.BottomCenter)
+                                        .padding(end = negativeScrollableRightSidePaddingDp) //must come before background
                                         .background(fadingEdgeGradient)
-
                                 )
                             }
                         }
