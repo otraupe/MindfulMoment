@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.opappdevs.mindfulmoment.R
 import com.opappdevs.mindfulmoment.ui.util.fadingEdgeBrush
+import com.opappdevs.mindfulmoment.ui.util.negativeRightSidePadding
 import com.opappdevs.mindfulmoment.ui.util.verticalColumnScrollbar
 import com.opappdevs.mindfulmoment.ui.view.base.MindfulCard
 import com.opappdevs.mindfulmoment.ui.view.base.button.icon.icons.MindfulIconButtonBack
@@ -39,6 +40,8 @@ fun HtmlViewer(
     val fadingEdgeGradient = fadingEdgeBrush()
 
     val scrollState = rememberScrollState()
+    val negativeScrollableRightSidePaddingDp = dimensionResource(R.dimen.mindful_scrollable_scrollbar_content_padding)
+    val scrollBarWidth = dimensionResource(R.dimen.mindful_scrollable_scrollbar_width)
 
     MindfulCard(modifier = Modifier.padding(bottom = 16.dp)) {
         Column(
@@ -52,7 +55,11 @@ fun HtmlViewer(
             ) {
                 Column(
                     modifier = Modifier
-                        .verticalColumnScrollbar(scrollState)
+                        .negativeRightSidePadding(negativeScrollableRightSidePaddingDp)
+                        .verticalColumnScrollbar(
+                            scrollState = scrollState,
+                            width = scrollBarWidth
+                        )
                         .verticalScroll(scrollState)
                         .background(color = MaterialTheme.colorScheme.surface)
                 ) {
@@ -69,6 +76,7 @@ fun HtmlViewer(
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
+                            .padding(end = negativeScrollableRightSidePaddingDp)
                     )
                     Spacer(
                         modifier = Modifier
